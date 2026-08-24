@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:pdf": "node convert.js",
+    "build:bank-pdf": "node bank/convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
