@@ -1,10 +1,11 @@
 {
-  "name": "slips",
+  "name": "docs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:pdf": "node convert.js",
+    "build:pdf": "node invoice/convert.js",
+    "build:invoice-pdf": "node invoice/convert.js",
     "build:bank-pdf": "node bank/convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
