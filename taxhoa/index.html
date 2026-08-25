@@ -4,11 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relieving Letter - Aakash Jaiswal - TaxHoa</title>
+  
+  <!-- Premium Geometric Font (Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  
   <style>
-    * {
+    /* ==========================================================================
+       Design System Tokens (Pure Solid Colors, No Gradients)
+       ========================================================================== */
+    :root {
+      /* Backgrounds & Surfaces */
+      --color-bg-page: #f8fafc;
+      --color-bg-card: #ffffff;
+      
+      /* Solid Typography Colors */
+      --color-text-primary: #0f172a;    /* Slate 900 */
+      --color-text-secondary: #334155;  /* Slate 700 */
+      --color-text-muted: #64748b;      /* Slate 500 */
+      --color-text-subtle: #94a3b8;     /* Slate 400 */
+      
+      /* Solid Brand Accents (No Gradients) */
+      --color-brand-primary: #0d9488;   /* Solid Teal 600 */
+      --color-brand-dark: #115e59;      /* Solid Teal 800 */
+      
+      /* Solid Borders & Dividers */
+      --color-border-subtle: #e2e8f0;   /* Slate 200 */
+      
+      /* Typography */
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      
+      /* Elevation */
+      --shadow-sheet: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.04);
+    }
+
+    /* Reset */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -19,151 +51,177 @@
       margin: 0;
     }
 
-    body {
-      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #e5e9f0;
-      color: #1e293b;
+    html, body {
+      height: 100%;
+      font-family: var(--font-sans);
+      background-color: var(--color-bg-page);
+      color: var(--color-text-primary);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      display: flex;
-      justify-content: center;
-      padding: 24px 0;
     }
 
-    /* A4 standard canvas: 794px x 1123px (210mm x 297mm) */
-    .page-container {
-      background: #ffffff;
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 32px 0;
+    }
+
+    /* ==========================================================================
+       A4 Document Container (210mm x 297mm - 794px x 1123px)
+       ========================================================================== */
+    .document-page {
+      background: var(--color-bg-card);
       width: 794px;
       height: 1123px;
       box-sizing: border-box;
-      padding: 60px 72px 55px 72px;
-      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+      padding: 56px 64px 48px 64px;
+      box-shadow: var(--shadow-sheet);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
     }
 
-    /* Top Brand Accent Bar */
-    .top-accent-bar {
+    /* Solid Top Accent Stripe */
+    .top-solid-stripe {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #43EAD3 0%, #06b6d4 50%, #3b82f6 100%);
+      height: 4px;
+      background-color: var(--color-brand-primary);
     }
 
-    /* Header Section */
-    .header {
+    /* ==========================================================================
+       Letterhead: Brand on Left, Date on Right
+       ========================================================================== */
+    .letterhead {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 50px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      margin-bottom: 32px;
     }
 
-    .doc-heading-wrapper {
-      padding-top: 12px;
-    }
-
-    .doc-heading {
-      font-size: 20px;
-      font-weight: 700;
-      color: #0f172a;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      position: relative;
-      display: inline-block;
-    }
-
-    .doc-heading::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 42px;
-      height: 2.5px;
-      background-color: #43EAD3;
-      border-radius: 2px;
-    }
-
-    .header-logo-container {
+    .brand-block {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      width: 190px;
+      gap: 4px;
     }
 
-    .logo-img {
-      width: 100%;
+    .brand-logo {
+      width: 165px;
       height: auto;
       display: block;
-      margin-bottom: 8px;
     }
 
-    .tagline {
-      font-size: 13.5px;
+    .brand-tagline {
+      font-size: 12.5px;
       font-weight: 500;
-      color: #475569;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
+      color: var(--color-text-muted);
+      letter-spacing: 0.01em;
     }
 
-    /* Main Content */
-    .content-section {
+    .meta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 12.5px;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .meta-label {
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .meta-value {
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       Document Title
+       ========================================================================== */
+    .title-banner {
+      margin-bottom: 32px;
+    }
+
+    .title-main {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================================
+       Content Body
+       ========================================================================== */
+    .content-area {
       flex: 1;
-      max-width: 650px;
+      display: flex;
+      flex-direction: column;
     }
 
     .salutation {
-      font-size: 15px;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 34px;
-      letter-spacing: 0.015em;
-    }
-
-    .letter-body p {
-      font-size: 15px;
-      line-height: 1.8;
-      font-weight: 400;
-      color: #334155;
-      margin-bottom: 28px;
-      letter-spacing: 0.015em;
-      word-spacing: 0.01em;
-    }
-
-    .letter-body p strong {
+      font-size: 14.5px;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--color-text-primary);
+      margin-bottom: 22px;
     }
 
-    /* Signature & Seal Block */
-    .signature-section {
-      margin-top: 25px;
+    .text-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 14.5px;
+      line-height: 1.82;
+      color: var(--color-text-secondary);
     }
 
-    .seal-sign-wrapper {
+    .text-body p {
+      text-wrap: pretty;
+    }
+
+    .text-body strong {
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    /* ==========================================================================
+       Signatory & Seal Block
+       ========================================================================== */
+    .signatory-block {
+      margin-top: 28px;
+    }
+
+    .seal-sign-row {
       position: relative;
       width: 170px;
-      height: 115px;
-      margin-bottom: 18px;
+      height: 105px;
+      margin-bottom: 12px;
     }
 
     .seal-img {
       position: absolute;
-      left: 6px;
-      top: 6px;
-      width: 102px;
-      height: 102px;
+      left: 0;
+      top: 0;
+      width: 95px;
+      height: 95px;
       object-fit: contain;
       z-index: 1;
     }
 
     .sign-img {
       position: absolute;
-      left: 36px;
-      top: -4px;
+      left: 32px;
+      top: -6px;
       width: 120px;
       height: auto;
       object-fit: contain;
@@ -171,124 +229,150 @@
     }
 
     .signatory-info {
-      font-size: 14.5px;
-      line-height: 1.5;
-      letter-spacing: 0.01em;
+      font-size: 13.5px;
+      line-height: 1.45;
     }
 
-    .signatory-info .signatory-name {
+    .signatory-name {
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .signatory-role {
       font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 2px;
+      color: var(--color-brand-primary);
     }
 
-    .signatory-info .company-name {
+    .signatory-org {
       font-weight: 500;
-      color: #64748b;
+      color: var(--color-text-muted);
+      font-size: 12.5px;
     }
 
-    /* Footer */
-    .footer {
+    /* ==========================================================================
+       Footer Section
+       ========================================================================== */
+    .letter-footer {
       margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border-subtle);
     }
 
-    .footer-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, #e2e8f0 0%, #94a3b8 50%, #e2e8f0 100%);
-      margin-bottom: 14px;
-    }
-
-    .footer-content {
+    .footer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: #64748b;
-      font-weight: 400;
-      letter-spacing: 0.015em;
-    }
-
-    .footer-content .location {
+      font-size: 12px;
+      color: var(--color-text-muted);
       font-weight: 500;
-      color: #475569;
     }
 
-    .footer-content .email {
-      font-weight: 500;
-      color: #0284c7;
+    .footer-left {
+      color: var(--color-text-secondary);
+      font-weight: 600;
     }
 
+    .footer-right {
+      display: flex;
+      gap: 14px;
+    }
+
+    .footer-email {
+      color: var(--color-brand-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       Print Settings (A4 Zero Margin Vector PDF)
+       ========================================================================== */
     @media print {
-      body {
+      html, body {
         background: transparent;
         padding: 0;
       }
-      .page-container {
+      .document-page {
         box-shadow: none;
         width: 100%;
         height: 100vh;
         max-width: 100%;
         min-height: 100vh;
-        padding: 60px 72px 50px 72px;
+        padding: 56px 64px 44px 64px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="page-container">
-    <!-- Top Accent Bar -->
-    <div class="top-accent-bar"></div>
+  <main class="document-page">
+    <!-- Solid Top Accent Stripe -->
+    <div class="top-solid-stripe" aria-hidden="true"></div>
     
-    <!-- Top Header -->
-    <div class="header">
-      <div class="doc-heading-wrapper">
-        <div class="doc-heading">Relieving Letter</div>
+    <!-- Letterhead: Brand on Left, Date on Right -->
+    <header class="letterhead">
+      <div class="brand-block">
+        <img src="logo.svg" alt="TaxHoa Logo" class="brand-logo">
+        <span class="brand-tagline">Tax Accounting, Simplified</span>
       </div>
 
-      <div class="header-logo-container">
-        <img src="logo.svg" alt="TaxHoa Logo" class="logo-img">
-        <div class="tagline">Tax Accounting, Simplified</div>
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="meta-label">Date:</span>
+          <span class="meta-value">July 31, 2026</span>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <!-- Main Content -->
-    <div class="content-section">
+    <!-- Document Title -->
+    <section class="title-banner" aria-label="Certificate Type">
+      <h1 class="title-main">Relieving Letter</h1>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="content-area" aria-label="Letter Content">
       <div class="salutation">To Whom It May Concern,</div>
 
-      <div class="letter-body">
-        <p>This is to inform you that <strong>Aakash Jaiswal</strong> served as a <strong>Software Engineer</strong> with <strong>TaxHoa</strong> from <strong>June 09, 2025, to July 31, 2026</strong>.</p>
+      <div class="text-body">
+        <p>
+          This is to certify and inform you that <strong>Aakash Jaiswal</strong> was employed as a <strong>Software Engineer</strong> with <strong>TaxHoa</strong> from <strong>June 09, 2025, to July 31, 2026</strong>.
+        </p>
 
-        <p>He is a diligent and proactive individual, consistently delivering projects to clients while actively seeking feedback and suggesting improvements. His strong communication skills and understanding of client requirements have greatly contributed to enhancing client relations.</p>
+        <p>
+          He is a diligent and proactive individual, consistently delivering projects to clients while actively seeking feedback and suggesting improvements. His strong communication skills and understanding of client requirements have greatly contributed to enhancing client relations.
+        </p>
 
-        <p>His aspirations have our best wishes.</p>
+        <p>
+          He has been relieved of all his responsibilities with TaxHoa effective from the close of business hours on <strong>July 31, 2026</strong>. His aspirations have our best wishes for success in all his future endeavors.
+        </p>
       </div>
 
-      <!-- Signature & Seal -->
-      <div class="signature-section">
-        <div class="seal-sign-wrapper">
-          <img src="seal.png" alt="Seal" class="seal-img">
-          <img src="sign.png" alt="Signature" class="sign-img">
+      <!-- Signatory & Seal Section -->
+      <div class="signatory-block">
+        <div class="seal-sign-row">
+          <img src="seal.png" alt="Official Organization Seal of Amoeba Global FZ-LLC" class="seal-img">
+          <img src="sign.png" alt="Authorized Signature" class="sign-img">
         </div>
         <div class="signatory-info">
-          <div class="signatory-name">Sachin, Founder & CEO</div>
-          <div class="company-name">TaxHoa</div>
+          <div class="signatory-name">Sachin</div>
+          <div class="signatory-role">Founder & CEO</div>
+          <div class="signatory-org">TaxHoa (Amoeba Global FZ-LLC)</div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Footer -->
-    <div class="footer">
-      <div class="footer-divider"></div>
-      <div class="footer-content">
-        <span class="location">Ras Al Khaimah 10055, AE</span>
-        <span class="email">support@taxhoa.com</span>
+    <footer class="letter-footer">
+      <div class="footer-row">
+        <div class="footer-left">
+          Ras Al Khaimah 10055, AE
+        </div>
+        <div class="footer-right">
+          <a href="mailto:support@taxhoa.com" class="footer-email">support@taxhoa.com</a>
+        </div>
       </div>
-    </div>
+    </footer>
 
-  </div>
+  </main>
 
 </body>
 </html>
