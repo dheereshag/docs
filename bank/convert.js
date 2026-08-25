@@ -3,10 +3,13 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { PDFDocument } from 'pdf-lib';
+import { execFileSync } from 'child_process';
 import { STATEMENT_DATA } from './data.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const STATEMENT_PASSWORD = 'AKASH85492004';
 
 export { STATEMENT_DATA };
 
@@ -26,6 +29,27 @@ function getFormattedTimestamps(date = new Date()) {
   const displayDateStr = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
 
   return { filename, displayDateStr };
+}
+
+function encryptPdfFile(filePath, password) {
+  const pyCode = `
+import sys
+from pypdf import PdfReader, PdfWriter
+
+path = sys.argv[1]
+pwd = sys.argv[2]
+
+reader = PdfReader(path)
+writer = PdfWriter()
+for page in reader.pages:
+    writer.add_page(page)
+if reader.metadata:
+    writer.add_metadata(reader.metadata)
+writer.encrypt(user_password=pwd, owner_password=pwd, algorithm='AES-128')
+with open(path, 'wb') as f:
+    writer.write(f)
+`;
+  execFileSync('python3', ['-c', pyCode, filePath, password]);
 }
 
 async function generateBankPDF() {
@@ -82,6 +106,9 @@ async function generateBankPDF() {
   const finalPdfBytes = await pdfDoc.save({ useObjectStreams: false, updateMetadata: false });
   fs.writeFileSync(outputPath, finalPdfBytes);
 
+  // Encrypt PDF with password
+  encryptPdfFile(outputPath, STATEMENT_PASSWORD);
+
   // Compute financial totals
   let runningBal = STATEMENT_DATA.openingBalance;
   let totalDr = 0;
@@ -97,6 +124,7 @@ async function generateBankPDF() {
   console.log(`Bank Statement PDF Generated: ${filename}`);
   console.log(`Size: ${(stats.size / 1024).toFixed(2)} KB (${stats.size} bytes)`);
   console.log(`Pages: ${pdfDoc.getPageCount()}`);
+  console.log(`Password: ${STATEMENT_PASSWORD} (Protected)`);
   console.log(`Location: ${outputPath}`);
   console.log(`----------------------------------------`);
   console.log(`Metadata:`);
