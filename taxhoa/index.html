@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relieving Letter - Aakash Jaiswal - TaxHoa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #e5e9f0;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      justify-content: center;
+      padding: 24px 0;
+    }
+
+    /* A4 standard canvas: 794px x 1123px (210mm x 297mm) */
+    .page-container {
+      background: #ffffff;
+      width: 794px;
+      height: 1123px;
+      box-sizing: border-box;
+      padding: 60px 72px 55px 72px;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Top Brand Accent Bar */
+    .top-accent-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #43EAD3 0%, #06b6d4 50%, #3b82f6 100%);
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 50px;
+    }
+
+    .doc-heading-wrapper {
+      padding-top: 12px;
+    }
+
+    .doc-heading {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .doc-heading::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 42px;
+      height: 2.5px;
+      background-color: #43EAD3;
+      border-radius: 2px;
+    }
+
+    .header-logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 190px;
+    }
+
+    .logo-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #475569;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* Main Content */
+    .content-section {
+      flex: 1;
+      max-width: 650px;
+    }
+
+    .salutation {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 34px;
+      letter-spacing: 0.015em;
+    }
+
+    .letter-body p {
+      font-size: 15px;
+      line-height: 1.8;
+      font-weight: 400;
+      color: #334155;
+      margin-bottom: 28px;
+      letter-spacing: 0.015em;
+      word-spacing: 0.01em;
+    }
+
+    .letter-body p strong {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Signature & Seal Block */
+    .signature-section {
+      margin-top: 25px;
+    }
+
+    .seal-sign-wrapper {
+      position: relative;
+      width: 170px;
+      height: 115px;
+      margin-bottom: 18px;
+    }
+
+    .seal-img {
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      width: 102px;
+      height: 102px;
+      object-fit: contain;
+      z-index: 1;
+    }
+
+    .sign-img {
+      position: absolute;
+      left: 36px;
+      top: -4px;
+      width: 120px;
+      height: auto;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    .signatory-info {
+      font-size: 14.5px;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+
+    .signatory-info .signatory-name {
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .signatory-info .company-name {
+      font-weight: 500;
+      color: #64748b;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: auto;
+    }
+
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, #e2e8f0 0%, #94a3b8 50%, #e2e8f0 100%);
+      margin-bottom: 14px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #64748b;
+      font-weight: 400;
+      letter-spacing: 0.015em;
+    }
+
+    .footer-content .location {
+      font-weight: 500;
+      color: #475569;
+    }
+
+    .footer-content .email {
+      font-weight: 500;
+      color: #0284c7;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .page-container {
+        box-shadow: none;
+        width: 100%;
+        height: 100vh;
+        max-width: 100%;
+        min-height: 100vh;
+        padding: 60px 72px 50px 72px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <!-- Top Accent Bar -->
+    <div class="top-accent-bar"></div>
+    
+    <!-- Top Header -->
+    <div class="header">
+      <div class="doc-heading-wrapper">
+        <div class="doc-heading">Relieving Letter</div>
+      </div>
+
+      <div class="header-logo-container">
+        <img src="logo.svg" alt="TaxHoa Logo" class="logo-img">
+        <div class="tagline">Tax Accounting, Simplified</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-section">
+      <div class="salutation">To Whom It May Concern,</div>
+
+      <div class="letter-body">
+        <p>This is to inform you that <strong>Aakash Jaiswal</strong> served as a <strong>Software Engineer</strong> with <strong>TaxHoa</strong> from <strong>June 09, 2025, to July 31, 2026</strong>.</p>
+
+        <p>He is a diligent and proactive individual, consistently delivering projects to clients while actively seeking feedback and suggesting improvements. His strong communication skills and understanding of client requirements have greatly contributed to enhancing client relations.</p>
+
+        <p>His aspirations have our best wishes.</p>
+      </div>
+
+      <!-- Signature & Seal -->
+      <div class="signature-section">
+        <div class="seal-sign-wrapper">
+          <img src="seal.png" alt="Seal" class="seal-img">
+          <img src="sign.png" alt="Signature" class="sign-img">
+        </div>
+        <div class="signatory-info">
+          <div class="signatory-name">Sachin, Founder & CEO</div>
+          <div class="company-name">TaxHoa</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-divider"></div>
+      <div class="footer-content">
+        <span class="location">Ras Al Khaimah 10055, AE</span>
+        <span class="email">support@taxhoa.com</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

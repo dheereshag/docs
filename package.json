@@ -7,6 +7,7 @@
     "build:pdf": "node invoice/convert.js",
     "build:invoice-pdf": "node invoice/convert.js",
     "build:bank-pdf": "node bank/convert.js",
+    "build:taxhoa-pdf": "node taxhoa/convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
