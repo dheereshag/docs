@@ -12,7 +12,7 @@
   
   <style>
     /* ==========================================================================
-       Design System Tokens (Pure Solid Colors, No Gradients)
+       Design System Tokens (Exact TaxHoa Colors & Solid Precision)
        ========================================================================== */
     :root {
       /* Backgrounds & Surfaces */
@@ -25,9 +25,9 @@
       --color-text-muted: #64748b;      /* Slate 500 */
       --color-text-subtle: #94a3b8;     /* Slate 400 */
       
-      /* Solid Brand Accents (No Gradients) */
-      --color-brand-primary: #0d9488;   /* Solid Teal 600 */
-      --color-brand-dark: #115e59;      /* Solid Teal 800 */
+      /* TaxHoa Exact Brand Palette from SVG */
+      --color-brand-cyan: #43EAD3;      /* Exact Logo Teal (#43EAD3) */
+      --color-brand-text: #43EAD3;      /* Matching Teal for text accents (#43EAD3) */
       
       /* Solid Borders & Dividers */
       --color-border-subtle: #e2e8f0;   /* Slate 200 */
@@ -82,24 +82,24 @@
       overflow: hidden;
     }
 
-    /* Solid Top Accent Stripe */
+    /* Solid Top Accent Stripe (Exact TaxHoa Teal) */
     .top-solid-stripe {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 4px;
-      background-color: var(--color-brand-primary);
+      background-color: var(--color-brand-cyan);
     }
 
     /* ==========================================================================
-       Letterhead: Brand on Left, Date on Right
+       Letterhead: Brand on Left, Aligned Date on Right
        ========================================================================== */
     .letterhead {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 24px;
+      align-items: center;
+      padding-bottom: 22px;
       border-bottom: 1px solid var(--color-border-subtle);
       margin-bottom: 32px;
     }
@@ -125,13 +125,13 @@
 
     .meta-block {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      font-size: 12.5px;
+      align-items: center;
+      font-size: 13px;
     }
 
     .meta-row {
       display: flex;
+      align-items: center;
       gap: 6px;
     }
 
@@ -240,7 +240,7 @@
 
     .signatory-role {
       font-weight: 600;
-      color: var(--color-brand-primary);
+      color: var(--color-brand-text);
     }
 
     .signatory-org {
@@ -278,7 +278,7 @@
     }
 
     .footer-email {
-      color: var(--color-brand-primary);
+      color: var(--color-brand-text);
       text-decoration: none;
       font-weight: 600;
     }
@@ -305,10 +305,10 @@
 <body>
 
   <main class="document-page">
-    <!-- Solid Top Accent Stripe -->
+    <!-- Solid Top Accent Stripe (Exact TaxHoa Logo Teal #43EAD3) -->
     <div class="top-solid-stripe" aria-hidden="true"></div>
     
-    <!-- Letterhead: Brand on Left, Date on Right -->
+    <!-- Letterhead: Brand on Left, Aligned Date on Right -->
     <header class="letterhead">
       <div class="brand-block">
         <img src="logo.svg" alt="TaxHoa Logo" class="brand-logo">
@@ -318,7 +318,7 @@
       <div class="meta-block">
         <div class="meta-row">
           <span class="meta-label">Date:</span>
-          <span class="meta-value">July 31, 2026</span>
+          <span class="meta-value">August 25, 2026</span>
         </div>
       </div>
     </header>
@@ -364,7 +364,7 @@
     <footer class="letter-footer">
       <div class="footer-row">
         <div class="footer-left">
-          Ras Al Khaimah 10055, AE
+          Ras Al Khaimah, 10055, AE
         </div>
         <div class="footer-right">
           <a href="mailto:support@taxhoa.com" class="footer-email">support@taxhoa.com</a>
