@@ -1,448 +1,470 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice - Amoeba Global FZ LLC - 2023-11-05</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #e2e4e8;
-      color: #111;
-      font-size: 13px;
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      display: flex;
-      justify-content: center;
-      padding: 40px 20px;
-    }
-
-    /* A4 standard ratio sheet */
-    .invoice-page {
-      background: #ffffff;
-      width: 100%;
-      max-width: 820px;
-      min-height: 1160px;
-      padding: 64px 64px 40px 64px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* Top Title */
-    .invoice-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: #7b8086;
-      letter-spacing: 0.38em;
-      margin-bottom: 48px;
-      text-transform: uppercase;
-    }
-
-    /* 3-Column Base Grid: 39% | 29% | 32% */
-    .grid-3col {
-      display: grid;
-      grid-template-columns: 39% 29% 32%;
-      column-gap: 0;
-    }
-
-    /* Top Parties & Meta */
-    .top-info {
-      margin-bottom: 40px;
-    }
-
-    .info-col h3 {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 2px;
-    }
-
-    .info-col p {
-      font-size: 12.5px;
-      color: #111;
-      line-height: 1.42;
-    }
-
-    .meta-col {
-      font-size: 12.5px;
-      color: #111;
-      line-height: 1.45;
-    }
-
-    .meta-col .meta-label {
-      font-weight: 700;
-      color: #000;
-    }
-
-    .meta-col .meta-val {
-      color: #555;
-    }
-
-    /* Contract & Scope */
-    .contract-scope {
-      margin-bottom: 40px;
-    }
-
-    .contract-scope h3 {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 3px;
-    }
-
-    .contract-scope p {
-      font-size: 12.5px;
-      color: #111;
-    }
-
-    /* Line Items Table */
-    .table-section {
-      margin-bottom: 34px;
-    }
-
-    .table-header {
-      padding-bottom: 6px;
-      border-bottom: 1.5px solid #222;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .table-header .col-amount-inr,
-    .table-row .col-amount-inr {
-      text-align: left;
-    }
-
-    .table-header .col-amount-usd,
-    .table-row .col-amount-usd {
-      text-align: right;
-    }
-
-    .table-row {
-      padding-top: 10px;
-      font-size: 12.5px;
-    }
-
-    .table-row .col-item {
-      font-weight: 700;
-      color: #000;
-    }
-
-    .table-row .col-amount-inr,
-    .table-row .col-amount-usd {
-      color: #333;
-      font-weight: 400;
-    }
-
-    /* Exchange Rate Section */
-    .exchange-section {
-      margin-bottom: 68px;
-    }
-
-    .exchange-header {
-      padding-bottom: 6px;
-      border-bottom: 1.5px solid #222;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .exchange-row {
-      padding-top: 10px;
-      font-size: 12.5px;
-      display: grid;
-      grid-template-columns: 39% 61%;
-    }
-
-    .exchange-row .pair {
-      color: #333;
-    }
-
-    .exchange-row .rate {
-      color: #333;
-    }
-
-    /* Summary / Total Banner */
-    .summary-banner {
-      display: flex;
-      margin-bottom: 24px;
-      height: 80px;
-    }
-
-    .summary-left {
-      background-color: #ededed;
-      flex: 58%;
-      padding: 14px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .summary-left-labels {
-      display: flex;
-      justify-content: space-between;
-      max-width: 255px;
-    }
-
-    .summary-left-labels span {
-      font-size: 9px;
-      font-weight: 500;
-      color: #717171;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .summary-left-values {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .summary-left-values .num {
-      font-size: 20px;
-      font-weight: 800;
-      color: #000;
-      letter-spacing: -0.01em;
-      min-width: 140px;
-    }
-
-    .summary-left-values .plus {
-      font-size: 16px;
-      font-weight: 500;
-      color: #222;
-    }
-
-    .summary-right {
-      background-color: #b5b5b5;
-      flex: 42%;
-      padding: 14px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .summary-right-label {
-      font-size: 9px;
-      font-weight: 500;
-      color: #4b4b4b;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .summary-right-value {
-      font-size: 20px;
-      font-weight: 800;
-      color: #000;
-      letter-spacing: -0.01em;
-    }
-
-    /* Notes Box */
-    .notes-box {
-      background-color: #f2f2f2;
-      padding: 8px 16px;
-      margin-bottom: 24px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-    }
-
-    .notes-box .notes-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #000;
-    }
-
-    /* Contractor Payment Date */
-    .contractor-payment-date {
-      font-size: 11px;
-      margin-bottom: 80px;
-    }
-
-    .contractor-payment-date .label {
-      font-weight: 700;
-      color: #000;
-      margin-right: 32px;
-    }
-
-    .contractor-payment-date .val {
-      color: #555;
-    }
-
-    /* Footer & Disclaimer */
-    .footer-section {
-      margin-top: auto;
-    }
-
-    .disclaimer-title {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 4px;
-    }
-
-    .disclaimer-text {
-      font-size: 8px;
-      line-height: 1.38;
-      color: #111;
-      margin-bottom: 14px;
-    }
-
-    .disclaimer-text p {
-      margin: 0;
-    }
-
-    .company-footer {
-      font-size: 8px;
-      text-align: center;
-      color: #111;
-      line-height: 1.3;
-    }
-
-    @media print {
-      body {
-        background: transparent;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice - Amoeba Global FZ LLC - 2023-11-05</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
         padding: 0;
       }
-      .invoice-page {
-        box-shadow: none;
-        max-width: 100%;
-        min-height: 100vh;
-        padding: 48px 48px 36px 48px;
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        background-color: #e2e4e8;
+        color: #111;
+        font-size: 13px;
+        line-height: 1.4;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <div class="invoice-page">
-    <div>
-      <!-- Header -->
-      <div class="invoice-title">I N V O I C E</div>
+      /* A4 standard ratio sheet */
+      .invoice-page {
+        background: #ffffff;
+        width: 100%;
+        max-width: 820px;
+        min-height: 1160px;
+        padding: 64px 64px 40px 64px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
 
-      <!-- 3 Columns: Seller, Buyer, Meta -->
-      <div class="grid-3col top-info">
-        <div class="info-col">
-          <h3>Seller</h3>
-          <p>Aakash Jaiswal</p>
-          <p>Muhalla, Shahamohamdapur</p>
-          <p>Azamgarh</p>
-          <p>Tax ID: CPPJ7376N</p>
-        </div>
+      /* Top Title */
+      .invoice-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #7b8086;
+        letter-spacing: 0.38em;
+        margin-bottom: 48px;
+        text-transform: uppercase;
+      }
 
-        <div class="info-col">
-          <h3>Buyer</h3>
-          <p>Amoeba Global FZ LLC</p>
-          <p>PO Box 10055</p>
-          <p>Ras Al Khaimah UNITED ARAB</p>
-          <p>EMIRATES</p>
-          <p>Tax ID:0000004036244</p>
-        </div>
+      /* 3-Column Base Grid: 39% | 29% | 32% */
+      .grid-3col {
+        display: grid;
+        grid-template-columns: 39% 29% 32%;
+        column-gap: 0;
+      }
 
-        <div class="meta-col">
-          <p><span class="meta-label">No.</span> <span class="meta-val">ONTOP985259</span></p>
-          <p><span class="meta-label">Issue Date:</span> <span class="meta-val">28/10/2023</span></p>
-          <p><span class="meta-label">Due Date:</span> <span class="meta-val">05/11/2023</span></p>
-        </div>
-      </div>
+      /* Top Parties & Meta */
+      .top-info {
+        margin-bottom: 40px;
+      }
 
-      <!-- Contract & Scope -->
-      <div class="grid-3col contract-scope">
-        <div class="contract-scope-col">
-          <h3>Contract</h3>
-          <p>Traditional</p>
-        </div>
-        <div class="contract-scope-col">
-          <h3>Scope</h3>
-          <p>Software Engineer</p>
-        </div>
-        <div></div>
-      </div>
+      .info-col h3 {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 2px;
+      }
 
-      <!-- Line Item Table -->
-      <div class="table-section">
-        <div class="grid-3col table-header">
-          <div class="col-item">ITEM</div>
-          <div class="col-amount-inr">AMOUNT(INR)</div>
-          <div class="col-amount-usd">AMOUNT</div>
-        </div>
-        <div class="grid-3col table-row">
-          <div class="col-item">Backend Engineer</div>
-          <div class="col-amount-inr">92,000 INR</div>
-          <div class="col-amount-usd">963.14 USD</div>
-        </div>
-      </div>
+      .info-col p {
+        font-size: 12.5px;
+        color: #111;
+        line-height: 1.42;
+      }
 
-      <!-- Exchange Rate Section -->
-      <div class="exchange-section">
-        <div class="exchange-header">EXCHANGE RATE</div>
-        <div class="exchange-row">
-          <div class="pair">USD to INR</div>
-          <div class="rate">1 USD = 95.52054 INR</div>
-        </div>
-      </div>
+      .meta-col {
+        font-size: 12.5px;
+        color: #111;
+        line-height: 1.45;
+      }
 
-      <!-- Summary / Total Banner -->
-      <div class="summary-banner">
-        <div class="summary-left">
-          <div class="summary-left-labels">
-            <span>SUBTOTAL</span>
-            <span>TAX (%)</span>
+      .meta-col .meta-label {
+        font-weight: 700;
+        color: #000;
+      }
+
+      .meta-col .meta-val {
+        color: #555;
+      }
+
+      /* Contract & Scope */
+      .contract-scope {
+        margin-bottom: 40px;
+      }
+
+      .contract-scope h3 {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 3px;
+      }
+
+      .contract-scope p {
+        font-size: 12.5px;
+        color: #111;
+      }
+
+      /* Line Items Table */
+      .table-section {
+        margin-bottom: 34px;
+      }
+
+      .table-header {
+        padding-bottom: 6px;
+        border-bottom: 1.5px solid #222;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .table-header .col-amount-inr,
+      .table-row .col-amount-inr {
+        text-align: left;
+      }
+
+      .table-header .col-amount-usd,
+      .table-row .col-amount-usd {
+        text-align: right;
+      }
+
+      .table-row {
+        padding-top: 10px;
+        font-size: 12.5px;
+      }
+
+      .table-row .col-item {
+        font-weight: 700;
+        color: #000;
+      }
+
+      .table-row .col-amount-inr,
+      .table-row .col-amount-usd {
+        color: #333;
+        font-weight: 400;
+      }
+
+      /* Exchange Rate Section */
+      .exchange-section {
+        margin-bottom: 68px;
+      }
+
+      .exchange-header {
+        padding-bottom: 6px;
+        border-bottom: 1.5px solid #222;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .exchange-row {
+        padding-top: 10px;
+        font-size: 12.5px;
+        display: grid;
+        grid-template-columns: 39% 61%;
+      }
+
+      .exchange-row .pair {
+        color: #333;
+      }
+
+      .exchange-row .rate {
+        color: #333;
+      }
+
+      /* Summary / Total Banner */
+      .summary-banner {
+        display: flex;
+        margin-bottom: 24px;
+        height: 80px;
+      }
+
+      .summary-left {
+        background-color: #ededed;
+        flex: 58%;
+        padding: 14px 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .summary-left-labels {
+        display: flex;
+        justify-content: space-between;
+        max-width: 255px;
+      }
+
+      .summary-left-labels span {
+        font-size: 9px;
+        font-weight: 500;
+        color: #717171;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .summary-left-values {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .summary-left-values .num {
+        font-size: 20px;
+        font-weight: 800;
+        color: #000;
+        letter-spacing: -0.01em;
+        min-width: 140px;
+      }
+
+      .summary-left-values .plus {
+        font-size: 16px;
+        font-weight: 500;
+        color: #222;
+      }
+
+      .summary-right {
+        background-color: #b5b5b5;
+        flex: 42%;
+        padding: 14px 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .summary-right-label {
+        font-size: 9px;
+        font-weight: 500;
+        color: #4b4b4b;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .summary-right-value {
+        font-size: 20px;
+        font-weight: 800;
+        color: #000;
+        letter-spacing: -0.01em;
+      }
+
+      /* Notes Box */
+      .notes-box {
+        background-color: #f2f2f2;
+        padding: 8px 16px;
+        margin-bottom: 24px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+      }
+
+      .notes-box .notes-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #000;
+      }
+
+      /* Contractor Payment Date */
+      .contractor-payment-date {
+        font-size: 11px;
+        margin-bottom: 80px;
+      }
+
+      .contractor-payment-date .label {
+        font-weight: 700;
+        color: #000;
+        margin-right: 32px;
+      }
+
+      .contractor-payment-date .val {
+        color: #555;
+      }
+
+      /* Footer & Disclaimer */
+      .footer-section {
+        margin-top: auto;
+      }
+
+      .disclaimer-title {
+        font-size: 9.5px;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 4px;
+      }
+
+      .disclaimer-text {
+        font-size: 8px;
+        line-height: 1.38;
+        color: #111;
+        margin-bottom: 14px;
+      }
+
+      .disclaimer-text p {
+        margin: 0;
+      }
+
+      .company-footer {
+        font-size: 8px;
+        text-align: center;
+        color: #111;
+        line-height: 1.3;
+      }
+
+      @media print {
+        body {
+          background: transparent;
+          padding: 0;
+        }
+        .invoice-page {
+          box-shadow: none;
+          max-width: 100%;
+          min-height: 100vh;
+          padding: 48px 48px 36px 48px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-page">
+      <div>
+        <!-- Header -->
+        <div class="invoice-title">I N V O I C E</div>
+
+        <!-- 3 Columns: Seller, Buyer, Meta -->
+        <div class="grid-3col top-info">
+          <div class="info-col">
+            <h3>Seller</h3>
+            <p>Aakash Jaiswal</p>
+            <p>Muhalla, Shahamohamdapur</p>
+            <p>Azamgarh</p>
+            <p>Tax ID: CPPJ7376N</p>
           </div>
-          <div class="summary-left-values">
-            <span class="num">963.14 USD</span>
-            <span class="plus">+</span>
-            <span class="num">0.00 USD</span>
+
+          <div class="info-col">
+            <h3>Buyer</h3>
+            <p>Amoeba Global FZ LLC</p>
+            <p>PO Box 10055</p>
+            <p>Ras Al Khaimah UNITED ARAB</p>
+            <p>EMIRATES</p>
+            <p>Tax ID:0000004036244</p>
+          </div>
+
+          <div class="meta-col">
+            <p><span class="meta-label">No.</span> <span class="meta-val">ONTOP985259</span></p>
+            <p>
+              <span class="meta-label">Issue Date:</span> <span class="meta-val">28/10/2023</span>
+            </p>
+            <p>
+              <span class="meta-label">Due Date:</span> <span class="meta-val">05/11/2023</span>
+            </p>
           </div>
         </div>
-        <div class="summary-right">
-          <div class="summary-right-label">TOTAL</div>
-          <div class="summary-right-value">963.14 USD</div>
+
+        <!-- Contract & Scope -->
+        <div class="grid-3col contract-scope">
+          <div class="contract-scope-col">
+            <h3>Contract</h3>
+            <p>Traditional</p>
+          </div>
+          <div class="contract-scope-col">
+            <h3>Scope</h3>
+            <p>Software Engineer</p>
+          </div>
+          <div></div>
+        </div>
+
+        <!-- Line Item Table -->
+        <div class="table-section">
+          <div class="grid-3col table-header">
+            <div class="col-item">ITEM</div>
+            <div class="col-amount-inr">AMOUNT(INR)</div>
+            <div class="col-amount-usd">AMOUNT</div>
+          </div>
+          <div class="grid-3col table-row">
+            <div class="col-item">Backend Engineer</div>
+            <div class="col-amount-inr">92,000 INR</div>
+            <div class="col-amount-usd">963.14 USD</div>
+          </div>
+        </div>
+
+        <!-- Exchange Rate Section -->
+        <div class="exchange-section">
+          <div class="exchange-header">EXCHANGE RATE</div>
+          <div class="exchange-row">
+            <div class="pair">USD to INR</div>
+            <div class="rate">1 USD = 95.52054 INR</div>
+          </div>
+        </div>
+
+        <!-- Summary / Total Banner -->
+        <div class="summary-banner">
+          <div class="summary-left">
+            <div class="summary-left-labels">
+              <span>SUBTOTAL</span>
+              <span>TAX (%)</span>
+            </div>
+            <div class="summary-left-values">
+              <span class="num">963.14 USD</span>
+              <span class="plus">+</span>
+              <span class="num">0.00 USD</span>
+            </div>
+          </div>
+          <div class="summary-right">
+            <div class="summary-right-label">TOTAL</div>
+            <div class="summary-right-value">963.14 USD</div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="notes-box">
+          <span class="notes-label">Notes:</span>
+        </div>
+
+        <!-- Contractor Payment Date -->
+        <div class="contractor-payment-date">
+          <span class="label">Contractor payment date:</span>
+          <span class="val">05/11/2023</span>
         </div>
       </div>
 
-      <!-- Notes -->
-      <div class="notes-box">
-        <span class="notes-label">Notes:</span>
-      </div>
-
-      <!-- Contractor Payment Date -->
-      <div class="contractor-payment-date">
-        <span class="label">Contractor payment date:</span>
-        <span class="val">05/11/2023</span>
+      <!-- Footer Disclaimer -->
+      <div class="footer-section">
+        <div class="disclaimer-title">Disclaimer</div>
+        <div class="disclaimer-text">
+          <p>FX rate is provided by a third party FX application.</p>
+          <p>No VAT or other taxes are levied in this invoice.</p>
+          <p>Contractor is solely liable for payment of local taxes.</p>
+          <p>
+            Contractor is solely liable for compliance with local labor and social security laws.
+          </p>
+          <p>
+            Ontop Holdings Inc. is authorized to invoice on behalf of Ontop IC Operations LLC as
+            affiliates and part of the same corporate group.
+          </p>
+          <p>
+            This document is intended for internal use within Ontop processes and does not
+            constitute a valid equivalent to local and electronic invoices.
+          </p>
+        </div>
+        <div class="company-footer">
+          Ontop Holdings Inc. - 251 Little Falls Drive, Wilmington, New Castle County, Delaware,
+          19808 | www.getontop.com
+        </div>
       </div>
     </div>
-
-    <!-- Footer Disclaimer -->
-    <div class="footer-section">
-      <div class="disclaimer-title">Disclaimer</div>
-      <div class="disclaimer-text">
-        <p>FX rate is provided by a third party FX application.</p>
-        <p>No VAT or other taxes are levied in this invoice.</p>
-        <p>Contractor is solely liable for payment of local taxes.</p>
-        <p>Contractor is solely liable for compliance with local labor and social security laws.</p>
-        <p>Ontop Holdings Inc. is authorized to invoice on behalf of Ontop IC Operations LLC as affiliates and part of the same corporate group.</p>
-        <p>This document is intended for internal use within Ontop processes and does not constitute a valid equivalent to local and electronic invoices.</p>
-      </div>
-      <div class="company-footer">
-        Ontop Holdings Inc. - 251 Little Falls Drive, Wilmington, New Castle County, Delaware, 19808 | www.getontop.com
-      </div>
-    </div>
-  </div>
-
-</body>
+  </body>
 </html>

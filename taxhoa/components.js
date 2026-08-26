@@ -5,7 +5,7 @@
 
 class TaxhoaHeader extends HTMLElement {
   connectedCallback() {
-    const date = this.getAttribute('date') || 'August 25, 2026';
+    const date = this.getAttribute("date") || "August 25, 2026";
     this.innerHTML = `
       <div class="top-solid-stripe" aria-hidden="true"></div>
       <header class="letterhead">
@@ -26,10 +26,10 @@ class TaxhoaHeader extends HTMLElement {
 
 class TaxhoaSignatory extends HTMLElement {
   connectedCallback() {
-    const candidateSign = this.getAttribute('candidate-sign');
-    const founderTitle = this.getAttribute('founder-title') || 'Founder & CEO';
-    const founderName = this.getAttribute('founder-name') || 'Sachin';
-    const company = this.getAttribute('company') || 'TaxHoa (Amoeba Global FZ-LLC)';
+    const candidateSign = this.getAttribute("candidate-sign");
+    const founderTitle = this.getAttribute("founder-title") || "Founder & CEO";
+    const founderName = this.getAttribute("founder-name") || "Sachin";
+    const company = this.getAttribute("company") || "TaxHoa (Amoeba Global FZ-LLC)";
 
     if (candidateSign) {
       // Dual signatory layout (e.g. Offer Letter)
@@ -73,8 +73,8 @@ class TaxhoaSignatory extends HTMLElement {
 
 class TaxhoaFooter extends HTMLElement {
   connectedCallback() {
-    const address = this.getAttribute('address') || 'Ras Al Khaimah, 10055, AE';
-    const email = this.getAttribute('email') || 'support@taxhoa.com';
+    const address = this.getAttribute("address") || "Ras Al Khaimah, 10055, AE";
+    const email = this.getAttribute("email") || "support@taxhoa.com";
 
     this.innerHTML = `
       <footer class="letter-footer">
@@ -89,6 +89,6 @@ class TaxhoaFooter extends HTMLElement {
   }
 }
 
-customElements.define('taxhoa-header', TaxhoaHeader);
-customElements.define('taxhoa-signatory', TaxhoaSignatory);
-customElements.define('taxhoa-footer', TaxhoaFooter);
+customElements.define("taxhoa-header", TaxhoaHeader);
+customElements.define("taxhoa-signatory", TaxhoaSignatory);
+customElements.define("taxhoa-footer", TaxhoaFooter);

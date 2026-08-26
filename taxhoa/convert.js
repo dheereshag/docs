@@ -1,8 +1,8 @@
-import puppeteer from 'puppeteer-core';
-import { PDFDocument } from 'pdf-lib';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
+import puppeteer from "puppeteer-core";
+import { PDFDocument } from "pdf-lib";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,33 +17,33 @@ function getOfferLetterDate() {
 
 const documents = [
   {
-    htmlFile: 'relieving-letter.html',
-    pdfFile: 'Relieving_Letter_Aakash_Jaiswal.pdf',
-    title: 'Relieving Letter - Aakash Jaiswal',
-    subject: 'Relieving Letter',
-    getDate: () => new Date() // Current date and time
+    htmlFile: "relieving-letter.html",
+    pdfFile: "Relieving_Letter_Aakash_Jaiswal.pdf",
+    title: "Relieving Letter - Aakash Jaiswal",
+    subject: "Relieving Letter",
+    getDate: () => new Date(), // Current date and time
   },
   {
-    htmlFile: 'experience-letter.html',
-    pdfFile: 'Experience_Letter_Aakash_Jaiswal.pdf',
-    title: 'Experience Letter - Aakash Jaiswal',
-    subject: 'Experience Letter',
-    getDate: () => new Date() // Current date and time
+    htmlFile: "experience-letter.html",
+    pdfFile: "Experience_Letter_Aakash_Jaiswal.pdf",
+    title: "Experience Letter - Aakash Jaiswal",
+    subject: "Experience Letter",
+    getDate: () => new Date(), // Current date and time
   },
   {
-    htmlFile: 'offer-letter.html',
-    pdfFile: 'Offer_Letter_Aakash_Jaiswal.pdf',
-    title: 'Offer Letter - Aakash Jaiswal',
-    subject: 'Offer Letter',
-    getDate: getOfferLetterDate // Top-right date (June 05, 2025) with random time 10:00 AM - 5:00 PM
-  }
+    htmlFile: "offer-letter.html",
+    pdfFile: "Offer_Letter_Aakash_Jaiswal.pdf",
+    title: "Offer Letter - Aakash Jaiswal",
+    subject: "Offer Letter",
+    getDate: getOfferLetterDate, // Top-right date (June 05, 2025) with random time 10:00 AM - 5:00 PM
+  },
 ];
 
 async function generateAllPdfs() {
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   for (const doc of documents) {
@@ -51,22 +51,22 @@ async function generateAllPdfs() {
     const filePath = `file://${path.join(__dirname, doc.htmlFile)}`;
 
     await page.setViewport({ width: 1200, height: 1600, deviceScaleFactor: 2 });
-    await page.goto(filePath, { waitUntil: 'networkidle0' });
-    await page.evaluateHandle('document.fonts.ready');
+    await page.goto(filePath, { waitUntil: "networkidle0" });
+    await page.evaluateHandle("document.fonts.ready");
 
     const outputPath = path.join(__dirname, doc.pdfFile);
 
     const initialPdfBuffer = await page.pdf({
-      format: 'A4',
+      format: "A4",
       printBackground: true,
-      margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' }
+      margin: { top: "0px", right: "0px", bottom: "0px", left: "0px" },
     });
 
     const pdfDoc = await PDFDocument.load(initialPdfBuffer, { updateMetadata: false });
     pdfDoc.setTitle(doc.title);
-    pdfDoc.setAuthor('TaxHoa');
-    pdfDoc.setCreator('TaxHoa');
-    pdfDoc.setProducer('Skia/PDF m151');
+    pdfDoc.setAuthor("TaxHoa");
+    pdfDoc.setCreator("TaxHoa");
+    pdfDoc.setProducer("Skia/PDF m151");
     pdfDoc.setSubject(doc.subject);
 
     const docDate = doc.getDate();
@@ -87,6 +87,6 @@ async function generateAllPdfs() {
 }
 
 generateAllPdfs().catch((err) => {
-  console.error('Error generating PDFs:', err);
+  console.error("Error generating PDFs:", err);
   process.exit(1);
 });

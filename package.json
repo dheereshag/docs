@@ -2,27 +2,35 @@
   "name": "docs",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
     "build:pdf": "node invoice/convert.js",
     "build:invoice-pdf": "node invoice/convert.js",
     "build:bank-pdf": "node bank/convert.js",
     "build:taxhoa-pdf": "node taxhoa/convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "puppeteer-core": "^25.9.0"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.65.0",
+    "oxlint": "^1.80.0"
+  },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
       "version": "^11.5.1",
       "onFail": "download"
     }
-  },
-  "type": "module",
-  "dependencies": {
-    "pdf-lib": "^1.17.1",
-    "puppeteer-core": "^25.8.0"
   }
 }

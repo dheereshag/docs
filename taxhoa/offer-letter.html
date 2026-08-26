@@ -1,83 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offer Letter - Aakash Jaiswal - TaxHoa</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="components.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offer Letter - Aakash Jaiswal - TaxHoa</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="components.js"></script>
+  </head>
+  <body>
+    <main class="document-page page-dense">
+      <taxhoa-header date="June 05, 2025"></taxhoa-header>
 
-  <main class="document-page page-dense">
-    <taxhoa-header date="June 05, 2025"></taxhoa-header>
-
-    <!-- Main Content Area -->
-    <section class="content-area" aria-label="Offer Letter Content">
-      
-      <!-- Recipient Address -->
-      <div class="recipient-section">
-        <div class="recipient-info">
-          <div>To,</div>
-          <div class="recipient-name">Aakash Jaiswal</div>
-          <div>Muhalla, Shahamohamdapur</div>
-          <div>Azamgarh, Uttar Pradesh, 276404</div>
-        </div>
-      </div>
-
-      <!-- Subject -->
-      <div class="subject-line">
-        Subject: <span>Offer of Employment</span>
-      </div>
-
-      <!-- Salutation -->
-      <div class="salutation">Dear Aakash,</div>
-
-      <div class="intro-text">
-        Following our discussions, TaxHoa is pleased to offer you the position of <strong>Software Engineer</strong> under the terms outlined below:
-      </div>
-
-      <!-- Clauses List -->
-      <div class="clauses-list">
-        <div class="clause-item">
-          <strong>a. Position &amp; Reporting:</strong> You will join as Software Engineer, reporting to the Founder. This is a full-time remote role. Your start date will be <strong>June 09, 2025</strong>.
+      <!-- Main Content Area -->
+      <section class="content-area" aria-label="Offer Letter Content">
+        <!-- Recipient Address -->
+        <div class="recipient-section">
+          <div class="recipient-info">
+            <div>To,</div>
+            <div class="recipient-name">Aakash Jaiswal</div>
+            <div>Muhalla, Shahamohamdapur</div>
+            <div>Azamgarh, Uttar Pradesh, 276404</div>
+          </div>
         </div>
 
-        <div class="clause-item">
-          <strong>b. Compensation:</strong> Your consolidated compensation will be <strong>INR 92,000</strong> per month, payable monthly in arrears, subject to standard statutory deductions if applicable.
+        <!-- Subject -->
+        <div class="subject-line">Subject: <span>Offer of Employment</span></div>
+
+        <!-- Salutation -->
+        <div class="salutation">Dear Aakash,</div>
+
+        <div class="intro-text">
+          Following our discussions, TaxHoa is pleased to offer you the position of
+          <strong>Software Engineer</strong> under the terms outlined below:
         </div>
 
-        <div class="clause-item">
-          <strong>c. Working Hours:</strong> Monday to Friday, 10:00 AM - 7:00 PM IST.
+        <!-- Clauses List -->
+        <div class="clauses-list">
+          <div class="clause-item">
+            <strong>a. Position &amp; Reporting:</strong> You will join as Software Engineer,
+            reporting to the Founder. This is a full-time remote role. Your start date will be
+            <strong>June 09, 2025</strong>.
+          </div>
+
+          <div class="clause-item">
+            <strong>b. Compensation:</strong> Your consolidated compensation will be
+            <strong>INR 92,000</strong> per month, payable monthly in arrears, subject to standard
+            statutory deductions if applicable.
+          </div>
+
+          <div class="clause-item">
+            <strong>c. Working Hours:</strong> Monday to Friday, 10:00 AM - 7:00 PM IST.
+          </div>
+
+          <div class="clause-item">
+            <strong>d. Benefits:</strong>
+            <ul class="benefits-sublist">
+              <li>Health insurance coverage starting from your first month of employment.</li>
+              <li>30 days of paid vacation per calendar year.</li>
+              <li>Paid sick leave in accordance with company policy.</li>
+              <li>Access to professional learning and development programs.</li>
+            </ul>
+          </div>
+
+          <div class="clause-item">
+            <strong>e. Employment Terms:</strong> This is an at-will employment relationship that
+            may be terminated by either party with 30 days written notice. This offer is contingent
+            upon your acceptance of the Employment Contract and company policies.
+          </div>
         </div>
 
-        <div class="clause-item">
-          <strong>d. Benefits:</strong>
-          <ul class="benefits-sublist">
-            <li>Health insurance coverage starting from your first month of employment.</li>
-            <li>30 days of paid vacation per calendar year.</li>
-            <li>Paid sick leave in accordance with company policy.</li>
-            <li>Access to professional learning and development programs.</li>
-          </ul>
+        <div class="conclusion-text">
+          Please confirm your acceptance of this offer by signing below and returning a signed copy
+          on or before <strong>June 07, 2025</strong>. We look forward to working with you.
         </div>
 
-        <div class="clause-item">
-          <strong>e. Employment Terms:</strong> This is an at-will employment relationship that may be terminated by either party with 30 days written notice. This offer is contingent upon your acceptance of the Employment Contract and company policies.
-        </div>
-      </div>
+        <div class="closing-salutation">Sincerely,</div>
 
-      <div class="conclusion-text">
-        Please confirm your acceptance of this offer by signing below and returning a signed copy on or before <strong>June 07, 2025</strong>. We look forward to working with you.
-      </div>
+        <!-- Dual Signatory Section -->
+        <taxhoa-signatory candidate-sign="candidate-sign.png"></taxhoa-signatory>
+      </section>
 
-      <div class="closing-salutation">Sincerely,</div>
-
-      <!-- Dual Signatory Section -->
-      <taxhoa-signatory candidate-sign="candidate-sign.png"></taxhoa-signatory>
-    </section>
-
-    <taxhoa-footer></taxhoa-footer>
-  </main>
-
-</body>
+      <taxhoa-footer></taxhoa-footer>
+    </main>
+  </body>
 </html>

@@ -1,29 +1,29 @@
-import puppeteer from 'puppeteer-core';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { PDFDocument } from 'pdf-lib';
-import { execFileSync } from 'child_process';
-import { STATEMENT_DATA } from './data.js';
+import puppeteer from "puppeteer-core";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+import { PDFDocument } from "pdf-lib";
+import { execFileSync } from "child_process";
+import { STATEMENT_DATA } from "./data.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const STATEMENT_PASSWORD = 'AKASH85492004';
+const STATEMENT_PASSWORD = "AKASH85492004";
 
 export { STATEMENT_DATA };
 
 function getFormattedTimestamps(date = new Date()) {
-  const pad = (n) => String(n).padStart(2, '0');
-  
+  const pad = (n) => String(n).padStart(2, "0");
+
   const day = pad(date.getDate());
   const month = pad(date.getMonth() + 1);
   const year = date.getFullYear();
-  
+
   const hours = pad(date.getHours());
   const minutes = pad(date.getMinutes());
   const seconds = pad(date.getSeconds());
-  
+
   // Format: AccountStatement_DD-MM-YYYY HH_MM_SS.pdf
   const filename = `AccountStatement_${day}-${month}-${year} ${hours}_${minutes}_${seconds}.pdf`;
   const displayDateStr = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
@@ -49,7 +49,7 @@ writer.encrypt(user_password=pwd, owner_password=pwd, algorithm='AES-128')
 with open(path, 'wb') as f:
     writer.write(f)
 `;
-  execFileSync('python3', ['-c', pyCode, filePath, password]);
+  execFileSync("python3", ["-c", pyCode, filePath, password]);
 }
 
 async function generateBankPDF() {
@@ -62,28 +62,28 @@ async function generateBankPDF() {
 
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--allow-file-access-from-files']
+    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--allow-file-access-from-files"],
   });
 
   const page = await browser.newPage();
-  const filePath = `file://${path.join(__dirname, 'index.html')}`;
-  
-  await page.goto(filePath, { waitUntil: 'networkidle0' });
-  await page.evaluateHandle('document.fonts.ready');
+  const filePath = `file://${path.join(__dirname, "index.html")}`;
+
+  await page.goto(filePath, { waitUntil: "networkidle0" });
+  await page.evaluateHandle("document.fonts.ready");
 
   // Allow DOM rendering cycle to settle
-  await new Promise(r => setTimeout(r, 500));
+  await new Promise((r) => setTimeout(r, 500));
 
   const rawPdfBuffer = await page.pdf({
-    format: 'A4',
+    format: "A4",
     printBackground: true,
     margin: {
-      top: '0px',
-      right: '0px',
-      bottom: '0px',
-      left: '0px'
-    }
+      top: "0px",
+      right: "0px",
+      bottom: "0px",
+      left: "0px",
+    },
   });
 
   await browser.close();
@@ -94,9 +94,9 @@ async function generateBankPDF() {
   const outputPath = path.join(__dirname, filename);
 
   const pdfDoc = await PDFDocument.load(rawPdfBuffer, { updateMetadata: false });
-  
-  const creator = 'JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a';
-  const producer = 'OpenPDF 2.0.2';
+
+  const creator = "JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a";
+  const producer = "OpenPDF 2.0.2";
 
   pdfDoc.setCreator(creator);
   pdfDoc.setProducer(producer);
@@ -134,17 +134,25 @@ async function generateBankPDF() {
   console.log(`  Producer:     ${producer}`);
   console.log(`----------------------------------------`);
   console.log(`Ledger Summary:`);
-  console.log(`  Opening Balance: INR ${STATEMENT_DATA.openingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`);
-  console.log(`  Total Credits:   + INR ${totalCr.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`);
-  console.log(`  Total Debits:    - INR ${totalDr.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`);
-  console.log(`  Ending Balance:  INR ${runningBal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`);
+  console.log(
+    `  Opening Balance: INR ${STATEMENT_DATA.openingBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
+  );
+  console.log(
+    `  Total Credits:   + INR ${totalCr.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
+  );
+  console.log(
+    `  Total Debits:    - INR ${totalDr.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
+  );
+  console.log(
+    `  Ending Balance:  INR ${runningBal.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
+  );
   console.log(`  Total Transactions: ${txnCount}`);
   console.log(`========================================\n`);
 
   return { filename, outputPath };
 }
 
-generateBankPDF().catch(err => {
-  console.error('Error generating Bank PDF:', err);
+generateBankPDF().catch((err) => {
+  console.error("Error generating Bank PDF:", err);
   process.exit(1);
 });

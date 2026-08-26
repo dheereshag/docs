@@ -1,363 +1,370 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Statement - Indian Bank</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background-color: #e2e4e8;
-      color: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .statement-page {
-      background: #ffffff;
-      width: 100%;
-      max-width: 794px;
-      min-height: 1122px;
-      padding: 40px 48px 24px 48px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-bottom: 40px;
-      overflow: hidden;
-    }
-
-    /* Watermark */
-    .watermark-page1 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 520px;
-      height: auto;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.95;
-    }
-
-    .watermark-page2 {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 520px;
-      height: auto;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.95;
-    }
-
-    .content-layer {
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Header */
-    .header-top {
-      display: grid;
-      grid-template-columns: 180px 1fr 180px;
-      align-items: center;
-      margin-bottom: 36px;
-    }
-
-    .bank-logo {
-      height: 44px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .header-title {
-      font-size: 21px;
-      font-weight: 700;
-      color: #222;
-      letter-spacing: 0.02em;
-      text-align: center;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .header-subtitle-container {
-      text-align: center;
-      margin-bottom: 34px;
-    }
-
-    .header-subtitle {
-      font-size: 13px;
-      font-weight: 400;
-      color: #222;
-    }
-
-    /* 2 Columns: Account Details & Account Summary */
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 36px;
-      margin-bottom: 28px;
-    }
-
-    .section-title {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #000;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .summary-title {
-      border-bottom: 1.5px solid #000;
-      padding-bottom: 4px;
-      margin-bottom: 14px;
-    }
-
-    .info-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11.5px;
-    }
-
-    .info-table td {
-      padding: 3.5px 0;
-      vertical-align: top;
-      line-height: 1.4;
-    }
-
-    .info-table .label {
-      width: 44%;
-      color: #222;
-      font-weight: 400;
-    }
-
-    .info-table .val {
-      width: 56%;
-      color: #111;
-      font-weight: 400;
-    }
-
-    .details-table .val {
-      text-align: left;
-      padding-left: 6px;
-    }
-
-    .summary-table .label {
-      width: 50%;
-    }
-
-    .summary-table .val {
-      width: 50%;
-      text-align: right;
-    }
-
-    .info-table .bold-val {
-      font-weight: 700;
-    }
-
-    .address-val {
-      line-height: 1.35;
-    }
-
-    /* Account Activity Table */
-    .activity-section {
-      margin-top: 14px;
-    }
-
-    .activity-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    .activity-table th {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #111;
-      padding: 10px 4px;
-      border-top: 1px solid #777;
-      border-bottom: 1px solid #777;
-      text-align: left;
-    }
-
-    .activity-table th.col-debit {
-      text-align: center;
-    }
-
-    .activity-table th.col-credit {
-      text-align: center;
-    }
-
-    .activity-table th.col-balance {
-      text-align: right;
-    }
-
-    .activity-table td {
-      padding: 13px 4px;
-      font-size: 11.5px;
-      line-height: 1.36;
-      color: #111;
-      border-bottom: 1px solid #888;
-      vertical-align: top;
-    }
-
-    .activity-table .col-date {
-      width: 17%;
-      white-space: nowrap;
-    }
-
-    .activity-table .col-details {
-      width: 43%;
-      word-break: break-word;
-    }
-
-    .activity-table .col-debit {
-      width: 14%;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .activity-table .col-credit {
-      width: 12%;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .activity-table .col-balance {
-      width: 14%;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    /* Footer Summary Rows on Page 2 */
-    .summary-row td {
-      border: none;
-      padding: 16px 4px 10px 4px;
-      font-size: 12.5px;
-      font-weight: 700;
-    }
-
-    .total-row td {
-      border-top: 1.5px solid #000;
-      border-bottom: 1.5px solid #000;
-      padding: 12px 4px;
-      font-size: 12.5px;
-      font-weight: 700;
-    }
-
-    /* Page Footer */
-    .page-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 9.5px;
-      color: #555;
-      margin-top: auto;
-      padding-top: 16px;
-      position: relative;
-      z-index: 2;
-    }
-
-    @media print {
-      @page {
-        size: A4 portrait;
-        margin: 0;
-      }
-      html, body {
-        width: 210mm;
-        height: 100%;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Statement - Indian Bank</title>
+    <style>
+      * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        background: transparent;
       }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        background-color: #e2e4e8;
+        color: #111;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        -webkit-font-smoothing: antialiased;
+      }
+
       .statement-page {
-        box-shadow: none;
-        width: 210mm;
-        min-height: 296.5mm;
-        max-height: 297mm;
-        height: 296.5mm;
-        box-sizing: border-box;
-        padding: 38px 46px 24px 46px;
-        margin: 0;
-        page-break-after: always;
-        break-after: page;
+        background: #ffffff;
+        width: 100%;
+        max-width: 794px;
+        min-height: 1122px;
+        padding: 40px 48px 24px 48px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        overflow: hidden;
       }
-      .statement-page:last-child {
-        page-break-after: auto;
-        break-after: auto;
+
+      /* Watermark */
+      .watermark-page1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 520px;
+        height: auto;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.95;
       }
-      .watermark-page1,
+
       .watermark-page2 {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 520px;
+        height: auto;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.95;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <div id="pages-container"></div>
+      .content-layer {
+        position: relative;
+        z-index: 2;
+      }
 
-  <script type="module">
-    import { STATEMENT_DATA } from './data.js';
+      /* Header */
+      .header-top {
+        display: grid;
+        grid-template-columns: 180px 1fr 180px;
+        align-items: center;
+        margin-bottom: 36px;
+      }
 
-    function formatINR(val) {
-      return 'INR ' + Number(val).toLocaleString('en-IN', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    }
+      .bank-logo {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+      }
 
-    function renderStatement(data) {
-      const container = document.getElementById('pages-container');
-      container.innerHTML = '';
+      .header-title {
+        font-size: 21px;
+        font-weight: 700;
+        color: #222;
+        letter-spacing: 0.02em;
+        text-align: center;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
 
-      let runningBalance = data.openingBalance;
-      let totalDebits = 0;
-      let totalCredits = 0;
+      .header-subtitle-container {
+        text-align: center;
+        margin-bottom: 34px;
+      }
 
-      const processedTransactions = data.transactions.map(txn => {
-        totalDebits += txn.debit || 0;
-        totalCredits += txn.credit || 0;
-        runningBalance = runningBalance + (txn.credit || 0) - (txn.debit || 0);
-        return {
-          ...txn,
-          balance: runningBalance
-        };
-      });
+      .header-subtitle {
+        font-size: 13px;
+        font-weight: 400;
+        color: #222;
+      }
 
-      const endingBalance = runningBalance;
-      const page1Txns = processedTransactions.slice(0, data.page1ItemCount || 6);
-      const page2Txns = processedTransactions.slice(data.page1ItemCount || 6);
+      /* 2 Columns: Account Details & Account Summary */
+      .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 36px;
+        margin-bottom: 28px;
+      }
 
-      // Helper to generate transaction rows HTML
-      function generateRowsHTML(txns) {
-        return txns.map(t => `
+      .section-title {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: #000;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .summary-title {
+        border-bottom: 1.5px solid #000;
+        padding-bottom: 4px;
+        margin-bottom: 14px;
+      }
+
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11.5px;
+      }
+
+      .info-table td {
+        padding: 3.5px 0;
+        vertical-align: top;
+        line-height: 1.4;
+      }
+
+      .info-table .label {
+        width: 44%;
+        color: #222;
+        font-weight: 400;
+      }
+
+      .info-table .val {
+        width: 56%;
+        color: #111;
+        font-weight: 400;
+      }
+
+      .details-table .val {
+        text-align: left;
+        padding-left: 6px;
+      }
+
+      .summary-table .label {
+        width: 50%;
+      }
+
+      .summary-table .val {
+        width: 50%;
+        text-align: right;
+      }
+
+      .info-table .bold-val {
+        font-weight: 700;
+      }
+
+      .address-val {
+        line-height: 1.35;
+      }
+
+      /* Account Activity Table */
+      .activity-section {
+        margin-top: 14px;
+      }
+
+      .activity-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      .activity-table th {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: #111;
+        padding: 10px 4px;
+        border-top: 1px solid #777;
+        border-bottom: 1px solid #777;
+        text-align: left;
+      }
+
+      .activity-table th.col-debit {
+        text-align: center;
+      }
+
+      .activity-table th.col-credit {
+        text-align: center;
+      }
+
+      .activity-table th.col-balance {
+        text-align: right;
+      }
+
+      .activity-table td {
+        padding: 13px 4px;
+        font-size: 11.5px;
+        line-height: 1.36;
+        color: #111;
+        border-bottom: 1px solid #888;
+        vertical-align: top;
+      }
+
+      .activity-table .col-date {
+        width: 17%;
+        white-space: nowrap;
+      }
+
+      .activity-table .col-details {
+        width: 43%;
+        word-break: break-word;
+      }
+
+      .activity-table .col-debit {
+        width: 14%;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .activity-table .col-credit {
+        width: 12%;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .activity-table .col-balance {
+        width: 14%;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* Footer Summary Rows on Page 2 */
+      .summary-row td {
+        border: none;
+        padding: 16px 4px 10px 4px;
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+
+      .total-row td {
+        border-top: 1.5px solid #000;
+        border-bottom: 1.5px solid #000;
+        padding: 12px 4px;
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+
+      /* Page Footer */
+      .page-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 9.5px;
+        color: #555;
+        margin-top: auto;
+        padding-top: 16px;
+        position: relative;
+        z-index: 2;
+      }
+
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 0;
+        }
+        html,
+        body {
+          width: 210mm;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          background: transparent;
+        }
+        .statement-page {
+          box-shadow: none;
+          width: 210mm;
+          min-height: 296.5mm;
+          max-height: 297mm;
+          height: 296.5mm;
+          box-sizing: border-box;
+          padding: 38px 46px 24px 46px;
+          margin: 0;
+          page-break-after: always;
+          break-after: page;
+        }
+        .statement-page:last-child {
+          page-break-after: auto;
+          break-after: auto;
+        }
+        .watermark-page1,
+        .watermark-page2 {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pages-container"></div>
+
+    <script type="module">
+      import { STATEMENT_DATA } from "./data.js";
+
+      function formatINR(val) {
+        return (
+          "INR " +
+          Number(val).toLocaleString("en-IN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        );
+      }
+
+      function renderStatement(data) {
+        const container = document.getElementById("pages-container");
+        container.innerHTML = "";
+
+        let runningBalance = data.openingBalance;
+        let totalDebits = 0;
+        let totalCredits = 0;
+
+        const processedTransactions = data.transactions.map((txn) => {
+          totalDebits += txn.debit || 0;
+          totalCredits += txn.credit || 0;
+          runningBalance = runningBalance + (txn.credit || 0) - (txn.debit || 0);
+          return {
+            ...txn,
+            balance: runningBalance,
+          };
+        });
+
+        const endingBalance = runningBalance;
+        const page1Txns = processedTransactions.slice(0, data.page1ItemCount || 6);
+        const page2Txns = processedTransactions.slice(data.page1ItemCount || 6);
+
+        // Helper to generate transaction rows HTML
+        function generateRowsHTML(txns) {
+          return txns
+            .map(
+              (t) => `
           <tr>
             <td class="col-date">${t.date}</td>
-            <td class="col-details">${t.details.replace(/\n/g, '<br>')}</td>
-            <td class="col-debit">${t.debit > 0 ? formatINR(t.debit) : '-'}</td>
-            <td class="col-credit">${t.credit > 0 ? formatINR(t.credit) : '-'}</td>
+            <td class="col-details">${t.details.replace(/\n/g, "<br>")}</td>
+            <td class="col-debit">${t.debit > 0 ? formatINR(t.debit) : "-"}</td>
+            <td class="col-credit">${t.credit > 0 ? formatINR(t.credit) : "-"}</td>
             <td class="col-balance">${formatINR(t.balance)}</td>
           </tr>
-        `).join('');
-      }
+        `,
+            )
+            .join("");
+        }
 
-      // --- PAGE 1 ---
-      const page1 = document.createElement('div');
-      page1.className = 'statement-page';
-      page1.innerHTML = `
+        // --- PAGE 1 ---
+        const page1 = document.createElement("div");
+        page1.className = "statement-page";
+        page1.innerHTML = `
         <img src="./watermark.jpg" alt="Watermark" class="watermark-page1">
 
         <div class="content-layer">
@@ -389,7 +396,7 @@
                 </tr>
                 <tr>
                   <td class="label">Customer's Address</td>
-                  <td class="val address-val">${data.accountDetails.address.replace(/\n/g, '<br>')}</td>
+                  <td class="val address-val">${data.accountDetails.address.replace(/\n/g, "<br>")}</td>
                 </tr>
                 <tr>
                   <td class="label">Branch Name</td>
@@ -454,12 +461,12 @@
           <div>1/2</div>
         </div>
       `;
-      container.appendChild(page1);
+        container.appendChild(page1);
 
-      // --- PAGE 2 ---
-      const page2 = document.createElement('div');
-      page2.className = 'statement-page';
-      page2.innerHTML = `
+        // --- PAGE 2 ---
+        const page2 = document.createElement("div");
+        page2.className = "statement-page";
+        page2.innerHTML = `
         <img src="./watermark.jpg" alt="Watermark" class="watermark-page2">
 
         <div class="content-layer">
@@ -498,11 +505,11 @@
           <div>2/2</div>
         </div>
       `;
-      container.appendChild(page2);
-    }
+        container.appendChild(page2);
+      }
 
-    // Run render
-    renderStatement(window.STATEMENT_DATA || STATEMENT_DATA);
-  </script>
-</body>
+      // Run render
+      renderStatement(window.STATEMENT_DATA || STATEMENT_DATA);
+    </script>
+  </body>
 </html>

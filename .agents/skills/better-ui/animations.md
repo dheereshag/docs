@@ -8,12 +8,12 @@ Users change intent mid-interaction. Animations that cannot be interrupted make 
 
 ### CSS transitions vs. keyframes
 
-| | CSS Transitions | CSS Keyframe Animations |
-| --- | --- | --- |
-| **Behavior** | Interpolate toward latest state | Run on a fixed timeline |
-| **Interruptible** | Yes, retargets mid-animation | No, restarts from beginning |
-| **Use for** | Interactive state changes (hover, toggle, open/close) | Staged sequences that run once (enter animations, loading) |
-| **Duration** | Fixed; retargets the value mid-flight, not the timeline | Fixed timeline, restarts from the beginning |
+|                   | CSS Transitions                                         | CSS Keyframe Animations                                    |
+| ----------------- | ------------------------------------------------------- | ---------------------------------------------------------- |
+| **Behavior**      | Interpolate toward latest state                         | Run on a fixed timeline                                    |
+| **Interruptible** | Yes, retargets mid-animation                            | No, restarts from beginning                                |
+| **Use for**       | Interactive state changes (hover, toggle, open/close)   | Staged sequences that run once (enter animations, loading) |
+| **Duration**      | Fixed; retargets the value mid-flight, not the timeline | Fixed timeline, restarts from the beginning                |
 
 ```css
 /* Good: interruptible transition for a toggle */
@@ -62,17 +62,13 @@ Not every button needs it. Add a `static` prop that disables the scale where the
 ### Tailwind example
 
 ```tsx
-<button className="transition-transform duration-150 ease-out active:scale-[0.96]">
-  Click me
-</button>
+<button className="transition-transform duration-150 ease-out active:scale-[0.96]">Click me</button>
 ```
 
 ### Motion example
 
 ```tsx
-<motion.button whileTap={{ scale: 0.96 }}>
-  Click me
-</motion.button>
+<motion.button whileTap={{ scale: 0.96 }}>Click me</motion.button>
 ```
 
 ### Static prop pattern
@@ -156,11 +152,7 @@ export function DisableThemeTransitions() {
 
     const handleChange = () => {
       const style = document.createElement("style");
-      style.append(
-        document.createTextNode(
-          "*,*::before,*::after{transition:none !important}"
-        )
-      );
+      style.append(document.createTextNode("*,*::before,*::after{transition:none !important}"));
       document.head.append(style);
 
       const _flushReflow = document.body.offsetHeight;
@@ -202,4 +194,3 @@ Motion is a budget, not a garnish. Three rules decide whether an animation belon
   animation: bounceIn 500ms;
 }
 ```
-

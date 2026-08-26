@@ -56,69 +56,70 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 
 ### Content patterns
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 1 | **Inflated importance and legacy** | "marking a pivotal moment in the evolution of..." | "was established in 1989 as part of a wider decentralization" |
-| 2 | **Name-dropping to prove importance** | "cited in NYT, BBC, FT, and The Hindu" | Keep only useful, sourced context |
-| 3 | **Shallow -ing analysis** | "symbolizing... reflecting... showcasing..." | Keep only what the source supports |
-| 4 | **Sales language** | "nestled within the breathtaking region" | "is a town in the Gonder region" |
-| 5 | **Vague sources** | "Experts believe it plays a crucial role" | Name a real source or remove the claim |
-| 6 | **Formulaic challenges and outlook** | "Despite challenges... continues to thrive" | Keep the facts and remove the sales pitch |
+| #   | Pattern                               | Before                                            | After                                                         |
+| --- | ------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------- |
+| 1   | **Inflated importance and legacy**    | "marking a pivotal moment in the evolution of..." | "was established in 1989 as part of a wider decentralization" |
+| 2   | **Name-dropping to prove importance** | "cited in NYT, BBC, FT, and The Hindu"            | Keep only useful, sourced context                             |
+| 3   | **Shallow -ing analysis**             | "symbolizing... reflecting... showcasing..."      | Keep only what the source supports                            |
+| 4   | **Sales language**                    | "nestled within the breathtaking region"          | "is a town in the Gonder region"                              |
+| 5   | **Vague sources**                     | "Experts believe it plays a crucial role"         | Name a real source or remove the claim                        |
+| 6   | **Formulaic challenges and outlook**  | "Despite challenges... continues to thrive"       | Keep the facts and remove the sales pitch                     |
 
 ### Language and grammar patterns
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 7 | **Overused AI words** | "Actually... additionally... gated on... quietly... testament... landscape... showcasing" | "also... needs... remain common" |
-| 8 | **Avoiding is and are** | "serves as... features... boasts" | "is... has" |
-| 9 | **Not X but Y and clipped endings** | "It's not just X, it's Y", "..., no guessing" | State the point directly |
-| 10 | **Forced groups of three** | "innovation, inspiration, and insights" | Use the number of items the meaning needs |
-| 11 | **Changing names and repeated openings** | "protagonist... main character... hero" or "She noted... She noted... She filed..." | Use one name or merge the repeated sentences |
-| 12 | **False from X to Y ranges** | "from the Big Bang to dark matter" | List the topics directly |
-| 13 | **Passive voice and missing subjects** | "No configuration file needed" | Name the actor when that helps |
+| #   | Pattern                                  | Before                                                                                    | After                                        |
+| --- | ---------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------- |
+| 7   | **Overused AI words**                    | "Actually... additionally... gated on... quietly... testament... landscape... showcasing" | "also... needs... remain common"             |
+| 8   | **Avoiding is and are**                  | "serves as... features... boasts"                                                         | "is... has"                                  |
+| 9   | **Not X but Y and clipped endings**      | "It's not just X, it's Y", "..., no guessing"                                             | State the point directly                     |
+| 10  | **Forced groups of three**               | "innovation, inspiration, and insights"                                                   | Use the number of items the meaning needs    |
+| 11  | **Changing names and repeated openings** | "protagonist... main character... hero" or "She noted... She noted... She filed..."       | Use one name or merge the repeated sentences |
+| 12  | **False from X to Y ranges**             | "from the Big Bang to dark matter"                                                        | List the topics directly                     |
+| 13  | **Passive voice and missing subjects**   | "No configuration file needed"                                                            | Name the actor when that helps               |
 
 ### Style patterns
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 14 | **Em/en dashes** | "institutions—not the people—yet this continues—" | Cut them: periods, commas, colons, or parentheses |
-| 15 | **Too much bold text** | "**OKRs**, **KPIs**, **BMC**" | "OKRs, KPIs, BMC" |
-| 16 | **Lists with bold mini-headings** | "**Performance:** Performance improved" | Use prose when a list adds no value |
-| 17 | **Title case in headings** | "Strategic Negotiations And Partnerships" | "Strategic negotiations and partnerships" |
-| 18 | **Emojis** | "🚀 Launch Phase: 💡 Key Insight:" | Remove emojis |
-| 19 | **Curly quotes** | `said “the project”` | `said "the project"` |
-| 26 | **Too many hyphenated word pairs** | “cross-functional, data-driven, client-facing” | Keep only the hyphens grammar needs |
-| 27 | **A fake deeper truth** | "At its core, what matters is..." | State the point directly |
-| 28 | **Announcing the next point** | "Let's dive in", or "one thing that bit me" | Start with the content |
-| 29 | **A heading repeated below itself** | "## Performance" + "Speed matters." | Let the heading do the work |
-| 30 | **Writing about the old version** | "This function was added to replace..." | Describe what it does now |
-| 31 | **Forced punchlines and fragments** | "It had no preference. No prior. No nostalgia." | Use natural sentence lengths and specific claims |
-| 32 | **Formulaic sayings** | "Symmetry is the language of trust" | State the specific claim |
-| 33 | **Fake-candid openings** | "Honestly? It depends..." | State the answer directly |
-| 34 | **Answering objections no one raised** | "This isn't mainly about prompt length..." | Remove the unsupported defense and keep any real claim |
-| 35 | **Rejecting fake alternatives** | "A tempting option would be to..., but" | Remove the fake option and keep real choices |
+| #   | Pattern                                | Before                                            | After                                                  |
+| --- | -------------------------------------- | ------------------------------------------------- | ------------------------------------------------------ |
+| 14  | **Em/en dashes**                       | "institutions—not the people—yet this continues—" | Cut them: periods, commas, colons, or parentheses      |
+| 15  | **Too much bold text**                 | "**OKRs**, **KPIs**, **BMC**"                     | "OKRs, KPIs, BMC"                                      |
+| 16  | **Lists with bold mini-headings**      | "**Performance:** Performance improved"           | Use prose when a list adds no value                    |
+| 17  | **Title case in headings**             | "Strategic Negotiations And Partnerships"         | "Strategic negotiations and partnerships"              |
+| 18  | **Emojis**                             | "🚀 Launch Phase: 💡 Key Insight:"                | Remove emojis                                          |
+| 19  | **Curly quotes**                       | `said “the project”`                              | `said "the project"`                                   |
+| 26  | **Too many hyphenated word pairs**     | “cross-functional, data-driven, client-facing”    | Keep only the hyphens grammar needs                    |
+| 27  | **A fake deeper truth**                | "At its core, what matters is..."                 | State the point directly                               |
+| 28  | **Announcing the next point**          | "Let's dive in", or "one thing that bit me"       | Start with the content                                 |
+| 29  | **A heading repeated below itself**    | "## Performance" + "Speed matters."               | Let the heading do the work                            |
+| 30  | **Writing about the old version**      | "This function was added to replace..."           | Describe what it does now                              |
+| 31  | **Forced punchlines and fragments**    | "It had no preference. No prior. No nostalgia."   | Use natural sentence lengths and specific claims       |
+| 32  | **Formulaic sayings**                  | "Symmetry is the language of trust"               | State the specific claim                               |
+| 33  | **Fake-candid openings**               | "Honestly? It depends..."                         | State the answer directly                              |
+| 34  | **Answering objections no one raised** | "This isn't mainly about prompt length..."        | Remove the unsupported defense and keep any real claim |
+| 35  | **Rejecting fake alternatives**        | "A tempting option would be to..., but"           | Remove the fake option and keep real choices           |
 
 ### Chatbot patterns
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 20 | **Chatbot text left in the answer** | "I hope this helps! Let me know if..." | Remove it |
-| 21 | **Knowledge-limit disclaimers and guesses** | "While details are limited in available sources..." | State what is known or remove the claim |
-| 22 | **Overly agreeable tone** | "Great question! You're absolutely right!" | Answer directly |
+| #   | Pattern                                     | Before                                              | After                                   |
+| --- | ------------------------------------------- | --------------------------------------------------- | --------------------------------------- |
+| 20  | **Chatbot text left in the answer**         | "I hope this helps! Let me know if..."              | Remove it                               |
+| 21  | **Knowledge-limit disclaimers and guesses** | "While details are limited in available sources..." | State what is known or remove the claim |
+| 22  | **Overly agreeable tone**                   | "Great question! You're absolutely right!"          | Answer directly                         |
 
 ### Filler and hedging
 
-| # | Pattern | Before | After |
-|---|---------|--------|-------|
-| 23 | **Filler phrases** | "In order to", "Due to the fact that" | "To", "Because" |
-| 24 | **Too many qualifiers** | "could potentially possibly" | "may" |
-| 25 | **Generic positive endings** | "The future looks bright" | End with a fact or a sourced plan |
+| #   | Pattern                      | Before                                | After                             |
+| --- | ---------------------------- | ------------------------------------- | --------------------------------- |
+| 23  | **Filler phrases**           | "In order to", "Due to the fact that" | "To", "Because"                   |
+| 24  | **Too many qualifiers**      | "could potentially possibly"          | "may"                             |
+| 25  | **Generic positive endings** | "The future looks bright"             | End with a fact or a sourced plan |
 
 ## Full example
 
-*Details such as the month and neighborhood need to come from the writer. If they are missing, Humanizer should ask instead of making them up.*
+_Details such as the month and neighborhood need to come from the writer. If they are missing, Humanizer should ask instead of making them up._
 
 **Before (AI-sounding):**
+
 > I recently spent five unforgettable days in Lisbon, and let me tell you — this city completely stole my heart. From the moment I arrived, I knew I was somewhere truly special.
 >
 > Nestled along the banks of the Tagus River, Lisbon stands as a vibrant testament to Portugal's enduring spirit, where rich history and modern energy intertwine at every turn. Yes, the famous hills are challenging — my legs certainly felt it! — but every climb rewards you with breathtaking, panoramic views that make it all worthwhile.
@@ -132,6 +133,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 > Would I go back? Absolutely. Lisbon isn't just a place to visit — it's a place to fall in love with, again and again. If you're dreaming of your next getaway, this is one destination that promises memories to last a lifetime. ✨
 
 **After:**
+
 > I spent five days in Lisbon last October and still have mixed feelings about it. Beautiful, yes. Also harder on the knees than anyone warned me.
 >
 > The hills are the whole story and somehow never make the brochures. My hotel was up in Alfama, which photographs beautifully and translates, in practice, to climbing what felt like a six-story staircase every time I wanted coffee. By the second day my calves had opinions. I started planning each walk around which way was downhill, which is a strange way to see a city but probably an honest one.
