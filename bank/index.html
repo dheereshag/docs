@@ -5,205 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Account Statement - Indian Bank</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-      @import "tailwindcss";
-
-      * {
-        @apply m-0 box-border p-0;
-      }
-
-      body {
-        @apply flex flex-col items-center bg-[#e2e4e8] px-5 py-10 font-sans text-[#111] antialiased;
-      }
-
-      .statement-page {
-        @apply relative mb-10 flex min-h-280.5 w-full max-w-198.5 flex-col justify-between overflow-hidden bg-white px-12 pb-6 pt-10 shadow-[0_8px_30px_rgba(0,0,0,0.08)];
-      }
-
-      /* Watermark */
-      .watermark-page1 {
-        @apply pointer-events-none absolute top-1/2 left-1/2 z-1 h-auto w-130 -translate-x-1/2 -translate-y-1/2 opacity-95;
-      }
-
-      .watermark-page2 {
-        @apply pointer-events-none absolute top-[55%] left-1/2 z-1 h-auto w-130 -translate-x-1/2 -translate-y-1/2 opacity-95;
-      }
-
-      .content-layer {
-        @apply relative z-2;
-      }
-
-      /* Header */
-      .header-top {
-        @apply mb-9 grid grid-cols-[180px_1fr_180px] items-center;
-      }
-
-      .bank-logo {
-        @apply h-11 w-auto object-contain;
-      }
-
-      .header-title {
-        @apply whitespace-nowrap text-center text-[21px] font-bold tracking-[0.02em] text-[#222] uppercase;
-      }
-
-      .header-subtitle-container {
-        @apply mb-8.5 text-center;
-      }
-
-      .header-subtitle {
-        @apply text-[13px] font-normal text-[#222];
-      }
-
-      /* 2 Columns: Account Details & Account Summary */
-      .details-grid {
-        @apply mb-7 grid grid-cols-2 gap-x-9;
-      }
-
-      .section-title {
-        @apply mb-3.5 text-[13.5px] font-bold text-black uppercase;
-      }
-
-      .summary-title {
-        @apply mb-3.5 border-b-[1.5px] border-black pb-1;
-      }
-
-      .info-table {
-        @apply w-full border-collapse text-[11.5px];
-      }
-
-      .info-table td {
-        @apply py-[3.5px] align-top leading-[1.4];
-      }
-
-      .info-table .label {
-        @apply w-[44%] font-normal text-[#222];
-      }
-
-      .info-table .val {
-        @apply w-[56%] font-normal text-[#111];
-      }
-
-      .details-table .val {
-        @apply pl-1.5 text-left;
-      }
-
-      .summary-table .label {
-        @apply w-1/2;
-      }
-
-      .summary-table .val {
-        @apply w-1/2 text-right;
-      }
-
-      .info-table .bold-val {
-        @apply font-bold;
-      }
-
-      .address-val {
-        @apply leading-[1.35];
-      }
-
-      /* Account Activity Table */
-      .activity-section {
-        @apply mt-3.5;
-      }
-
-      .activity-table {
-        @apply mt-2.5 w-full border-collapse;
-      }
-
-      .activity-table th {
-        @apply border-y border-[#777] px-1 py-2.5 text-left text-[12.5px] font-bold text-[#111];
-      }
-
-      .activity-table th.col-debit {
-        @apply text-center;
-      }
-
-      .activity-table th.col-credit {
-        @apply text-center;
-      }
-
-      .activity-table th.col-balance {
-        @apply text-right;
-      }
-
-      .activity-table td {
-        @apply border-b border-[#888] px-1 py-3.25 align-top text-[11.5px] leading-[1.36] text-[#111];
-      }
-
-      .activity-table .col-date {
-        @apply w-[17%] whitespace-nowrap;
-      }
-
-      .activity-table .col-details {
-        @apply w-[43%] wrap-break-word;
-      }
-
-      .activity-table .col-debit {
-        @apply w-[14%] whitespace-nowrap text-center;
-      }
-
-      .activity-table .col-credit {
-        @apply w-[12%] whitespace-nowrap text-center;
-      }
-
-      .activity-table .col-balance {
-        @apply w-[14%] whitespace-nowrap text-right;
-      }
-
-      /* Footer Summary Rows on Page 2 */
-      .summary-row td {
-        @apply border-0 px-1 pb-2.5 pt-4 text-[12.5px] font-bold;
-      }
-
-      .total-row td {
-        @apply border-y-[1.5px] border-black px-1 py-3 text-[12.5px] font-bold;
-      }
-
-      /* Page Footer */
-      .page-footer {
-        @apply relative z-2 mt-auto flex items-center justify-between pt-4 text-[9.5px] text-[#555];
-      }
-
-      @media print {
-        @page {
-          size: A4 portrait;
-          margin: 0;
-        }
-        html,
-        body {
-          width: 210mm;
-          height: 100%;
-          margin: 0;
-          padding: 0;
-          background: transparent;
-        }
-        .statement-page {
-          box-shadow: none;
-          width: 210mm;
-          min-height: 296.5mm;
-          max-height: 297mm;
-          height: 296.5mm;
-          box-sizing: border-box;
-          padding: 38px 46px 24px 46px;
-          margin: 0;
-          page-break-after: always;
-          break-after: page;
-        }
-        .statement-page:last-child {
-          page-break-after: auto;
-          break-after: auto;
-        }
-        .watermark-page1,
-        .watermark-page2 {
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
+    <style>
+      @page {
+        size: A4 portrait;
+        margin: 0;
       }
     </style>
   </head>
-  <body>
+  <body
+    class="flex flex-col items-center bg-[#e2e4e8] px-5 py-10 font-sans text-[#111] antialiased print:m-0 print:h-full print:w-[210mm] print:bg-transparent print:p-0"
+  >
     <div id="pages-container"></div>
 
     <script type="module">
@@ -247,11 +58,11 @@
             .map(
               (t) => `
           <tr>
-            <td class="col-date">${t.date}</td>
-            <td class="col-details">${t.details.replace(/\n/g, "<br>")}</td>
-            <td class="col-debit">${t.debit > 0 ? formatINR(t.debit) : "-"}</td>
-            <td class="col-credit">${t.credit > 0 ? formatINR(t.credit) : "-"}</td>
-            <td class="col-balance">${formatINR(t.balance)}</td>
+            <td class="col-date w-[17%] whitespace-nowrap border-b border-[#888] px-1 py-3.25 align-top text-[11.5px] leading-[1.36] text-[#111]">${t.date}</td>
+            <td class="col-details w-[43%] wrap-break-word border-b border-[#888] px-1 py-3.25 align-top text-[11.5px] leading-[1.36] text-[#111]">${t.details.replace(/\n/g, "<br>")}</td>
+            <td class="col-debit w-[14%] whitespace-nowrap border-b border-[#888] px-1 py-3.25 align-top text-center text-[11.5px] leading-[1.36] text-[#111]">${t.debit > 0 ? formatINR(t.debit) : "-"}</td>
+            <td class="col-credit w-[12%] whitespace-nowrap border-b border-[#888] px-1 py-3.25 align-top text-center text-[11.5px] leading-[1.36] text-[#111]">${t.credit > 0 ? formatINR(t.credit) : "-"}</td>
+            <td class="col-balance w-[14%] whitespace-nowrap border-b border-[#888] px-1 py-3.25 align-top text-right text-[11.5px] leading-[1.36] text-[#111]">${formatINR(t.balance)}</td>
           </tr>
         `,
             )
@@ -260,90 +71,91 @@
 
         // --- PAGE 1 ---
         const page1 = document.createElement("div");
-        page1.className = "statement-page";
+        page1.className =
+          "statement-page relative mb-10 flex min-h-280.5 w-full max-w-198.5 flex-col justify-between overflow-hidden bg-white px-12 pb-6 pt-10 shadow-[0_8px_30px_rgba(0,0,0,0.08)] print:m-0 print:h-[296.5mm] print:min-h-[296.5mm] print:max-h-[297mm] print:w-[210mm] print:box-border print:p-[38px_46px_24px_46px] print:shadow-none print:break-after-page";
         page1.innerHTML = `
-        <img src="./watermark.jpg" alt="Watermark" class="watermark-page1">
+        <img src="./watermark.jpg" alt="Watermark" class="watermark-page1 pointer-events-none absolute top-1/2 left-1/2 z-1 h-auto w-130 -translate-x-1/2 -translate-y-1/2 opacity-95 print:[print-color-adjust:exact]">
 
-        <div class="content-layer">
-          <div class="header-top">
-            <img src="./logo.jpg" alt="Indian Bank" class="bank-logo">
-            <div class="header-title">ACCOUNT STATEMENT</div>
+        <div class="content-layer relative z-2">
+          <div class="header-top mb-9 grid grid-cols-[180px_1fr_180px] items-center">
+            <img src="./logo.jpg" alt="Indian Bank" class="bank-logo h-11 w-auto object-contain">
+            <div class="header-title whitespace-nowrap text-center text-[21px] font-bold tracking-[0.02em] text-[#222] uppercase">ACCOUNT STATEMENT</div>
             <div></div>
           </div>
 
-          <div class="header-subtitle-container">
-            <div class="header-subtitle">Last ${data.transactions.length} Transactions</div>
+          <div class="header-subtitle-container mb-8.5 text-center">
+            <div class="header-subtitle text-[13px] font-normal text-[#222]">Last ${data.transactions.length} Transactions</div>
           </div>
 
-          <div class="details-grid">
+          <div class="details-grid mb-7 grid grid-cols-2 gap-x-9">
             <div>
-              <div class="section-title">ACCOUNT DETAILS</div>
-              <table class="info-table details-table">
+              <div class="section-title mb-3.5 text-[13.5px] font-bold text-black uppercase">ACCOUNT DETAILS</div>
+              <table class="info-table details-table w-full border-collapse text-[11.5px]">
                 <tr>
-                  <td class="label">Account Holder Name</td>
-                  <td class="val bold-val">${data.accountDetails.name}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Account Holder Name</td>
+                  <td class="val bold-val w-[56%] py-[3.5px] align-top leading-[1.4] pl-1.5 text-left font-bold text-[#111]">${data.accountDetails.name}</td>
                 </tr>
                 <tr>
-                  <td class="label">Account Type</td>
-                  <td class="val">${data.accountDetails.type}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Account Type</td>
+                  <td class="val w-[56%] py-[3.5px] align-top leading-[1.4] pl-1.5 text-left font-normal text-[#111]">${data.accountDetails.type}</td>
                 </tr>
                 <tr>
-                  <td class="label">Account Number</td>
-                  <td class="val">${data.accountDetails.number}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Account Number</td>
+                  <td class="val w-[56%] py-[3.5px] align-top leading-[1.4] pl-1.5 text-left font-normal text-[#111]">${data.accountDetails.number}</td>
                 </tr>
                 <tr>
-                  <td class="label">Customer's Address</td>
-                  <td class="val address-val">${data.accountDetails.address.replace(/\n/g, "<br>")}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Customer's Address</td>
+                  <td class="val address-val w-[56%] py-[3.5px] align-top pl-1.5 text-left leading-[1.35] font-normal text-[#111]">${data.accountDetails.address.replace(/\n/g, "<br>")}</td>
                 </tr>
                 <tr>
-                  <td class="label">Branch Name</td>
-                  <td class="val">${data.accountDetails.branch}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Branch Name</td>
+                  <td class="val w-[56%] py-[3.5px] align-top leading-[1.4] pl-1.5 text-left font-normal text-[#111]">${data.accountDetails.branch}</td>
                 </tr>
                 <tr>
-                  <td class="label">IFSC</td>
-                  <td class="val">${data.accountDetails.ifsc}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">IFSC</td>
+                  <td class="val w-[56%] py-[3.5px] align-top leading-[1.4] pl-1.5 text-left font-normal text-[#111]">${data.accountDetails.ifsc}</td>
                 </tr>
                 <tr>
-                  <td class="label">Account Currency</td>
-                  <td class="val">${data.accountDetails.currency}</td>
+                  <td class="label w-[44%] py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Account Currency</td>
+                  <td class="val w-[56%] py-[3.5px] align-top leading-[1.4] pl-1.5 text-left font-normal text-[#111]">${data.accountDetails.currency}</td>
                 </tr>
               </table>
             </div>
 
             <div>
-              <div class="section-title summary-title">ACCOUNT SUMMARY</div>
-              <table class="info-table summary-table">
+              <div class="section-title summary-title mb-3.5 border-b-[1.5px] border-black pb-1 text-[13.5px] font-bold text-black uppercase">ACCOUNT SUMMARY</div>
+              <table class="info-table summary-table w-full border-collapse text-[11.5px]">
                 <tr>
-                  <td class="label">Opening Balance</td>
-                  <td class="val">${formatINR(data.openingBalance)}</td>
+                  <td class="label w-1/2 py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Opening Balance</td>
+                  <td class="val w-1/2 py-[3.5px] align-top leading-[1.4] font-normal text-[#111] text-right">${formatINR(data.openingBalance)}</td>
                 </tr>
                 <tr>
-                  <td class="label">Total Credits</td>
-                  <td class="val">+ ${formatINR(totalCredits)}</td>
+                  <td class="label w-1/2 py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Total Credits</td>
+                  <td class="val w-1/2 py-[3.5px] align-top leading-[1.4] font-normal text-[#111] text-right">+ ${formatINR(totalCredits)}</td>
                 </tr>
                 <tr>
-                  <td class="label">Total Debits</td>
-                  <td class="val">- ${formatINR(totalDebits)}</td>
+                  <td class="label w-1/2 py-[3.5px] align-top leading-[1.4] font-normal text-[#222]">Total Debits</td>
+                  <td class="val w-1/2 py-[3.5px] align-top leading-[1.4] font-normal text-[#111] text-right">- ${formatINR(totalDebits)}</td>
                 </tr>
                 <tr style="height: 20px;"><td></td><td></td></tr>
                 <tr>
-                  <td class="label bold-val">Ending Balance</td>
-                  <td class="val bold-val">${formatINR(endingBalance)}</td>
+                  <td class="label bold-val w-1/2 py-[3.5px] align-top leading-[1.4] font-bold text-[#222]">Ending Balance</td>
+                  <td class="val bold-val w-1/2 py-[3.5px] align-top leading-[1.4] font-bold text-[#111] text-right">${formatINR(endingBalance)}</td>
                 </tr>
               </table>
             </div>
           </div>
 
-          <div class="activity-section">
-            <div class="section-title">ACCOUNT ACTIVITY</div>
-            <table class="activity-table">
+          <div class="activity-section mt-3.5">
+            <div class="section-title mb-3.5 text-[13.5px] font-bold text-black uppercase">ACCOUNT ACTIVITY</div>
+            <table class="activity-table mt-2.5 w-full border-collapse">
               <thead>
                 <tr>
-                  <th class="col-date">Date</th>
-                  <th class="col-details">Transaction Details</th>
-                  <th class="col-debit">Debits</th>
-                  <th class="col-credit">Credits</th>
-                  <th class="col-balance">Balance</th>
+                  <th class="col-date w-[17%] border-y border-[#777] px-1 py-2.5 text-left text-[12.5px] font-bold text-[#111]">Date</th>
+                  <th class="col-details w-[43%] border-y border-[#777] px-1 py-2.5 text-left text-[12.5px] font-bold text-[#111]">Transaction Details</th>
+                  <th class="col-debit w-[14%] border-y border-[#777] px-1 py-2.5 text-center text-[12.5px] font-bold text-[#111]">Debits</th>
+                  <th class="col-credit w-[12%] border-y border-[#777] px-1 py-2.5 text-center text-[12.5px] font-bold text-[#111]">Credits</th>
+                  <th class="col-balance w-[14%] border-y border-[#777] px-1 py-2.5 text-right text-[12.5px] font-bold text-[#111]">Balance</th>
                 </tr>
               </thead>
               <tbody>
@@ -353,7 +165,7 @@
           </div>
         </div>
 
-        <div class="page-footer">
+        <div class="page-footer relative z-2 mt-auto flex items-center justify-between pt-4 text-[9.5px] text-[#555]">
           <div>Indian Bank | |</div>
           <div>1/2</div>
         </div>
@@ -362,42 +174,43 @@
 
         // --- PAGE 2 ---
         const page2 = document.createElement("div");
-        page2.className = "statement-page";
+        page2.className =
+          "statement-page relative mb-10 flex min-h-280.5 w-full max-w-198.5 flex-col justify-between overflow-hidden bg-white px-12 pb-6 pt-10 shadow-[0_8px_30px_rgba(0,0,0,0.08)] print:m-0 print:h-[296.5mm] print:min-h-[296.5mm] print:max-h-[297mm] print:w-[210mm] print:box-border print:p-[38px_46px_24px_46px] print:shadow-none print:break-after-auto";
         page2.innerHTML = `
-        <img src="./watermark.jpg" alt="Watermark" class="watermark-page2">
+        <img src="./watermark.jpg" alt="Watermark" class="watermark-page2 pointer-events-none absolute top-[55%] left-1/2 z-1 h-auto w-130 -translate-x-1/2 -translate-y-1/2 opacity-95 print:[print-color-adjust:exact]">
 
-        <div class="content-layer">
-          <div class="activity-section" style="margin-top: 0;">
-            <table class="activity-table">
+        <div class="content-layer relative z-2">
+          <div class="activity-section mt-0">
+            <table class="activity-table mt-2.5 w-full border-collapse">
               <thead>
                 <tr>
-                  <th class="col-date">Date</th>
-                  <th class="col-details">Transaction Details</th>
-                  <th class="col-debit">Debits</th>
-                  <th class="col-credit">Credits</th>
-                  <th class="col-balance">Balance</th>
+                  <th class="col-date w-[17%] border-y border-[#777] px-1 py-2.5 text-left text-[12.5px] font-bold text-[#111]">Date</th>
+                  <th class="col-details w-[43%] border-y border-[#777] px-1 py-2.5 text-left text-[12.5px] font-bold text-[#111]">Transaction Details</th>
+                  <th class="col-debit w-[14%] border-y border-[#777] px-1 py-2.5 text-center text-[12.5px] font-bold text-[#111]">Debits</th>
+                  <th class="col-credit w-[12%] border-y border-[#777] px-1 py-2.5 text-center text-[12.5px] font-bold text-[#111]">Credits</th>
+                  <th class="col-balance w-[14%] border-y border-[#777] px-1 py-2.5 text-right text-[12.5px] font-bold text-[#111]">Balance</th>
                 </tr>
               </thead>
               <tbody>
                 ${generateRowsHTML(page2Txns)}
                 <tr class="summary-row">
-                  <td colspan="2">Ending Balance</td>
-                  <td></td>
-                  <td></td>
-                  <td class="col-balance">${formatINR(endingBalance)}</td>
+                  <td colspan="2" class="border-0 px-1 pb-2.5 pt-4 text-[12.5px] font-bold">Ending Balance</td>
+                  <td class="border-0 px-1 pb-2.5 pt-4 text-[12.5px] font-bold"></td>
+                  <td class="border-0 px-1 pb-2.5 pt-4 text-[12.5px] font-bold"></td>
+                  <td class="col-balance border-0 px-1 pb-2.5 pt-4 text-right text-[12.5px] font-bold">${formatINR(endingBalance)}</td>
                 </tr>
                 <tr class="total-row">
-                  <td colspan="2">Total</td>
-                  <td class="col-debit">${formatINR(totalDebits)}</td>
-                  <td class="col-credit">${formatINR(totalCredits)}</td>
-                  <td></td>
+                  <td colspan="2" class="border-y-[1.5px] border-black px-1 py-3 text-[12.5px] font-bold">Total</td>
+                  <td class="col-debit border-y-[1.5px] border-black px-1 py-3 text-center text-[12.5px] font-bold">${formatINR(totalDebits)}</td>
+                  <td class="col-credit border-y-[1.5px] border-black px-1 py-3 text-center text-[12.5px] font-bold">${formatINR(totalCredits)}</td>
+                  <td class="border-y-[1.5px] border-black px-1 py-3 text-[12.5px] font-bold"></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="page-footer">
+        <div class="page-footer relative z-2 mt-auto flex items-center justify-between pt-4 text-[9.5px] text-[#555]">
           <div>Indian Bank | |</div>
           <div>2/2</div>
         </div>

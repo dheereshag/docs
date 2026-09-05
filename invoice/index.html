@@ -11,344 +11,175 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-      @import "tailwindcss";
-
-      * {
-        @apply m-0 box-border p-0;
-      }
-
-      body {
-        @apply flex justify-center bg-[#e2e4e8] px-5 py-10 font-[Inter] text-[13px] leading-[1.4] text-[#111] antialiased;
-      }
-
-      /* A4 standard ratio sheet */
-      .invoice-page {
-        @apply flex min-h-290 w-full max-w-205 flex-col justify-between bg-white px-16 pb-10 pt-16 shadow-[0_8px_30px_rgba(0,0,0,0.08)];
-      }
-
-      /* Top Title */
-      .invoice-title {
-        @apply mb-12 text-[17px] font-bold tracking-[0.38em] text-[#7b8086] uppercase;
-      }
-
-      /* 3-Column Base Grid: 39% | 29% | 32% */
-      .grid-3col {
-        @apply grid grid-cols-[39%_29%_32%];
-      }
-
-      /* Top Parties & Meta */
-      .top-info {
-        @apply mb-10;
-      }
-
-      .info-col h3 {
-        @apply mb-0.5 text-[14.5px] font-bold text-black;
-      }
-
-      .info-col p {
-        @apply text-[12.5px] leading-[1.42] text-[#111];
-      }
-
-      .meta-col {
-        @apply text-[12.5px] leading-[1.45] text-[#111];
-      }
-
-      .meta-col .meta-label {
-        @apply font-bold text-black;
-      }
-
-      .meta-col .meta-val {
-        @apply text-[#555];
-      }
-
-      /* Contract & Scope */
-      .contract-scope {
-        @apply mb-10;
-      }
-
-      .contract-scope h3 {
-        @apply mb-0.75 text-[14.5px] font-bold text-black;
-      }
-
-      .contract-scope p {
-        @apply text-[12.5px] text-[#111];
-      }
-
-      /* Line Items Table */
-      .table-section {
-        @apply mb-8.5;
-      }
-
-      .table-header {
-        @apply border-b-[1.5px] border-[#222] pb-1.5 text-[11px] font-bold tracking-[0.02em] uppercase;
-      }
-
-      .table-header .col-amount-inr,
-      .table-row .col-amount-inr {
-        @apply text-left;
-      }
-
-      .table-header .col-amount-usd,
-      .table-row .col-amount-usd {
-        @apply text-right;
-      }
-
-      .table-row {
-        @apply pt-2.5 text-[12.5px];
-      }
-
-      .table-row .col-item {
-        @apply font-bold text-black;
-      }
-
-      .table-row .col-amount-inr,
-      .table-row .col-amount-usd {
-        @apply font-normal text-[#333];
-      }
-
-      /* Exchange Rate Section */
-      .exchange-section {
-        @apply mb-17;
-      }
-
-      .exchange-header {
-        @apply border-b-[1.5px] border-[#222] pb-1.5 text-[11px] font-bold tracking-[0.02em] uppercase;
-      }
-
-      .exchange-row {
-        @apply grid grid-cols-[39%_61%] pt-2.5 text-[12.5px];
-      }
-
-      .exchange-row .pair {
-        @apply text-[#333];
-      }
-
-      .exchange-row .rate {
-        @apply text-[#333];
-      }
-
-      /* Summary / Total Banner */
-      .summary-banner {
-        @apply mb-6 flex h-20;
-      }
-
-      .summary-left {
-        @apply flex-[58%] flex flex-col justify-between bg-[#ededed] px-7 py-3.5;
-      }
-
-      .summary-left-labels {
-        @apply flex max-w-63.75 justify-between;
-      }
-
-      .summary-left-labels span {
-        @apply text-[9px] font-medium tracking-[0.05em] text-[#717171] uppercase;
-      }
-
-      .summary-left-values {
-        @apply flex items-center gap-4;
-      }
-
-      .summary-left-values .num {
-        @apply min-w-35 text-[20px] font-extrabold tracking-[-0.01em] text-black;
-      }
-
-      .summary-left-values .plus {
-        @apply text-[16px] font-medium text-[#222];
-      }
-
-      .summary-right {
-        @apply flex-[42%] flex flex-col items-end justify-between bg-[#b5b5b5] px-7 py-3.5;
-      }
-
-      .summary-right-label {
-        @apply text-[9px] font-medium tracking-[0.05em] text-[#4b4b4b] uppercase;
-      }
-
-      .summary-right-value {
-        @apply text-[20px] font-extrabold tracking-[-0.01em] text-black;
-      }
-
-      /* Notes Box */
-      .notes-box {
-        @apply mb-6 flex h-8 items-center bg-[#f2f2f2] px-4 py-2;
-      }
-
-      .notes-box .notes-label {
-        @apply text-[11px] font-bold text-black;
-      }
-
-      /* Contractor Payment Date */
-      .contractor-payment-date {
-        @apply mb-20 text-[11px];
-      }
-
-      .contractor-payment-date .label {
-        @apply mr-8 font-bold text-black;
-      }
-
-      .contractor-payment-date .val {
-        @apply text-[#555];
-      }
-
-      /* Footer & Disclaimer */
-      .footer-section {
-        @apply mt-auto;
-      }
-
-      .disclaimer-title {
-        @apply mb-1 text-[9.5px] font-bold text-black;
-      }
-
-      .disclaimer-text {
-        @apply mb-3.5 text-[8px] leading-[1.38] text-[#111];
-      }
-
-      .disclaimer-text p {
-        @apply m-0;
-      }
-
-      .company-footer {
-        @apply text-center text-[8px] leading-[1.3] text-[#111];
-      }
-
-      @media print {
-        body {
-          background: transparent;
-          padding: 0;
-        }
-        .invoice-page {
-          box-shadow: none;
-          max-width: 100%;
-          min-height: 100vh;
-          padding: 48px 48px 36px 48px;
-        }
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
       }
     </style>
   </head>
-  <body>
-    <div class="invoice-page">
+  <body
+    class="flex justify-center bg-[#e2e4e8] px-5 py-10 font-[Inter] text-[13px] leading-[1.4] text-[#111] antialiased print:bg-transparent print:p-0"
+  >
+    <div
+      class="invoice-page flex min-h-290 w-full max-w-205 flex-col justify-between bg-white px-16 pb-10 pt-16 shadow-[0_8px_30px_rgba(0,0,0,0.08)] print:min-h-screen print:max-w-full print:p-12 print:shadow-none"
+    >
       <div>
         <!-- Header -->
-        <div class="invoice-title">I N V O I C E</div>
+        <div
+          class="invoice-title mb-12 text-[17px] font-bold tracking-[0.38em] text-[#7b8086] uppercase"
+        >
+          I N V O I C E
+        </div>
 
         <!-- 3 Columns: Seller, Buyer, Meta -->
-        <div class="grid-3col top-info">
+        <div class="grid-3col top-info mb-10 grid grid-cols-[39%_29%_32%]">
           <div class="info-col">
-            <h3>Seller</h3>
-            <p>Aakash Jaiswal</p>
-            <p>Muhalla, Shahamohamdapur</p>
-            <p>Azamgarh</p>
-            <p>Tax ID: CPPJ7376N</p>
+            <h3 class="mb-0.5 text-[14.5px] font-bold text-black">Seller</h3>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Aakash Jaiswal</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Muhalla, Shahamohamdapur</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Azamgarh</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Tax ID: CPPJ7376N</p>
           </div>
 
           <div class="info-col">
-            <h3>Buyer</h3>
-            <p>Amoeba Global FZ LLC</p>
-            <p>PO Box 10055</p>
-            <p>Ras Al Khaimah UNITED ARAB</p>
-            <p>EMIRATES</p>
-            <p>Tax ID:0000004036244</p>
+            <h3 class="mb-0.5 text-[14.5px] font-bold text-black">Buyer</h3>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Amoeba Global FZ LLC</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">PO Box 10055</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Ras Al Khaimah UNITED ARAB</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">EMIRATES</p>
+            <p class="text-[12.5px] leading-[1.42] text-[#111]">Tax ID:0000004036244</p>
           </div>
 
-          <div class="meta-col">
-            <p><span class="meta-label">No.</span> <span class="meta-val">ONTOP985259</span></p>
+          <div class="meta-col text-[12.5px] leading-[1.45] text-[#111]">
             <p>
-              <span class="meta-label">Issue Date:</span> <span class="meta-val">28/10/2023</span>
+              <span class="meta-label font-bold text-black">No.</span>
+              <span class="meta-val text-[#555]">ONTOP985259</span>
             </p>
             <p>
-              <span class="meta-label">Due Date:</span> <span class="meta-val">05/11/2023</span>
+              <span class="meta-label font-bold text-black">Issue Date:</span>
+              <span class="meta-val text-[#555]">28/10/2023</span>
+            </p>
+            <p>
+              <span class="meta-label font-bold text-black">Due Date:</span>
+              <span class="meta-val text-[#555]">05/11/2023</span>
             </p>
           </div>
         </div>
 
         <!-- Contract & Scope -->
-        <div class="grid-3col contract-scope">
+        <div class="grid-3col contract-scope mb-10 grid grid-cols-[39%_29%_32%]">
           <div class="contract-scope-col">
-            <h3>Contract</h3>
-            <p>Traditional</p>
+            <h3 class="mb-0.75 text-[14.5px] font-bold text-black">Contract</h3>
+            <p class="text-[12.5px] text-[#111]">Traditional</p>
           </div>
           <div class="contract-scope-col">
-            <h3>Scope</h3>
-            <p>Software Engineer</p>
+            <h3 class="mb-0.75 text-[14.5px] font-bold text-black">Scope</h3>
+            <p class="text-[12.5px] text-[#111]">Software Engineer</p>
           </div>
           <div></div>
         </div>
 
         <!-- Line Item Table -->
-        <div class="table-section">
-          <div class="grid-3col table-header">
+        <div class="table-section mb-8.5">
+          <div
+            class="grid-3col table-header grid grid-cols-[39%_29%_32%] border-b-[1.5px] border-[#222] pb-1.5 text-[11px] font-bold tracking-[0.02em] uppercase"
+          >
             <div class="col-item">ITEM</div>
-            <div class="col-amount-inr">AMOUNT(INR)</div>
-            <div class="col-amount-usd">AMOUNT</div>
+            <div class="col-amount-inr text-left">AMOUNT(INR)</div>
+            <div class="col-amount-usd text-right">AMOUNT</div>
           </div>
-          <div class="grid-3col table-row">
-            <div class="col-item">Backend Engineer</div>
-            <div class="col-amount-inr">92,000 INR</div>
-            <div class="col-amount-usd">963.14 USD</div>
+          <div class="grid-3col table-row grid grid-cols-[39%_29%_32%] pt-2.5 text-[12.5px]">
+            <div class="col-item font-bold text-black">Backend Engineer</div>
+            <div class="col-amount-inr text-left font-normal text-[#333]">92,000 INR</div>
+            <div class="col-amount-usd text-right font-normal text-[#333]">963.14 USD</div>
           </div>
         </div>
 
         <!-- Exchange Rate Section -->
-        <div class="exchange-section">
-          <div class="exchange-header">EXCHANGE RATE</div>
-          <div class="exchange-row">
-            <div class="pair">USD to INR</div>
-            <div class="rate">1 USD = 95.52054 INR</div>
+        <div class="exchange-section mb-17">
+          <div
+            class="exchange-header border-b-[1.5px] border-[#222] pb-1.5 text-[11px] font-bold tracking-[0.02em] uppercase"
+          >
+            EXCHANGE RATE
+          </div>
+          <div class="exchange-row grid grid-cols-[39%_61%] pt-2.5 text-[12.5px]">
+            <div class="pair text-[#333]">USD to INR</div>
+            <div class="rate text-[#333]">1 USD = 95.52054 INR</div>
           </div>
         </div>
 
         <!-- Summary / Total Banner -->
-        <div class="summary-banner">
-          <div class="summary-left">
-            <div class="summary-left-labels">
-              <span>SUBTOTAL</span>
-              <span>TAX (%)</span>
+        <div class="summary-banner mb-6 flex h-20">
+          <div
+            class="summary-left flex-[58%] flex flex-col justify-between bg-[#ededed] px-7 py-3.5"
+          >
+            <div class="summary-left-labels flex max-w-63.75 justify-between">
+              <span class="text-[9px] font-medium tracking-[0.05em] text-[#717171] uppercase"
+                >SUBTOTAL</span
+              >
+              <span class="text-[9px] font-medium tracking-[0.05em] text-[#717171] uppercase"
+                >TAX (%)</span
+              >
             </div>
-            <div class="summary-left-values">
-              <span class="num">963.14 USD</span>
-              <span class="plus">+</span>
-              <span class="num">0.00 USD</span>
+            <div class="summary-left-values flex items-center gap-4">
+              <span class="num min-w-35 text-[20px] font-extrabold tracking-[-0.01em] text-black"
+                >963.14 USD</span
+              >
+              <span class="plus text-[16px] font-medium text-[#222]">+</span>
+              <span class="num min-w-35 text-[20px] font-extrabold tracking-[-0.01em] text-black"
+                >0.00 USD</span
+              >
             </div>
           </div>
-          <div class="summary-right">
-            <div class="summary-right-label">TOTAL</div>
-            <div class="summary-right-value">963.14 USD</div>
+          <div
+            class="summary-right flex-[42%] flex flex-col items-end justify-between bg-[#b5b5b5] px-7 py-3.5"
+          >
+            <div
+              class="summary-right-label text-[9px] font-medium tracking-[0.05em] text-[#4b4b4b] uppercase"
+            >
+              TOTAL
+            </div>
+            <div
+              class="summary-right-value text-[20px] font-extrabold tracking-[-0.01em] text-black"
+            >
+              963.14 USD
+            </div>
           </div>
         </div>
 
         <!-- Notes -->
-        <div class="notes-box">
-          <span class="notes-label">Notes:</span>
+        <div class="notes-box mb-6 flex h-8 items-center bg-[#f2f2f2] px-4 py-2">
+          <span class="notes-label text-[11px] font-bold text-black">Notes:</span>
         </div>
 
         <!-- Contractor Payment Date -->
-        <div class="contractor-payment-date">
-          <span class="label">Contractor payment date:</span>
-          <span class="val">05/11/2023</span>
+        <div class="contractor-payment-date mb-20 text-[11px]">
+          <span class="label mr-8 font-bold text-black">Contractor payment date:</span>
+          <span class="val text-[#555]">05/11/2023</span>
         </div>
       </div>
 
       <!-- Footer Disclaimer -->
-      <div class="footer-section">
-        <div class="disclaimer-title">Disclaimer</div>
-        <div class="disclaimer-text">
-          <p>FX rate is provided by a third party FX application.</p>
-          <p>No VAT or other taxes are levied in this invoice.</p>
-          <p>Contractor is solely liable for payment of local taxes.</p>
-          <p>
+      <div class="footer-section mt-auto">
+        <div class="disclaimer-title mb-1 text-[9.5px] font-bold text-black">Disclaimer</div>
+        <div class="disclaimer-text mb-3.5 text-[8px] leading-[1.38] text-[#111]">
+          <p class="m-0">FX rate is provided by a third party FX application.</p>
+          <p class="m-0">No VAT or other taxes are levied in this invoice.</p>
+          <p class="m-0">Contractor is solely liable for payment of local taxes.</p>
+          <p class="m-0">
             Contractor is solely liable for compliance with local labor and social security laws.
           </p>
-          <p>
+          <p class="m-0">
             Ontop Holdings Inc. is authorized to invoice on behalf of Ontop IC Operations LLC as
             affiliates and part of the same corporate group.
           </p>
-          <p>
+          <p class="m-0">
             This document is intended for internal use within Ontop processes and does not
             constitute a valid equivalent to local and electronic invoices.
           </p>
         </div>
-        <div class="company-footer">
+        <div class="company-footer text-center text-[8px] leading-[1.3] text-[#111]">
           Ontop Holdings Inc. - 251 Little Falls Drive, Wilmington, New Castle County, Delaware,
           19808 | www.getontop.com
         </div>
