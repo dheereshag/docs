@@ -28,7 +28,7 @@ export const EMPLOYMENT_DATA = {
   buyerTaxId: "0000004036244",
   founderName: "Sachin",
   founderTitle: "Founder & CEO",
-  monthlySalaryInr: 92000,
+  monthlySalaryInr: 25000,
   get formattedSalaryInr() {
     return `INR ${this.monthlySalaryInr.toLocaleString("en-IN")}`;
   },
