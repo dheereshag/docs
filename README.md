@@ -59,19 +59,22 @@ pnpm run build:taxhoa-pdf
 
 ## Configuring 3 vs 6 Months of Salary Slips
 
-In [`data/config.js`](file:///Users/d/Documents/docs/data/config.js), modify `slipCount`:
+In [`data/config.js`](file:///Users/d/Documents/docs/data/config.js), slips are generated dynamically via a loop backward from the fixed `lastMonth`:
 
 ```javascript
 export const SLIP_CONFIG = {
-  // Set to 3 for May–July 2023, or 6 for Feb–July 2023
-  slipCount: 6,
-  getActiveInvoices(count = SLIP_CONFIG.slipCount) {
-    return ALL_INVOICES.slice(-count);
+  // Fixed anchor: last working month of employment
+  lastMonth: {
+    year: 2023,
+    month: 7, // July 2023
+    day: 5,
   },
+  // Set to 3 for May–July 2023, or 6 for Feb–July 2023
+  slipCount: 3,
 };
 ```
 
-Running `pnpm run build:invoice-pdf` will automatically generate all 6 monthly invoice PDFs.
+Running `pnpm run build:invoice-pdf` will automatically generate invoice PDFs with daily historical FX rates fetched from the ECB API.
 
 ## Code Quality & Verification
 

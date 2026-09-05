@@ -121,81 +121,92 @@ function createInvoice({
 }
 
 /**
- * Historical Salary Slips / Invoices Data (2023 Tenure)
+ * Generates invoice descriptors dynamically in a loop backward from the fixed last month.
+ *
+ * @param {Object} [options]
+ * @param {number} [options.count=3] - Number of monthly slips to generate
+ * @param {number} [options.endYear=2023] - Ending year of employment
+ * @param {number} [options.endMonth=7] - Ending month (1-12)
+ * @param {number} [options.dueDay=5] - Due and payment day of month
+ * @param {number} [options.baseInvoiceNumber=1074823] - Ending month invoice number
+ * @param {number} [options.monthlyInvoiceStep=45405] - Ontop sequence decrement step
+ * @returns {Array<Object>} Chronologically ordered invoice objects
  */
-export const ALL_INVOICES = [
-  createInvoice({
-    monthLabel: "February 2023",
-    no: "ONTOP872190",
-    issueDate: "28/01/2023",
-    dueDate: "05/02/2023",
-    paymentDate: "05/02/2023",
-    dueDateISO: "2023-02-05",
-    rate: 82.3512,
-    metadataDate: new Date("2023-03-09T01:22:31Z"),
-  }),
-  createInvoice({
-    monthLabel: "March 2023",
-    no: "ONTOP913452",
-    issueDate: "28/02/2023",
-    dueDate: "05/03/2023",
-    paymentDate: "05/03/2023",
-    dueDateISO: "2023-03-05",
-    rate: 82.2415,
-    metadataDate: new Date("2023-04-09T01:22:31Z"),
-  }),
-  createInvoice({
-    monthLabel: "April 2023",
-    no: "ONTOP948120",
-    issueDate: "28/03/2023",
-    dueDate: "05/04/2023",
-    paymentDate: "05/04/2023",
-    dueDateISO: "2023-04-05",
-    rate: 82.1105,
-    metadataDate: new Date("2023-05-09T01:22:31Z"),
-  }),
-  createInvoice({
-    monthLabel: "May 2023",
-    no: "ONTOP985259",
-    issueDate: "28/04/2023",
-    dueDate: "05/05/2023",
-    paymentDate: "05/05/2023",
-    dueDateISO: "2023-05-05",
-    rate: 82.1524,
-    metadataDate: new Date("2023-06-09T01:22:31Z"),
-  }),
-  createInvoice({
-    monthLabel: "June 2023",
-    no: "ONTOP1029418",
-    issueDate: "28/05/2023",
-    dueDate: "05/06/2023",
-    paymentDate: "05/06/2023",
-    dueDateISO: "2023-06-05",
-    rate: 82.2618,
-    metadataDate: new Date("2023-07-09T01:22:31Z"),
-  }),
-  createInvoice({
-    monthLabel: "July 2023",
-    no: "ONTOP1074823",
-    issueDate: "28/06/2023",
-    dueDate: "05/07/2023",
-    paymentDate: "05/07/2023",
-    dueDateISO: "2023-07-05",
-    rate: 82.1402,
-    metadataDate: new Date("2023-08-09T01:22:31Z"),
-  }),
-];
+export function generateInvoiceSlips({
+  count = 3,
+  endYear = 2023,
+  endMonth = 7,
+  dueDay = 5,
+  baseInvoiceNumber = 1074823,
+  monthlyInvoiceStep = 45405,
+} = {}) {
+  const invoices = [];
+  const pad = (n) => String(n).padStart(2, "0");
+
+  for (let i = count - 1; i >= 0; i--) {
+    const d = new Date(endYear, endMonth - 1 - i, 1);
+    const y = d.getFullYear();
+    const m = d.getMonth() + 1;
+    const mPad = pad(m);
+    const dayPad = pad(dueDay);
+
+    const monthName = d.toLocaleString("en-US", { month: "long" });
+    const monthLabel = `${monthName} ${y}`;
+
+    const dueDate = `${dayPad}/${mPad}/${y}`;
+    const paymentDate = `${dayPad}/${mPad}/${y}`;
+    const dueDateISO = `${y}-${mPad}-${dayPad}`;
+
+    // Issue date is on the 28th of the preceding month
+    const prevDate = new Date(y, m - 2, 28);
+    const prevY = prevDate.getFullYear();
+    const prevMPad = pad(prevDate.getMonth() + 1);
+    const issueDate = `28/${prevMPad}/${prevY}`;
+
+    // Metadata creation timestamp on 9th of the following month at 01:22:31Z
+    const metadataDate = new Date(Date.UTC(y, m, 9, 1, 22, 31));
+
+    // Approximate Ontop global invoice sequence number
+    const invNo = `ONTOP${baseInvoiceNumber - i * monthlyInvoiceStep}`;
+
+    invoices.push(
+      createInvoice({
+        monthLabel,
+        no: invNo,
+        issueDate,
+        dueDate,
+        paymentDate,
+        dueDateISO,
+        rate: 82.15, // fallback rate until live FX rate is fetched
+        metadataDate,
+      }),
+    );
+  }
+
+  return invoices;
+}
 
 export const SLIP_CONFIG = {
-  // Configured for last 3 months of tenure: May, June, July 2023
+  // Fixed anchor: last working month of employment (July 2023)
+  lastMonth: {
+    year: 2023,
+    month: 7,
+    day: 5,
+  },
+  // Default count of slips (e.g. 3 for May-July 2023, or 6 for Feb-July 2023)
   slipCount: 3,
 
   getActiveInvoicesSync(count = SLIP_CONFIG.slipCount) {
-    return ALL_INVOICES.slice(-count);
+    return generateInvoiceSlips({
+      count,
+      endYear: SLIP_CONFIG.lastMonth.year,
+      endMonth: SLIP_CONFIG.lastMonth.month,
+      dueDay: SLIP_CONFIG.lastMonth.day,
+    });
   },
 
   async getActiveInvoices(count = SLIP_CONFIG.slipCount) {
-    const active = ALL_INVOICES.slice(-count);
+    const active = this.getActiveInvoicesSync(count);
     for (const inv of active) {
       if (inv.dueDateISO) {
         inv.rate = await fetchHistoricalExchangeRate(inv.dueDateISO, inv.rate);
@@ -204,3 +215,13 @@ export const SLIP_CONFIG = {
     return active;
   },
 };
+
+/**
+ * Historical Salary Slips / Invoices Data (Reference set generated dynamically via loop)
+ */
+export const ALL_INVOICES = generateInvoiceSlips({
+  count: 6,
+  endYear: SLIP_CONFIG.lastMonth.year,
+  endMonth: SLIP_CONFIG.lastMonth.month,
+  dueDay: SLIP_CONFIG.lastMonth.day,
+});
