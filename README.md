@@ -63,7 +63,7 @@ In [`data/config.js`](file:///Users/d/Documents/docs/data/config.js), modify `sl
 
 ```javascript
 export const SLIP_CONFIG = {
-  // Set to 3 for May–July 2026, or 6 for Feb–July 2026
+  // Set to 3 for May–July 2023, or 6 for Feb–July 2023
   slipCount: 6,
   getActiveInvoices(count = SLIP_CONFIG.slipCount) {
     return ALL_INVOICES.slice(-count);
