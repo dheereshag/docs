@@ -8,8 +8,6 @@ import { CANDIDATE_DATA, EMPLOYMENT_DATA, SLIP_CONFIG } from "../data/config.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const INVOICES = SLIP_CONFIG.getActiveInvoices();
-
 const PRODUCER_STRING = "iText® 5.5.13.3 ©2000-2026 iText Group NV (AGPL-version)";
 
 function formatDateForMeta(d) {
@@ -37,8 +35,9 @@ async function generateAllInvoices() {
   await page.evaluateHandle("document.fonts.ready");
 
   const generatedFiles = [];
+  const invoices = await SLIP_CONFIG.getActiveInvoices();
 
-  for (const inv of INVOICES) {
+  for (const inv of invoices) {
     // Update DOM content dynamically for this invoice
     await page.evaluate(
       ({ data, candidate, employment }) => {
@@ -142,6 +141,9 @@ async function generateAllInvoices() {
   for (const item of generatedFiles) {
     console.log(`\n======================================================`);
     console.log(`PDF Generated: ${item.fileName} (${item.config.monthLabel})`);
+    console.log(
+      `  Conversion: ${item.config.amountInr} @ (${item.config.rateText}) => ${item.config.amountUsd}`,
+    );
     console.log(`======================================================`);
     await printMetadata(item.filePath);
   }

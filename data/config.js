@@ -41,10 +41,10 @@ export const EMPLOYMENT_DATA = {
   },
   metadata: {
     // Offer Letter generated June 10, 2022 afternoon
-    offerLetterMetadataDate: new Date(2022, 5, 10, 14, 30, 0),
+    offerLetterMetadataDate: new Date(2022, 5, 10, 14, 32, 56),
     // Relieving & Experience Letters generated July 07, 2023 morning
-    relievingLetterMetadataDate: new Date(2023, 6, 7, 11, 0, 0),
-    experienceLetterMetadataDate: new Date(2023, 6, 7, 11, 30, 0),
+    relievingLetterMetadataDate: new Date(2023, 6, 7, 11, 5, 25),
+    experienceLetterMetadataDate: new Date(2023, 6, 7, 11, 33, 47),
   },
 };
 
@@ -60,94 +60,147 @@ export const BANK_DATA = {
 };
 
 /**
+ * Fetches daily historical exchange rate (USD to INR) for a given ISO date (YYYY-MM-DD)
+ * using the open European Central Bank (Frankfurter) FX API.
+ */
+export async function fetchHistoricalExchangeRate(dateStr, fallbackRate = 82.15) {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+    const response = await fetch(`https://api.frankfurter.dev/v1/${dateStr}?base=USD&symbols=INR`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    if (response.ok) {
+      const data = await response.json();
+      if (data?.rates?.INR) {
+        return Number(data.rates.INR);
+      }
+    }
+  } catch {
+    // Gracefully keep fallback rate if offline or network times out
+  }
+  return fallbackRate;
+}
+
+/**
+ * Creates an invoice descriptor with dynamic getters for amountInr, rateText, and amountUsd.
+ */
+function createInvoice({
+  monthLabel,
+  buyer = EMPLOYMENT_DATA.buyerCompany,
+  no,
+  issueDate,
+  dueDate,
+  paymentDate,
+  dueDateISO,
+  rate = 82.15,
+  metadataDate,
+}) {
+  return {
+    monthLabel,
+    buyer,
+    no,
+    issueDate,
+    dueDate,
+    paymentDate,
+    dueDateISO,
+    rate,
+    metadataDate,
+    get amountInr() {
+      return `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`;
+    },
+    get rateText() {
+      return `1 USD = ${Number(this.rate).toFixed(5)} INR`;
+    },
+    get amountUsd() {
+      const usd = EMPLOYMENT_DATA.monthlySalaryInr / this.rate;
+      return `${usd.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`;
+    },
+  };
+}
+
+/**
  * Historical Salary Slips / Invoices Data (2023 Tenure)
  */
 export const ALL_INVOICES = [
-  {
+  createInvoice({
     monthLabel: "February 2023",
-    buyer: EMPLOYMENT_DATA.buyerCompany,
     no: "ONTOP872190",
     issueDate: "28/01/2023",
     dueDate: "05/02/2023",
     paymentDate: "05/02/2023",
     dueDateISO: "2023-02-05",
-    amountInr: `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`,
-    rateText: "1 USD = 82.35120 INR",
-    amountUsd: "1,117.17 USD",
+    rate: 82.3512,
     metadataDate: new Date("2023-03-09T01:22:31Z"),
-  },
-  {
+  }),
+  createInvoice({
     monthLabel: "March 2023",
-    buyer: EMPLOYMENT_DATA.buyerCompany,
     no: "ONTOP913452",
     issueDate: "28/02/2023",
     dueDate: "05/03/2023",
     paymentDate: "05/03/2023",
     dueDateISO: "2023-03-05",
-    amountInr: `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`,
-    rateText: "1 USD = 82.24150 INR",
-    amountUsd: "1,118.66 USD",
+    rate: 82.2415,
     metadataDate: new Date("2023-04-09T01:22:31Z"),
-  },
-  {
+  }),
+  createInvoice({
     monthLabel: "April 2023",
-    buyer: EMPLOYMENT_DATA.buyerCompany,
     no: "ONTOP948120",
     issueDate: "28/03/2023",
     dueDate: "05/04/2023",
     paymentDate: "05/04/2023",
     dueDateISO: "2023-04-05",
-    amountInr: `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`,
-    rateText: "1 USD = 82.11050 INR",
-    amountUsd: "1,120.44 USD",
+    rate: 82.1105,
     metadataDate: new Date("2023-05-09T01:22:31Z"),
-  },
-  {
+  }),
+  createInvoice({
     monthLabel: "May 2023",
-    buyer: EMPLOYMENT_DATA.buyerCompany,
     no: "ONTOP985259",
     issueDate: "28/04/2023",
     dueDate: "05/05/2023",
     paymentDate: "05/05/2023",
     dueDateISO: "2023-05-05",
-    amountInr: `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`,
-    rateText: "1 USD = 82.15240 INR",
-    amountUsd: "1,119.87 USD",
+    rate: 82.1524,
     metadataDate: new Date("2023-06-09T01:22:31Z"),
-  },
-  {
+  }),
+  createInvoice({
     monthLabel: "June 2023",
-    buyer: EMPLOYMENT_DATA.buyerCompany,
     no: "ONTOP1029418",
     issueDate: "28/05/2023",
     dueDate: "05/06/2023",
     paymentDate: "05/06/2023",
     dueDateISO: "2023-06-05",
-    amountInr: `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`,
-    rateText: "1 USD = 82.26180 INR",
-    amountUsd: "1,118.38 USD",
+    rate: 82.2618,
     metadataDate: new Date("2023-07-09T01:22:31Z"),
-  },
-  {
+  }),
+  createInvoice({
     monthLabel: "July 2023",
-    buyer: EMPLOYMENT_DATA.buyerCompany,
     no: "ONTOP1074823",
     issueDate: "28/06/2023",
     dueDate: "05/07/2023",
     paymentDate: "05/07/2023",
     dueDateISO: "2023-07-05",
-    amountInr: `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`,
-    rateText: "1 USD = 82.14020 INR",
-    amountUsd: "1,120.04 USD",
+    rate: 82.1402,
     metadataDate: new Date("2023-08-09T01:22:31Z"),
-  },
+  }),
 ];
 
 export const SLIP_CONFIG = {
   // Configured for last 3 months of tenure: May, June, July 2023
   slipCount: 3,
 
-  getActiveInvoices(count = SLIP_CONFIG.slipCount) {
+  getActiveInvoicesSync(count = SLIP_CONFIG.slipCount) {
     return ALL_INVOICES.slice(-count);
+  },
+
+  async getActiveInvoices(count = SLIP_CONFIG.slipCount) {
+    const active = ALL_INVOICES.slice(-count);
+    for (const inv of active) {
+      if (inv.dueDateISO) {
+        inv.rate = await fetchHistoricalExchangeRate(inv.dueDateISO, inv.rate);
+      }
+    }
+    return active;
   },
 };
