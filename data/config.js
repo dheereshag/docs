@@ -121,7 +121,15 @@ function createInvoice({
 }
 
 /**
+ * Helper to get a random integer in [min, max].
+ */
+function getRandomStep(min = 35000, max = 48000, rng = Math.random) {
+  return Math.floor(rng() * (max - min + 1)) + min;
+}
+
+/**
  * Generates invoice descriptors dynamically in a loop backward from the fixed last month.
+ * Monthly invoice sequence numbers decrement by randomized steps to reflect real-world monthly volumes.
  *
  * @param {Object} [options]
  * @param {number} [options.count=3] - Number of monthly slips to generate
@@ -129,7 +137,9 @@ function createInvoice({
  * @param {number} [options.endMonth=7] - Ending month (1-12)
  * @param {number} [options.dueDay=5] - Due and payment day of month
  * @param {number} [options.baseInvoiceNumber=1074823] - Ending month invoice number
- * @param {number} [options.monthlyInvoiceStep=45405] - Ontop sequence decrement step
+ * @param {number} [options.minStep=35000] - Minimum monthly sequence step
+ * @param {number} [options.maxStep=48000] - Maximum monthly sequence step
+ * @param {number|string|null} [options.seed=null] - Optional seed for deterministic pseudo-random steps
  * @returns {Array<Object>} Chronologically ordered invoice objects
  */
 export function generateInvoiceSlips({
@@ -138,8 +148,33 @@ export function generateInvoiceSlips({
   endMonth = 7,
   dueDay = 5,
   baseInvoiceNumber = 1074823,
-  monthlyInvoiceStep = 45405,
+  minStep = 35000,
+  maxStep = 48000,
+  seed = null,
 } = {}) {
+  // Configurable random generator (seeded PRNG if seed provided, else Math.random)
+  let rng = Math.random;
+  if (seed !== null && seed !== undefined) {
+    let s =
+      typeof seed === "string" ? seed.split("").reduce((a, c) => a + c.charCodeAt(0), 0) : seed;
+    rng = () => {
+      s |= 0;
+      s = (s + 0x6d2b79f5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Precompute random steps backward from baseInvoiceNumber
+  const invoiceNumbers = [baseInvoiceNumber];
+  for (let stepIdx = 1; stepIdx < count; stepIdx++) {
+    const step = getRandomStep(minStep, maxStep, rng);
+    invoiceNumbers.push(invoiceNumbers[stepIdx - 1] - step);
+  }
+  // Reverse so index 0 is oldest month and last index is baseInvoiceNumber (July)
+  invoiceNumbers.reverse();
+
   const invoices = [];
   const pad = (n) => String(n).padStart(2, "0");
 
@@ -166,8 +201,8 @@ export function generateInvoiceSlips({
     // Metadata creation timestamp on 9th of the following month at 01:22:31Z
     const metadataDate = new Date(Date.UTC(y, m, 9, 1, 22, 31));
 
-    // Approximate Ontop global invoice sequence number
-    const invNo = `ONTOP${baseInvoiceNumber - i * monthlyInvoiceStep}`;
+    // Randomized Ontop global invoice sequence number
+    const invNo = `ONTOP${invoiceNumbers[count - 1 - i]}`;
 
     invoices.push(
       createInvoice({
