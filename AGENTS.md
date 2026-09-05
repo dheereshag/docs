@@ -65,42 +65,33 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
-## 5. Python Quality & Verification Gates
-
-**Always enforce the 3-step verification loop. All three must pass.**
-
-For any Python modifications:
-
-1. **Lint & Code Style**: Run `uv run ruff check --fix`. If manual errors remain, create an implementation plan and fix them cleanly without using `# noqa` suppressions.
-2. **Type Checking**: Run `uv run ty check`. If type diagnostics are found, create an implementation plan and fix the underlying typing without using `# type: ignore`.
-3. **Test Suite**: Run `uv run pytest` to confirm all unit and integration tests pass without regression.
-4. **Iterative Verification**: Keep looping through `uv run ruff check --fix`, `uv run ty check`, and `uv run pytest` until all three yield **0 errors, 0 warnings, and all tests pass**.
-
-**The 3 mandatory commands that must always work:**
-
-- `uv run ruff check --fix` (0 errors, 0 warnings)
-- `uv run ty check` (0 errors, 0 warnings)
-- `uv run pytest` (all tests pass)
-
-## 6. JavaScript / TypeScript / Node Quality & Verification Gates
+## 5. JavaScript / TypeScript / Node Quality & Verification Gates
 
 **Always enforce the verification loop. Use `pnpm` exclusively (never `npm`, `yarn`, or `bun`).**
 
 For any JavaScript / TypeScript / Node modifications:
 
 1. **Package Manager**: Use `pnpm` explicitly for all package installations and script executions. Do not use `npm`, `yarn`, or `bun`.
-2. **Lint & Code Style**: Run `pnpm run lint:fix` (and `pnpm run fmt`). Fix any remaining issues cleanly without disabling rules.
-3. **Type Checking**: Run `pnpm run type-check` (or `tsc --noEmit`). Fix type diagnostics cleanly without using `@ts-ignore` or arbitrary `any`.
-4. **Test Suite**: Run `pnpm test` (if configured) to confirm all tests pass without regression.
-5. **Build Verification**: Run `pnpm run build` to confirm production builds compile cleanly.
-6. **Iterative Verification**: Keep looping through `pnpm run lint:fix`, `pnpm run type-check`, `pnpm test`, and `pnpm run build` until all yield **0 errors, 0 warnings, and clean builds**.
+2. **Lint & Code Style**: Run `pnpm run lint:fix` (`oxlint --fix`) and `pnpm run fmt:check` (`oxfmt --check`). Fix any remaining issues cleanly without disabling rules.
+3. **Type Checking**: Run `pnpm run type-check` (`tsc --noEmit`). Fix type diagnostics cleanly without using `@ts-ignore` or arbitrary `any`.
+4. **Test Suite**: Run `pnpm test` (`vitest run`) to confirm all tests pass without regression.
+5. **Build Verification**: Run `pnpm run build` (`next build`) to confirm production builds compile cleanly.
+6. **Iterative Verification**: Keep looping through `pnpm run lint:fix`, `pnpm run fmt:check`, `pnpm run type-check`, `pnpm test`, and `pnpm run build` until all yield **0 errors, 0 warnings, and clean builds**.
 
 **The mandatory commands that must always pass:**
 
 - `pnpm run lint:fix` (0 errors, 0 warnings)
+- `pnpm run fmt:check` (0 formatting issues)
 - `pnpm run type-check` (0 errors, 0 warnings)
-- `pnpm test` (if configured, all tests pass)
+- `pnpm test` (all tests pass)
 - `pnpm run build` (clean exit 0)
+
+## 6. Update README.md
+
+**Always keep `README.md` in sync with codebase changes.**
+
+- Explicitly update `README.md` whenever adding, modifying, or removing features, API endpoints, environment variables, dependencies, or workflows.
+- Ensure all setup instructions, configuration options, and usage examples remain accurate and up-to-date.
 
 ---
 
