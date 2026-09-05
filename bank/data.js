@@ -1,14 +1,16 @@
+import { CANDIDATE_DATA, BANK_DATA, EMPLOYMENT_DATA } from "../data/config.js";
+
 export const STATEMENT_DATA = {
   accountDetails: {
-    name: "Aakash Jaiswal",
-    type: "Savings",
-    number: "8199450523",
-    address: "muhalla\nshahamohamdapur,\nMubarakpur, , POST\nMUBARAKPUR,\nAzamgarh,",
-    branch: "JODHPUR PARK",
-    ifsc: "IDIB000K760",
-    currency: "INR",
+    name: CANDIDATE_DATA.name,
+    type: BANK_DATA.accountType,
+    number: BANK_DATA.accountNumber,
+    address: CANDIDATE_DATA.address.bankAddress,
+    branch: BANK_DATA.branch,
+    ifsc: BANK_DATA.ifsc,
+    currency: BANK_DATA.currency,
   },
-  openingBalance: 12450.5,
+  openingBalance: BANK_DATA.openingBalance,
   page1ItemCount: 5,
   transactions: [
     // 1. Before 5 May (small debit)
@@ -24,7 +26,7 @@ export const STATEMENT_DATA = {
       date: "05 May 2026",
       details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
       debit: 0,
-      credit: 92000.0,
+      credit: EMPLOYMENT_DATA.monthlySalaryInr,
     },
     // 3. May large debit
     {
@@ -47,7 +49,7 @@ export const STATEMENT_DATA = {
       date: "05 Jun 2026",
       details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
       debit: 0,
-      credit: 92000.0,
+      credit: EMPLOYMENT_DATA.monthlySalaryInr,
     },
     // 6. June large debit
     {
@@ -69,7 +71,7 @@ export const STATEMENT_DATA = {
       date: "05 Jul 2026",
       details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
       debit: 0,
-      credit: 92000.0,
+      credit: EMPLOYMENT_DATA.monthlySalaryInr,
     },
     // 9. July large debit
     {

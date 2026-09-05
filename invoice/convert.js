@@ -3,51 +3,12 @@ import { PDFDocument } from "pdf-lib";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import { CANDIDATE_DATA, EMPLOYMENT_DATA, SLIP_CONFIG } from "../data/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const INVOICES = [
-  {
-    monthLabel: "May 2026",
-    buyer: "Amoeba Global FZ LLC",
-    no: "ONTOP985259",
-    issueDate: "28/04/2026",
-    dueDate: "05/05/2026",
-    paymentDate: "05/05/2026",
-    dueDateISO: "2026-05-05",
-    amountInr: "92,000 INR",
-    rateText: "1 USD = 95.52054 INR",
-    amountUsd: "963.14 USD",
-    metadataDate: new Date("2026-06-09T01:22:31Z"), // 09/06/2026, 01:22:31
-  },
-  {
-    monthLabel: "June 2026",
-    buyer: "Amoeba Global FZ LLC",
-    no: "ONTOP1029418",
-    issueDate: "28/05/2026",
-    dueDate: "05/06/2026",
-    paymentDate: "05/06/2026",
-    dueDateISO: "2026-06-05",
-    amountInr: "92,000 INR",
-    rateText: "1 USD = 95.63124 INR",
-    amountUsd: "962.03 USD",
-    metadataDate: new Date("2026-07-09T01:22:31Z"), // 09/07/2026, 01:22:31
-  },
-  {
-    monthLabel: "July 2026",
-    buyer: "Amoeba Global FZ LLC",
-    no: "ONTOP1074823",
-    issueDate: "28/06/2026",
-    dueDate: "05/07/2026",
-    paymentDate: "05/07/2026",
-    dueDateISO: "2026-07-05",
-    amountInr: "92,000 INR",
-    rateText: "1 USD = 95.30218 INR",
-    amountUsd: "965.35 USD",
-    metadataDate: new Date("2026-08-09T01:22:31Z"), // 09/08/2026, 01:22:31
-  },
-];
+const INVOICES = SLIP_CONFIG.getActiveInvoices();
 
 const PRODUCER_STRING = "iText® 5.5.13.3 ©2000-2026 iText Group NV (AGPL-version)";
 
@@ -79,49 +40,73 @@ async function generateAllInvoices() {
 
   for (const inv of INVOICES) {
     // Update DOM content dynamically for this invoice
-    await page.evaluate((data) => {
-      // Invoice No
-      const metaPs = Array.from(document.querySelectorAll(".meta-col p"));
-      for (const p of metaPs) {
-        if (p.textContent.includes("No.")) {
-          const val = p.querySelector(".meta-val");
-          if (val) val.textContent = data.no;
-        } else if (p.textContent.includes("Issue Date:")) {
-          const val = p.querySelector(".meta-val");
-          if (val) val.textContent = data.issueDate;
-        } else if (p.textContent.includes("Due Date:")) {
-          const val = p.querySelector(".meta-val");
-          if (val) val.textContent = data.dueDate;
+    await page.evaluate(
+      ({ data, candidate, employment }) => {
+        // Seller Information
+        const sellerName = document.querySelector(".seller-name");
+        if (sellerName) sellerName.textContent = candidate.name;
+        const sellerAddr1 = document.querySelector(".seller-address-1");
+        if (sellerAddr1) sellerAddr1.textContent = candidate.address.line1;
+        const sellerAddr2 = document.querySelector(".seller-address-2");
+        if (sellerAddr2)
+          sellerAddr2.textContent = `${candidate.address.city}, ${candidate.address.pinCode}`;
+        const sellerTaxId = document.querySelector(".seller-tax-id");
+        if (sellerTaxId) sellerTaxId.textContent = `Tax ID: ${candidate.pan}`;
+
+        // Buyer Information
+        const buyerName = document.querySelector(".buyer-name");
+        if (buyerName) buyerName.textContent = employment.buyerCompany;
+
+        // Role / Scope
+        const scopeRole = document.querySelector(".contract-scope-col:nth-child(2) p");
+        if (scopeRole) scopeRole.textContent = candidate.role;
+        const itemRole = document.querySelector(".table-row .col-item");
+        if (itemRole) itemRole.textContent = candidate.secondaryRole || candidate.role;
+
+        // Invoice No & Dates
+        const metaPs = Array.from(document.querySelectorAll(".meta-col p"));
+        for (const p of metaPs) {
+          if (p.textContent.includes("No.")) {
+            const val = p.querySelector(".meta-val");
+            if (val) val.textContent = data.no;
+          } else if (p.textContent.includes("Issue Date:")) {
+            const val = p.querySelector(".meta-val");
+            if (val) val.textContent = data.issueDate;
+          } else if (p.textContent.includes("Due Date:")) {
+            const val = p.querySelector(".meta-val");
+            if (val) val.textContent = data.dueDate;
+          }
         }
-      }
 
-      // Line items table
-      const row = document.querySelector(".table-row");
-      if (row) {
-        const inrCol = row.querySelector(".col-amount-inr");
-        const usdCol = row.querySelector(".col-amount-usd");
-        if (inrCol) inrCol.textContent = data.amountInr;
-        if (usdCol) usdCol.textContent = data.amountUsd;
-      }
+        // Line items table
+        const row = document.querySelector(".table-row");
+        if (row) {
+          const inrCol = row.querySelector(".col-amount-inr");
+          const usdCol = row.querySelector(".col-amount-usd");
+          if (inrCol) inrCol.textContent = data.amountInr;
+          if (usdCol) usdCol.textContent = data.amountUsd;
+        }
 
-      // Exchange rate
-      const rateVal = document.querySelector(".exchange-row .rate");
-      if (rateVal) rateVal.textContent = data.rateText;
+        // Exchange rate
+        const rateVal = document.querySelector(".exchange-row .rate");
+        if (rateVal) rateVal.textContent = data.rateText;
 
-      // Summary banner
-      const subtotalNum = document.querySelector(".summary-left-values .num:first-child");
-      if (subtotalNum) subtotalNum.textContent = data.amountUsd;
+        // Summary banner
+        const subtotalNum = document.querySelector(".summary-left-values .num:first-child");
+        if (subtotalNum) subtotalNum.textContent = data.amountUsd;
 
-      const totalVal = document.querySelector(".summary-right-value");
-      if (totalVal) totalVal.textContent = data.amountUsd;
+        const totalVal = document.querySelector(".summary-right-value");
+        if (totalVal) totalVal.textContent = data.amountUsd;
 
-      // Contractor payment date
-      const paymentVal = document.querySelector(".contractor-payment-date .val");
-      if (paymentVal) paymentVal.textContent = data.paymentDate;
+        // Contractor payment date
+        const paymentVal = document.querySelector(".contractor-payment-date .val");
+        if (paymentVal) paymentVal.textContent = data.paymentDate;
 
-      // Document title
-      document.title = `Invoice - ${data.buyer} - ${data.dueDateISO}`;
-    }, inv);
+        // Document title
+        document.title = `Invoice - ${data.buyer} - ${data.dueDateISO}`;
+      },
+      { data: inv, candidate: CANDIDATE_DATA, employment: EMPLOYMENT_DATA },
+    );
 
     const outputFileName = `Invoice - ${inv.buyer} - ${inv.dueDateISO}.pdf`;
     const outputPath = path.join(__dirname, outputFileName);

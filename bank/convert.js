@@ -5,11 +5,12 @@ import { fileURLToPath } from "url";
 import { PDFDocument } from "pdf-lib";
 import { execFileSync } from "child_process";
 import { STATEMENT_DATA } from "./data.js";
+import { BANK_DATA } from "../data/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const STATEMENT_PASSWORD = "AKASH85492004";
+const STATEMENT_PASSWORD = BANK_DATA.password;
 
 export { STATEMENT_DATA };
 
