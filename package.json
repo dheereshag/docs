@@ -12,21 +12,21 @@
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "build:invoice-pdf": "node invoice/convert.js",
-    "build:bank-pdf": "node bank/convert.js",
-    "build:taxhoa-pdf": "node taxhoa/convert.js",
+    "build:invoice": "node invoice/convert.js",
+    "build:bank": "node bank/convert.js",
+    "build:taxhoa": "node taxhoa/convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "pdf-lib": "^1.17.1",
-    "puppeteer-core": "^25.9.0"
+    "puppeteer-core": "^25.11.0"
   },
   "devDependencies": {
-    "@types/node": "^26.4.1",
-    "oxfmt": "^0.65.0",
-    "oxlint": "^1.80.0",
+    "@types/node": "^26.6.2",
+    "oxfmt": "^0.70.0",
+    "oxlint": "^1.85.0",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.1"
   },
   "devEngines": {
     "packageManager": {

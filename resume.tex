@@ -1,0 +1,190 @@
+%-------------------------
+% Dheeresh Agarwal -- Resume
+% Compiler: pdfLaTeX on Overleaf
+%-------------------------
+
+\documentclass[letterpaper, 10pt]{article}
+
+% ---------- packages ----------
+\usepackage{hyphenat}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Safe, reliable Latin Modern font
+\usepackage[empty]{fullpage}
+\usepackage[top=0.25in, bottom=0.25in, left=0.45in, right=0.45in]{geometry}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref} % Base hidden links setting to allow custom underlining
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage[nopatch=footnote]{microtype} % Silences the microtype footnote patch warning
+\usepackage{setspace}
+
+% ---------- page style ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+\setlength{\footskip}{3.7pt}
+
+% ---------- accent colour ----------
+\definecolor{accent}{RGB}{26, 54, 114}
+\definecolor{rulecolor}{RGB}{42, 82, 152}
+
+% ---------- hyperlinks with underline ----------
+\hypersetup{colorlinks=false} % Let native text styling apply color/underlines
+\newcommand{\myhref}[2]{\href{#1}{\color{accent}\underline{#2}}}
+
+% ---------- section headings ----------
+\titleformat{\section}{
+  \vspace{1pt}\normalsize\bfseries\raggedright\color{accent} 
+}{}{0em}{}[{%
+  \color{rulecolor}\vspace{-4pt}\rule{\linewidth}{0.65pt}%
+}\vspace{-4pt}]
+
+\titlespacing*{\section}{0pt}{4pt}{2pt} 
+
+% ---------- work entry ----------
+\newcommand{\workEntry}[3]{%
+  \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} \textbar{} \small #3 & \small\textit{#2}
+  \end{tabular*}%
+  \vspace{-2pt}%
+}
+
+% ---------- education entry (Cleaned to 4 arguments) ----------
+\newcommand{\eduEntry}[4]{%
+  \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & \small\textit{#3} \\[-1pt]
+    \textit{\small #2} & \small #4
+  \end{tabular*}%
+  \vspace{-3pt}%
+}
+
+% ---------- bullet list ----------
+\setlist[itemize]{
+  leftmargin = 11pt,
+  label      = \small$\bullet$,
+  topsep     = 2.5pt,   
+  itemsep    = 1.2pt, 
+  parsep     = 0pt,
+}
+\newcommand{\bi}[1]{\item\small #1}
+
+% ======================================================
+\begin{document}
+
+% -------------------- HEADER --------------------
+\begin{center}
+  {\Huge\scshape\color{accent} Dheeresh Agarwal} 
+
+  \vspace{3pt}
+
+  \small
+  +91 9411245528
+  \quad{\color{rulecolor}\textbar}\quad
+  \myhref{mailto:da11@iitbbs.ac.in}{da11@iitbbs.ac.in}
+  \quad{\color{rulecolor}\textbar}\quad
+  \myhref{https://github.com/dheereshag}{github.com/dheereshag}
+  \quad{\color{rulecolor}\textbar}\quad
+  \myhref{https://linkedin.com/in/dheereshag}{linkedin.com/in/dheereshag}
+  \quad{\color{rulecolor}\textbar}\quad
+  \myhref{https://dheereshag.vercel.app}{dheereshag.vercel.app}
+\end{center}
+
+\vspace{-6pt} 
+
+% -------------------- EDUCATION --------------------
+\section{Education}
+
+\eduEntry%
+  {Indian Institute of Technology, Bhubaneswar}%
+  {B.Tech + M.Tech (Integrated)}%
+  {2017 -- 2022}%
+  {CGPA: 8.04}
+
+% -------------------- TECHNICAL SKILLS --------------------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0pt, label={}, topsep=2.5pt, itemsep=1.2pt]
+  \item \textbf{Programming Languages:} TypeScript/JavaScript, Python, HTML5, SQL, MQL
+  \item \textbf{Logging \& Search:} ELK Stack (Elasticsearch, Logstash, Kibana), Fluent Bit, Sentry
+    \item \textbf{Observability:} New Relic, LGTM Stack (Loki, Grafana, Tempo, Mimir), Prometheus, Open Telemetry
+  \item \textbf{Frameworks \& Libraries:} Django, FastAPI, Node.js/Express.js, Next.js/React.js, Zustand, Tailwind CSS
+
+  \item \textbf{DevOps \& Testing:} Git, AWS, GCP, Docker, Kubernetes, CI/CD (Jenkins \& GitLab), Postman, pytest, Jest
+
+    \item \textbf{Databases \& Queues:} PostgreSQL, MongoDB, DynamoDB, ClickHouse, Redis, RabbitMQ, AutoMQ (Kafka), Pub/Sub
+\end{itemize}
+
+% -------------------- WORK EXPERIENCE --------------------
+\section{Work Experience}
+
+\workEntry{TaxHoa}{Aug 2024 -- Present}{Software Engineer -- II}
+\begin{itemize}
+  \bi{Architected a scalable, service-oriented \textbf{invoicing solution} with a modular codebase, cutting manual billing overhead \textbf{40\% (20s to 12s)}, per internal ticket analysis, significantly accelerating revenue recognition across large-scale construction projects nationwide.}
+  \bi{Developed fault-tolerant, \textbf{automated tax calculation systems} with real-time \textbf{AWS S3} synchronization across multiple jurisdictions, processing thousands daily transactions in \textbf{under 2s} at \textbf{99.9\%} uptime, verified via \textbf{New Relic} monitoring dashboards.}
+  \bi{Delivered an efficient, \textbf{dynamic PDF templating engine} that processes multiple invoice types via JSON placeholders, cutting document generation time \textbf{60\% (5s to 2s)} for multi-page requests, benchmarked through unit and integration testing.}
+  \bi{Engineered a \textbf{multi-tenant property tax management backend} with automated compliance reminders, audit trails, and income tracking dashboards, reducing late filing penalties \textbf{50\%} across \textbf{500+} accounts, validated through internal compliance audit reports.}
+    \bi{Built robust \textbf{multi-state tax filing} support, processing filings in \textbf{3s}, cutting compliance errors \textbf{35\%}, per \textbf{AWS} audit logs.}
+    
+\end{itemize}
+
+\vspace{2pt}
+
+\workEntry{Attentive.ai}{Dec 2023 -- Aug 2024}{Software Engineer -- I}
+\begin{itemize}
+  \bi{Cut critical \textbf{API response times by 98\%} (from 30s to 0.5s) using \textbf{asynchronous programming} with \textbf{RabbitMQ}, significantly boosting system-wide backend throughput, validated through \textbf{regression testing} for over \textbf{100,000} monthly active users.}
+  \bi{Developed an \textbf{event-driven pub-sub notification and emailing system} using a highly optimized graph data structure, delivering alerts in \textbf{1s}, increasing real-time user engagement by \textbf{25\%} in Q1, measured via \textbf{product analytics dashboards}.}
+  \bi{Integrated \textbf{Docling} for intelligent parsing of construction plans, specifications, and legends, automating quantity extraction across \textbf{10,000+} documents monthly with \textbf{99.9\% accuracy}, enabling contractors to bid \textbf{3X more projects}, per internal platform metrics.}
+\end{itemize}
+
+\vspace{2pt}
+
+\workEntry{HighOnSwift}{Dec 2022 -- Dec 2023}{Software Engineer -- I}
+\begin{itemize}
+  \bi{Built a distributed \textbf{metadata API for seamless OpenSea} integration on \textit{pluto.house}, enabling automated indexing workflows that cut sync latency \textbf{70\% (10s to 3s)}, keeping \textbf{NFT metadata and sale prices} reliably synchronized in real time across marketplaces.}
+  \bi{Developed a secure \textbf{staking dashboard} surfacing live on-chain blockchain data via fully integrated \textbf{GraphQL APIs}, loading in \textbf{1.5s}, displaying yield metrics and rewards, boosting decision speed \textbf{30\%}, measured through \textbf{user session analytics}.}
+\bi{Developed backend services for \textbf{blockchain-based NFT platforms}, integrating \textbf{GraphQL APIs} and indexing pipelines to support real-time on-chain data synchronization across \textbf{10,000+} digital assets, validated through performance benchmarks.}
+\end{itemize}
+
+\vspace{2pt}
+
+\workEntry{RingCentral}{Jul 2022 -- Nov 2022}{Software Engineer -- I}
+\begin{itemize}
+  \bi{Led a cross-functional team of \textbf{4 interns} to build an enterprise bot integrated with \textbf{Concur APIs} for automated expense tracking and reporting, saving over \textbf{1,000} corporate managers 30 minutes daily, totaling \textbf{500+} hours, per internal usage logs.}
+\bi{Built \textbf{backend automation workflows} integrating \textbf{RingCentral Webinar} with \textbf{Zapier} and \textbf{n8n}, enabling registrant sync, event triggers, and cross-platform data orchestration, cutting coordination overhead \textbf{60\%} for \textbf{500+} enterprise webinar sessions.}
+\end{itemize}
+
+% -------------------- PROJECTS --------------------
+\section{Projects}
+
+\begin{itemize}
+  \bi{Developing \textbf{Crosshoc}, a \textbf{Next.js} and \textbf{TypeScript} game leasing platform with a \textbf{Django} backend, featuring \textbf{secure webhook}-driven automation, inventory tracking, real-time analytical dashboards for rental performance.\hfill\myhref{https://crosshoc.vercel.app}{crosshoc.vercel.app}}
+  \bi{Developing \textbf{Vembric}, a secure \textbf{MERN stack} alternative to Docusaurus with \textbf{API-driven automated documentation versioning}, architecting \textbf{dynamic content generation} to completely eliminate manual \textbf{MDX creation}.\hfill\myhref{https://vembric.vercel.app}{vembric.vercel.app}}
+\end{itemize}
+
+% -------------------- PUBLICATIONS --------------------
+\section{Publications}
+
+\begin{itemize}
+  \bi{Co-authored a peer-reviewed \textbf{kinetic model study} analyzing India's \textbf{complete COVID-19 lockdown} impact on \textbf{effective disease spread control}, advancing critical predictive \textbf{public health insights} during the pandemic.\hfill\myhref{https://arxiv.org/abs/2004.05684}{arxiv.org/abs/2004.05684}}
+\end{itemize}
+
+% -------------------- ACHIEVEMENTS --------------------
+\section{Achievements}
+
+\begin{itemize}
+  \bi{Secured All India Rank \textbf{915} in the GATE \textbf{Data Science \& AI} exam in 2025.}
+  \bi{\textbf{Guardian} on LeetCode with a maximum rating of \textbf{2198} (Top 1.13\% globally).\hfill\myhref{https://leetcode.com/u/dheereshagrwal}{leetcode.com/u/dheereshagrwal}}
+  \bi{Earned \textbf{5-star} ratings on HackerRank in JavaScript, TypeScript, Python, Java, SQL, and C++.\hfill\myhref{https://www.hackerrank.com/profile/dheereshag}{hackerrank.com/profile/dheereshag}}
+  \bi{Built \textbf{Coloured Icons}, open-source library with \textbf{CDN delivery}, earning \textbf{320+} stars, \textbf{90+} forks.\hfill\myhref{https://coloured-icons.vercel.app}{coloured-icons.vercel.app}}
+  \bi{Contributed \textbf{bug fixes} and enhancements to the \textbf{Kibo UI open-source} library.\hfill\myhref{https://github.com/haydenbleasel/kibo/issues/182}{github.com/haydenbleasel/kibo}}
+\end{itemize}
+
+\end{document}
