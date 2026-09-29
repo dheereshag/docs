@@ -5,7 +5,7 @@
 
 class TaxhoaHeader extends HTMLElement {
   connectedCallback() {
-    const date = this.getAttribute("date") || "July 07, 2023";
+    const date = this.getAttribute("date") || "September 30, 2026";
     this.innerHTML = `
       <div class="top-solid-stripe" aria-hidden="true"></div>
       <header class="letterhead">

@@ -48,13 +48,13 @@ Generate individual documents or test builds:
 
 ```bash
 # Generate invoices / salary slips (default 3 months, configurable in data/config.js)
-pnpm run build:invoice-pdf
+pnpm run build:invoice
 
 # Generate password-protected bank statement PDF
-pnpm run build:bank-pdf
+pnpm run build:bank
 
 # Generate TaxHoa HR documents (Offer, Experience, Relieving letters)
-pnpm run build:taxhoa-pdf
+pnpm run build:taxhoa
 ```
 
 ## Configuring 3 vs 6 Months of Salary Slips
@@ -65,16 +65,16 @@ In [`data/config.js`](file:///Users/d/Documents/docs/data/config.js), slips are 
 export const SLIP_CONFIG = {
   // Fixed anchor: last working month of employment
   lastMonth: {
-    year: 2023,
-    month: 7, // July 2023
+    year: 2026,
+    month: 8, // August 2026
     day: 5,
   },
-  // Set to 3 for May–July 2023, or 6 for Feb–July 2023
+  // Set to 3 for June–August 2026, or 6 for March–August 2026
   slipCount: 3,
 };
 ```
 
-Running `pnpm run build:invoice-pdf` will automatically generate invoice PDFs with daily historical FX rates fetched from the ECB API.
+Running `pnpm run build:invoice` will automatically generate invoice PDFs with daily historical FX rates fetched from the ECB API.
 
 ## Code Quality & Verification
 

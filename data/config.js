@@ -5,18 +5,20 @@
  */
 
 export const CANDIDATE_DATA = {
-  name: "Aditya Tiwari",
-  firstName: "Aditya",
-  role: "Full Stack Developer Trainee",
-  secondaryRole: "Full Stack Developer Trainee",
-  pan: "CJPMT4530P",
+  name: "Kaushlendra Pratap Singh",
+  firstName: "Kaushlendra",
+  role: "Software Engineer",
+  secondaryRole: "Software Engineer",
+  pan: "PKWPS0547H",
+  email: "kpratapsingh380@gmail.com",
+  phone: "7389451139",
   address: {
-    line1: "12/202, River wood park, near palava",
-    city: "Dombivli East",
-    state: "Maharashtra",
-    pinCode: "421201",
-    formattedInline: "12/202, River wood park, near palava, Dombivli East, Maharashtra - 421201",
-    bankAddress: "12/202, River wood park,\nnear palava, Dombivli East,\nMaharashtra - 421201",
+    line1: "Bankasiya Shivratana Singh, Bankasiya",
+    city: "Gonda",
+    state: "Uttar Pradesh",
+    pinCode: "271302",
+    formattedInline: "Bankasiya Shivratana Singh, Bankasiya, Gonda, Uttar Pradesh - 271302",
+    bankAddress: "Bankasiya Shivratana Singh,\nBankasiya, Gonda,\nUttar Pradesh - 271302",
   },
 };
 
@@ -28,35 +30,35 @@ export const EMPLOYMENT_DATA = {
   buyerTaxId: "0000004036244",
   founderName: "Sachin",
   founderTitle: "Founder & CEO",
-  monthlySalaryInr: 25000,
+  monthlySalaryInr: 92000,
   get formattedSalaryInr() {
     return `INR ${this.monthlySalaryInr.toLocaleString("en-IN")}`;
   },
   dates: {
-    offerDate: "June 10, 2022",
-    offerDeadline: "June 14, 2022",
-    joiningDate: "June 16, 2022",
-    relievingDate: "July 05, 2023",
-    issueDate: "July 07, 2023",
+    offerDate: "June 05, 2025",
+    offerDeadline: "June 07, 2025",
+    joiningDate: "June 09, 2025",
+    relievingDate: "September 30, 2026",
+    issueDate: "September 30, 2026",
   },
   metadata: {
-    // Offer Letter generated June 10, 2022 afternoon
-    offerLetterMetadataDate: new Date(2022, 5, 10, 14, 32, 56),
-    // Relieving & Experience Letters generated July 07, 2023 morning
-    relievingLetterMetadataDate: new Date(2023, 6, 7, 11, 5, 25),
-    experienceLetterMetadataDate: new Date(2023, 6, 7, 11, 33, 47),
+    // Offer Letter generated June 05, 2025 afternoon
+    offerLetterMetadataDate: new Date(2025, 5, 5, 14, 30, 0),
+    // Relieving & Experience Letters generated September 30, 2026 morning
+    relievingLetterMetadataDate: new Date(2026, 8, 30, 11, 0, 0),
+    experienceLetterMetadataDate: new Date(2026, 8, 30, 11, 30, 0),
   },
 };
 
 export const BANK_DATA = {
-  accountHolder: "Aditya Tiwari",
+  accountHolder: "Kaushlendra Pratap Singh",
   accountType: "Savings",
   accountNumber: "8199450523",
-  branch: "DOMBIVLI EAST",
-  ifsc: "IDIB000K760",
+  branch: "Indiranagar Branch",
+  ifsc: "IDIB000I522",
   currency: "INR",
-  openingBalance: 12450.5,
-  password: "ADITYA85492004",
+  openingBalance: 15450.5,
+  password: "KAUSHLENDRA85492004",
 };
 
 /**
@@ -222,13 +224,13 @@ export function generateInvoiceSlips({
 }
 
 export const SLIP_CONFIG = {
-  // Fixed anchor: last working month of employment (July 2023)
+  // Fixed anchor: last working month of employment (August 2026)
   lastMonth: {
-    year: 2023,
-    month: 7,
+    year: 2026,
+    month: 8,
     day: 5,
   },
-  // Default count of slips (e.g. 3 for May-July 2023, or 6 for Feb-July 2023)
+  // Default count of slips (e.g. 3 for June-August 2026, or 6 for March-August 2026)
   slipCount: 3,
 
   getActiveInvoicesSync(count = SLIP_CONFIG.slipCount) {
