@@ -18,7 +18,7 @@
     <div id="pages-container"></div>
 
     <script type="module">
-      import { STATEMENT_DATA } from "./data.js";
+      import { BANK_CONFIG } from "../data/config.js";
 
       function formatINR(val) {
         return (
@@ -219,7 +219,7 @@
       }
 
       // Run render
-      renderStatement(window.STATEMENT_DATA || STATEMENT_DATA);
+      renderStatement(window.BANK_CONFIG || BANK_CONFIG);
     </script>
   </body>
 </html>

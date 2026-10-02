@@ -3,12 +3,10 @@ import { PDFDocument } from "pdf-lib";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { CANDIDATE_DATA, EMPLOYMENT_DATA, SLIP_CONFIG } from "../data/config.js";
+import { CANDIDATE_CONFIG, EMPLOYMENT_CONFIG, INVOICE_CONFIG } from "../data/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const PRODUCER_STRING = "iText® 5.5.13.3 ©2000-2026 iText Group NV (AGPL-version)";
 
 function formatDateForMeta(d) {
   if (!d) return "";
@@ -35,7 +33,7 @@ async function generateAllInvoices() {
   await page.evaluateHandle("document.fonts.ready");
 
   const generatedFiles = [];
-  const invoices = await SLIP_CONFIG.getActiveInvoices();
+  const invoices = await INVOICE_CONFIG.getActiveInvoices();
 
   for (const inv of invoices) {
     // Update DOM content dynamically for this invoice
@@ -104,7 +102,7 @@ async function generateAllInvoices() {
         // Document title
         document.title = `Invoice - ${data.buyer} - ${data.dueDateISO}`;
       },
-      { data: inv, candidate: CANDIDATE_DATA, employment: EMPLOYMENT_DATA },
+      { data: inv, candidate: CANDIDATE_CONFIG, employment: EMPLOYMENT_CONFIG },
     );
 
     const outputFileName = `Invoice - ${inv.buyer} - ${inv.dueDateISO}.pdf`;
@@ -119,12 +117,12 @@ async function generateAllInvoices() {
     // Apply exact PDF metadata with pdf-lib
     const pdfDoc = await PDFDocument.load(initialPdfBuffer, { updateMetadata: false });
 
-    pdfDoc.setTitle("Invoice");
-    pdfDoc.setAuthor("Ontop Holdings Inc");
-    pdfDoc.setCreator("Ontop Holdings Inc");
-    pdfDoc.setProducer(PRODUCER_STRING);
-    pdfDoc.setSubject("Contract");
-    pdfDoc.setKeywords([]);
+    pdfDoc.setTitle(INVOICE_CONFIG.pdfMetadata.title);
+    pdfDoc.setAuthor(INVOICE_CONFIG.pdfMetadata.author);
+    pdfDoc.setCreator(INVOICE_CONFIG.pdfMetadata.creator);
+    pdfDoc.setProducer(INVOICE_CONFIG.pdfMetadata.producer);
+    pdfDoc.setSubject(INVOICE_CONFIG.pdfMetadata.subject);
+    pdfDoc.setKeywords(INVOICE_CONFIG.pdfMetadata.keywords);
 
     pdfDoc.setCreationDate(inv.metadataDate);
     pdfDoc.setModificationDate(inv.metadataDate);

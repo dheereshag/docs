@@ -3,36 +3,20 @@ import { PDFDocument } from "pdf-lib";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { CANDIDATE_DATA, EMPLOYMENT_DATA } from "../data/config.js";
+import { CANDIDATE_CONFIG, EMPLOYMENT_CONFIG, TAXHOA_CONFIG } from "../data/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const safeName = CANDIDATE_DATA.name.replace(/\s+/g, "_");
+const safeName = CANDIDATE_CONFIG.name.replace(/\s+/g, "_");
 
-const documents = [
-  {
-    htmlFile: "relieving-letter.html",
-    pdfFile: `Relieving_Letter_${safeName}.pdf`,
-    title: `Relieving Letter - ${CANDIDATE_DATA.name}`,
-    subject: "Relieving Letter",
-    getDate: () => EMPLOYMENT_DATA.metadata.relievingLetterMetadataDate,
-  },
-  {
-    htmlFile: "experience-letter.html",
-    pdfFile: `Experience_Letter_${safeName}.pdf`,
-    title: `Experience Letter - ${CANDIDATE_DATA.name}`,
-    subject: "Experience Letter",
-    getDate: () => EMPLOYMENT_DATA.metadata.experienceLetterMetadataDate,
-  },
-  {
-    htmlFile: "offer-letter.html",
-    pdfFile: `Offer_Letter_${safeName}.pdf`,
-    title: `Offer Letter - ${CANDIDATE_DATA.name}`,
-    subject: "Offer Letter",
-    getDate: () => EMPLOYMENT_DATA.metadata.offerLetterMetadataDate,
-  },
-];
+const documents = TAXHOA_CONFIG.documents.map((doc) => ({
+  htmlFile: doc.htmlFile,
+  pdfFile: `${doc.pdfFilePrefix}${safeName}.pdf`,
+  title: `${doc.titlePrefix}${CANDIDATE_CONFIG.name}`,
+  subject: doc.subject,
+  getDate: doc.getMetadataDate,
+}));
 
 async function generateAllPdfs() {
   const browser = await puppeteer.launch({
@@ -51,7 +35,7 @@ async function generateAllPdfs() {
 
     // Dynamically inject SSOT candidate and employment data into the DOM
     await page.evaluate(
-      ({ candidate, employment, subject }) => {
+      ({ candidate, employment, subject, taxhoa }) => {
         // Header Date
         const headerDate =
           subject === "Offer Letter" ? employment.dates.offerDate : employment.dates.issueDate;
@@ -78,7 +62,13 @@ async function generateAllPdfs() {
 
           // Clauses
           const clauses = document.querySelectorAll(".clause-item");
-          if (clauses.length >= 2) {
+          if (clauses.length >= 5) {
+            clauses[0].innerHTML = `<strong>a. Position &amp; Reporting:</strong> You will join as ${candidate.role}, reporting to the Founder. This is a full-time remote role. Your start date will be <strong>${employment.dates.joiningDate}</strong>.`;
+            clauses[1].innerHTML = `<strong>b. Compensation:</strong> Your consolidated compensation will be <strong>${employment.formattedSalaryInr}</strong> per month, payable monthly in arrears, subject to standard statutory deductions if applicable.`;
+            clauses[2].innerHTML = `<strong>c. Working Hours:</strong> ${taxhoa.offerLetter.workingHours}`;
+            clauses[3].innerHTML = `<strong>d. Benefits:</strong><ul class="benefits-sublist">${taxhoa.offerLetter.benefits.map((b) => `<li>${b}</li>`).join("")}</ul>`;
+            clauses[4].innerHTML = `<strong>e. Employment Terms:</strong> ${taxhoa.offerLetter.employmentTerms}`;
+          } else if (clauses.length >= 2) {
             clauses[0].innerHTML = `<strong>a. Position &amp; Reporting:</strong> You will join as ${candidate.role}, reporting to the Founder. This is a full-time remote role. Your start date will be <strong>${employment.dates.joiningDate}</strong>.`;
             clauses[1].innerHTML = `<strong>b. Compensation:</strong> Your consolidated compensation will be <strong>${employment.formattedSalaryInr}</strong> per month, payable monthly in arrears, subject to standard statutory deductions if applicable.`;
           }
@@ -107,7 +97,12 @@ async function generateAllPdfs() {
           }
         }
       },
-      { candidate: CANDIDATE_DATA, employment: EMPLOYMENT_DATA, subject: doc.subject },
+      {
+        candidate: CANDIDATE_CONFIG,
+        employment: EMPLOYMENT_CONFIG,
+        subject: doc.subject,
+        taxhoa: TAXHOA_CONFIG,
+      },
     );
 
     const outputPath = path.join(__dirname, doc.pdfFile);
@@ -120,9 +115,9 @@ async function generateAllPdfs() {
 
     const pdfDoc = await PDFDocument.load(initialPdfBuffer, { updateMetadata: false });
     pdfDoc.setTitle(doc.title);
-    pdfDoc.setAuthor("TaxHoa");
-    pdfDoc.setCreator("TaxHoa");
-    pdfDoc.setProducer("Skia/PDF m151");
+    pdfDoc.setAuthor(TAXHOA_CONFIG.pdfMetadata.author);
+    pdfDoc.setCreator(TAXHOA_CONFIG.pdfMetadata.creator);
+    pdfDoc.setProducer(TAXHOA_CONFIG.pdfMetadata.producer);
     pdfDoc.setSubject(doc.subject);
 
     const docDate = doc.getDate();

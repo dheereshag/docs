@@ -1,10 +1,10 @@
 /**
  * Single Source of Truth (SSOT) Document Suite Configuration
  * Centralizes all candidate details, employment contracts, dates,
- * financial calculations, bank details, and slip generation settings.
+ * financial calculations, bank details, TaxHoa HR letters, and invoice settings into one file.
  */
 
-export const CANDIDATE_DATA = {
+export const CANDIDATE_CONFIG = {
   name: "Kaushlendra Pratap Singh",
   firstName: "Kaushlendra",
   role: "Software Engineer",
@@ -22,7 +22,7 @@ export const CANDIDATE_DATA = {
   },
 };
 
-export const EMPLOYMENT_DATA = {
+export const EMPLOYMENT_CONFIG = {
   company: "TaxHoa (Amoeba Global FZ-LLC)",
   companyShort: "TaxHoa",
   buyerCompany: "Amoeba Global FZ LLC",
@@ -42,23 +42,167 @@ export const EMPLOYMENT_DATA = {
     issueDate: "September 30, 2026",
   },
   metadata: {
-    // Offer Letter generated June 05, 2025 afternoon
-    offerLetterMetadataDate: new Date(2025, 5, 5, 14, 30, 0),
-    // Relieving & Experience Letters generated September 30, 2026 morning
-    relievingLetterMetadataDate: new Date(2026, 8, 30, 11, 0, 0),
-    experienceLetterMetadataDate: new Date(2026, 8, 30, 11, 30, 0),
+    offerLetterDate: new Date(2025, 5, 5, 14, 30, 0),
+    relievingLetterDate: new Date(2026, 8, 30, 11, 0, 0),
+    experienceLetterDate: new Date(2026, 8, 30, 11, 30, 0),
   },
 };
 
-export const BANK_DATA = {
-  accountHolder: "Kaushlendra Pratap Singh",
-  accountType: "Savings",
-  accountNumber: "8199450523",
-  branch: "Indiranagar Branch",
-  ifsc: "IDIB000I522",
-  currency: "INR",
+export const BANK_CONFIG = {
+  accountDetails: {
+    get name() {
+      return CANDIDATE_CONFIG.name;
+    },
+    type: "Savings",
+    number: "8199450523",
+    get address() {
+      return CANDIDATE_CONFIG.address.bankAddress;
+    },
+    branch: "Indiranagar Branch",
+    ifsc: "IDIB000I522",
+    currency: "INR",
+  },
   openingBalance: 15450.5,
+  page1ItemCount: 5,
+  expectedTxnCount: 10,
   password: "KAUSHLENDRA85492004",
+  pdfMetadata: {
+    creator: "JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a",
+    producer: "OpenPDF 2.0.2",
+    encryptionAlgorithm: "AES-128",
+  },
+  transactions: [
+    // 1. Before 5 June (small debit)
+    {
+      date: "02 Jun 2026",
+      details:
+        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/656745098074/Paid\nvia SuperMoney",
+      debit: 56.0,
+      credit: 0,
+    },
+    // 2. June Ontop Salary Credit
+    {
+      date: "05 Jun 2026",
+      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
+      debit: 0,
+      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
+    },
+    // 3. June large debit
+    {
+      date: "14 Jun 2026",
+      details:
+        "ICIC0DC0099/Ttonnik\n/XXXXX43449/getepay.mba\nndhan111649@icici\n/UPI/656858377035/Paid\nvia SuperMoney",
+      debit: 25000.0,
+      credit: 0,
+    },
+    // 4. June small debit
+    {
+      date: "26 Jun 2026",
+      details:
+        "PYTM0123456/SWIGGY\n/XXXXX89123/swiggy@icici\n/UPI/657129038172/Paid\nvia SuperMoney",
+      debit: 245.0,
+      credit: 0,
+    },
+    // 5. July Ontop Salary Credit
+    {
+      date: "05 Jul 2026",
+      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
+      debit: 0,
+      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
+    },
+    // 6. July large debit
+    {
+      date: "15 Jul 2026",
+      details:
+        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/656848927697/Paid\nvia SuperMoney",
+      debit: 30000.0,
+      credit: 0,
+    },
+    // 7. July small debit
+    {
+      date: "22 Jul 2026",
+      details: "YESB0YBLUPI/SK NAZIR\nHOSSAIN/XXXXX",
+      debit: 38.0,
+      credit: 0,
+    },
+    // 8. August Ontop Salary Credit
+    {
+      date: "05 Aug 2026",
+      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
+      debit: 0,
+      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
+    },
+    // 9. August large debit
+    {
+      date: "18 Aug 2026",
+      details:
+        "FDRL0002540/MALAY\nGUHA/XXXXX\n/malayguha1@fbl\n/UPI/657803317552/Paid\nvia SuperMoney",
+      debit: 15000.0,
+      credit: 0,
+    },
+    // 10. September small debit
+    {
+      date: "30 Sep 2026",
+      details:
+        "SBIN0017586/KAUSHLEND\nRA PRATAPSINGH\n/XXXXX51139/7389451139\n@ptsbi\n/UPI/657904389623/Paid\nvia SuperMoney",
+      debit: 50.0,
+      credit: 0,
+    },
+  ],
+};
+
+export const TAXHOA_CONFIG = {
+  organization: {
+    brandTagline: "Tax Accounting, Simplified",
+    address: "Ras Al Khaimah, 10055, AE",
+    email: "support@taxhoa.com",
+    founderName: "Sachin",
+    founderTitle: "Founder & CEO",
+    company: "TaxHoa (Amoeba Global FZ-LLC)",
+    companyShort: "TaxHoa",
+  },
+  pdfMetadata: {
+    author: "TaxHoa",
+    creator: "TaxHoa",
+    producer: "Skia/PDF m151",
+  },
+  offerLetter: {
+    workingHours: "Monday to Friday, 10:00 AM - 7:00 PM IST.",
+    benefits: [
+      "Health insurance coverage starting from your first month of employment.",
+      "30 days of paid vacation per calendar year.",
+      "Paid sick leave in accordance with company policy.",
+      "Access to professional learning and development programs.",
+    ],
+    employmentTerms:
+      "This is an at-will employment relationship that may be terminated by either party with 30 days written notice. This offer is contingent upon your acceptance of the Employment Contract and company policies.",
+  },
+  documents: [
+    {
+      id: "relieving",
+      htmlFile: "relieving-letter.html",
+      pdfFilePrefix: "Relieving_Letter_",
+      titlePrefix: "Relieving Letter - ",
+      subject: "Relieving Letter",
+      getMetadataDate: () => EMPLOYMENT_CONFIG.metadata.relievingLetterDate,
+    },
+    {
+      id: "experience",
+      htmlFile: "experience-letter.html",
+      pdfFilePrefix: "Experience_Letter_",
+      titlePrefix: "Experience Letter - ",
+      subject: "Experience Letter",
+      getMetadataDate: () => EMPLOYMENT_CONFIG.metadata.experienceLetterDate,
+    },
+    {
+      id: "offer",
+      htmlFile: "offer-letter.html",
+      pdfFilePrefix: "Offer_Letter_",
+      titlePrefix: "Offer Letter - ",
+      subject: "Offer Letter",
+      getMetadataDate: () => EMPLOYMENT_CONFIG.metadata.offerLetterDate,
+    },
+  ],
 };
 
 /**
@@ -86,11 +230,11 @@ export async function fetchHistoricalExchangeRate(dateStr, fallbackRate = 82.15)
 }
 
 /**
- * Creates an invoice descriptor with dynamic getters for amountInr, rateText, and amountUsd.
+ * Helper to create an invoice descriptor with dynamic getters for amountInr, rateText, and amountUsd.
  */
 function createInvoice({
   monthLabel,
-  buyer = EMPLOYMENT_DATA.buyerCompany,
+  buyer = EMPLOYMENT_CONFIG.buyerCompany,
   no,
   issueDate,
   dueDate,
@@ -110,51 +254,35 @@ function createInvoice({
     rate,
     metadataDate,
     get amountInr() {
-      return `${EMPLOYMENT_DATA.monthlySalaryInr.toLocaleString("en-IN")} INR`;
+      return `${EMPLOYMENT_CONFIG.monthlySalaryInr.toLocaleString("en-IN")} INR`;
     },
     get rateText() {
       return `1 USD = ${Number(this.rate).toFixed(5)} INR`;
     },
     get amountUsd() {
-      const usd = EMPLOYMENT_DATA.monthlySalaryInr / this.rate;
+      const usd = EMPLOYMENT_CONFIG.monthlySalaryInr / this.rate;
       return `${usd.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`;
     },
   };
 }
 
-/**
- * Helper to get a random integer in [min, max].
- */
 function getRandomStep(min = 35000, max = 48000, rng = Math.random) {
   return Math.floor(rng() * (max - min + 1)) + min;
 }
 
 /**
  * Generates invoice descriptors dynamically in a loop backward from the fixed last month.
- * Monthly invoice sequence numbers decrement by randomized steps to reflect real-world monthly volumes.
- *
- * @param {Object} [options]
- * @param {number} [options.count=3] - Number of monthly slips to generate
- * @param {number} [options.endYear=2023] - Ending year of employment
- * @param {number} [options.endMonth=7] - Ending month (1-12)
- * @param {number} [options.dueDay=5] - Due and payment day of month
- * @param {number} [options.baseInvoiceNumber=1074823] - Ending month invoice number
- * @param {number} [options.minStep=35000] - Minimum monthly sequence step
- * @param {number} [options.maxStep=48000] - Maximum monthly sequence step
- * @param {number|string|null} [options.seed=null] - Optional seed for deterministic pseudo-random steps
- * @returns {Array<Object>} Chronologically ordered invoice objects
  */
 export function generateInvoiceSlips({
   count = 3,
-  endYear = 2023,
-  endMonth = 7,
+  endYear = 2026,
+  endMonth = 8,
   dueDay = 5,
   baseInvoiceNumber = 1074823,
   minStep = 35000,
   maxStep = 48000,
   seed = null,
 } = {}) {
-  // Configurable random generator (seeded PRNG if seed provided, else Math.random)
   let rng = Math.random;
   if (seed !== null && seed !== undefined) {
     let s =
@@ -168,13 +296,11 @@ export function generateInvoiceSlips({
     };
   }
 
-  // Precompute random steps backward from baseInvoiceNumber
   const invoiceNumbers = [baseInvoiceNumber];
   for (let stepIdx = 1; stepIdx < count; stepIdx++) {
     const step = getRandomStep(minStep, maxStep, rng);
     invoiceNumbers.push(invoiceNumbers[stepIdx - 1] - step);
   }
-  // Reverse so index 0 is oldest month and last index is baseInvoiceNumber (July)
   invoiceNumbers.reverse();
 
   const invoices = [];
@@ -194,16 +320,12 @@ export function generateInvoiceSlips({
     const paymentDate = `${dayPad}/${mPad}/${y}`;
     const dueDateISO = `${y}-${mPad}-${dayPad}`;
 
-    // Issue date is on the 28th of the preceding month
     const prevDate = new Date(y, m - 2, 28);
     const prevY = prevDate.getFullYear();
     const prevMPad = pad(prevDate.getMonth() + 1);
     const issueDate = `28/${prevMPad}/${prevY}`;
 
-    // Metadata creation timestamp on 9th of the following month at 01:22:31Z
     const metadataDate = new Date(Date.UTC(y, m, 9, 1, 22, 31));
-
-    // Randomized Ontop global invoice sequence number
     const invNo = `ONTOP${invoiceNumbers[count - 1 - i]}`;
 
     invoices.push(
@@ -214,7 +336,7 @@ export function generateInvoiceSlips({
         dueDate,
         paymentDate,
         dueDateISO,
-        rate: 82.15, // fallback rate until live FX rate is fetched
+        rate: 82.15,
         metadataDate,
       }),
     );
@@ -223,26 +345,47 @@ export function generateInvoiceSlips({
   return invoices;
 }
 
-export const SLIP_CONFIG = {
-  // Fixed anchor: last working month of employment (August 2026)
+export const INVOICE_CONFIG = {
+  pdfMetadata: {
+    author: "Ontop Holdings Inc",
+    creator: "Ontop Holdings Inc",
+    producer: "iText® 5.5.13.3 ©2000-2026 iText Group NV (AGPL-version)",
+    title: "Invoice",
+    subject: "Contract",
+    keywords: [],
+  },
+  company: {
+    name: "Ontop Holdings Inc",
+    address:
+      "Ontop Holdings Inc. - 251 Little Falls Drive, Wilmington, New Castle County, Delaware, 19808 | www.getontop.com",
+  },
+  generator: {
+    prefix: "ONTOP",
+    baseInvoiceNumber: 1074823,
+    minStep: 35000,
+    maxStep: 48000,
+    fallbackExchangeRate: 82.15,
+  },
   lastMonth: {
     year: 2026,
     month: 8,
     day: 5,
   },
-  // Default count of slips (e.g. 3 for June-August 2026, or 6 for March-August 2026)
   slipCount: 3,
 
-  getActiveInvoicesSync(count = SLIP_CONFIG.slipCount) {
+  getActiveInvoicesSync(count = INVOICE_CONFIG.slipCount) {
     return generateInvoiceSlips({
       count,
-      endYear: SLIP_CONFIG.lastMonth.year,
-      endMonth: SLIP_CONFIG.lastMonth.month,
-      dueDay: SLIP_CONFIG.lastMonth.day,
+      endYear: INVOICE_CONFIG.lastMonth.year,
+      endMonth: INVOICE_CONFIG.lastMonth.month,
+      dueDay: INVOICE_CONFIG.lastMonth.day,
+      baseInvoiceNumber: INVOICE_CONFIG.generator.baseInvoiceNumber,
+      minStep: INVOICE_CONFIG.generator.minStep,
+      maxStep: INVOICE_CONFIG.generator.maxStep,
     });
   },
 
-  async getActiveInvoices(count = SLIP_CONFIG.slipCount) {
+  async getActiveInvoices(count = INVOICE_CONFIG.slipCount) {
     const active = this.getActiveInvoicesSync(count);
     for (const inv of active) {
       if (inv.dueDateISO) {
@@ -253,12 +396,12 @@ export const SLIP_CONFIG = {
   },
 };
 
-/**
- * Historical Salary Slips / Invoices Data (Reference set generated dynamically via loop)
- */
-export const ALL_INVOICES = generateInvoiceSlips({
-  count: 6,
-  endYear: SLIP_CONFIG.lastMonth.year,
-  endMonth: SLIP_CONFIG.lastMonth.month,
-  dueDay: SLIP_CONFIG.lastMonth.day,
-});
+export const CONFIG = {
+  candidate: CANDIDATE_CONFIG,
+  employment: EMPLOYMENT_CONFIG,
+  bank: BANK_CONFIG,
+  taxhoa: TAXHOA_CONFIG,
+  invoice: INVOICE_CONFIG,
+};
+
+export default CONFIG;

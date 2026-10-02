@@ -4,15 +4,12 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { PDFDocument } from "pdf-lib";
 import { execFileSync } from "child_process";
-import { STATEMENT_DATA } from "./data.js";
-import { BANK_DATA } from "../data/config.js";
+import { BANK_CONFIG } from "../data/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const STATEMENT_PASSWORD = BANK_DATA.password;
-
-export { STATEMENT_DATA };
+const STATEMENT_PASSWORD = BANK_CONFIG.password;
 
 function getFormattedTimestamps(date = new Date()) {
   const pad = (n) => String(n).padStart(2, "0");
@@ -55,10 +52,12 @@ with open(path, 'wb') as f:
 
 async function generateBankPDF() {
   // Enforce transaction count
-  const txnCount = STATEMENT_DATA.transactions.length;
+  const txnCount = BANK_CONFIG.transactions.length;
   console.log(`\nVerifying transaction count: ${txnCount} transactions found.`);
-  if (txnCount !== 10) {
-    throw new Error(`Validation Error: Expected exactly 10 transactions, found ${txnCount}`);
+  if (txnCount !== BANK_CONFIG.expectedTxnCount) {
+    throw new Error(
+      `Validation Error: Expected exactly ${BANK_CONFIG.expectedTxnCount} transactions, found ${txnCount}`,
+    );
   }
 
   const browser = await puppeteer.launch({
@@ -96,8 +95,8 @@ async function generateBankPDF() {
 
   const pdfDoc = await PDFDocument.load(rawPdfBuffer, { updateMetadata: false });
 
-  const creator = "JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a";
-  const producer = "OpenPDF 2.0.2";
+  const creator = BANK_CONFIG.pdfMetadata.creator;
+  const producer = BANK_CONFIG.pdfMetadata.producer;
 
   pdfDoc.setCreator(creator);
   pdfDoc.setProducer(producer);
@@ -111,10 +110,10 @@ async function generateBankPDF() {
   encryptPdfFile(outputPath, STATEMENT_PASSWORD);
 
   // Compute financial totals
-  let runningBal = STATEMENT_DATA.openingBalance;
+  let runningBal = BANK_CONFIG.openingBalance;
   let totalDr = 0;
   let totalCr = 0;
-  for (const t of STATEMENT_DATA.transactions) {
+  for (const t of BANK_CONFIG.transactions) {
     totalDr += t.debit || 0;
     totalCr += t.credit || 0;
     runningBal = runningBal + (t.credit || 0) - (t.debit || 0);
@@ -136,7 +135,7 @@ async function generateBankPDF() {
   console.log(`----------------------------------------`);
   console.log(`Ledger Summary:`);
   console.log(
-    `  Opening Balance: INR ${STATEMENT_DATA.openingBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
+    `  Opening Balance: INR ${BANK_CONFIG.openingBalance.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
   );
   console.log(
     `  Total Credits:   + INR ${totalCr.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`,
