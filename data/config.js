@@ -64,7 +64,7 @@ export const BANK_CONFIG = {
   },
   openingBalance: 15450.5,
   page1ItemCount: 5,
-  expectedTxnCount: 10,
+  expectedTxnCount: 16,
   password: "KAUSHLENDRA85492004",
   pdfMetadata: {
     creator: "JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a",
@@ -140,12 +140,57 @@ export const BANK_CONFIG = {
       debit: 15000.0,
       credit: 0,
     },
-    // 10. September small debit
+    // 10. August small debit
+    {
+      date: "27 Aug 2026",
+      details:
+        "PYTM0123456/SWIGGY\n/XXXXX89123/swiggy@icici\n/UPI/657812904812/Paid\nvia SuperMoney",
+      debit: 320.0,
+      credit: 0,
+    },
+    // 11. September Ontop Salary Credit
+    {
+      date: "05 Sep 2026",
+      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
+      debit: 0,
+      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
+    },
+    // 12. September large debit
+    {
+      date: "16 Sep 2026",
+      details:
+        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/657892019482/Paid\nvia SuperMoney",
+      debit: 25000.0,
+      credit: 0,
+    },
+    // 13. September small debit
+    {
+      date: "24 Sep 2026",
+      details: "PYTM0123456/ZEPTO\n/XXXXX31920/zepto@icici\n/UPI/657901847192/Paid\nvia SuperMoney",
+      debit: 185.0,
+      credit: 0,
+    },
+    // 14. September small debit
     {
       date: "30 Sep 2026",
       details:
         "SBIN0017586/KAUSHLEND\nRA PRATAPSINGH\n/XXXXX51139/7389451139\n@ptsbi\n/UPI/657904389623/Paid\nvia SuperMoney",
       debit: 50.0,
+      credit: 0,
+    },
+    // 15. October Ontop Salary Credit
+    {
+      date: "05 Oct 2026",
+      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
+      debit: 0,
+      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
+    },
+    // 16. October large debit
+    {
+      date: "06 Oct 2026",
+      details:
+        "ICIC0DC0099/Ttonnik\n/XXXXX43449/getepay.mba\nndhan111649@icici\n/UPI/658019385012/Paid\nvia SuperMoney",
+      debit: 20000.0,
       credit: 0,
     },
   ],
@@ -368,7 +413,7 @@ export const INVOICE_CONFIG = {
   },
   lastMonth: {
     year: 2026,
-    month: 8,
+    month: 10,
     day: 5,
   },
   slipCount: 3,

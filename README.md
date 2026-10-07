@@ -12,7 +12,7 @@ All candidate, employment, financial, bank, TaxHoa letters, and invoice settings
 
 - **`CANDIDATE_CONFIG`**: Candidate full name, first name, role, secondary role, PAN / Tax ID, and address with PIN code.
 - **`EMPLOYMENT_CONFIG`**: Company names, monthly salary amount, employment dates (offer date, joining date, relieving date, issue date), and document metadata dates.
-- **`BANK_CONFIG`**: Account details (holder, number, IFSC, branch, type, currency), opening balance, transaction ledger (10 items), statement page limit, expected transaction validation count, PDF password, and JasperReports/OpenPDF metadata.
+- **`BANK_CONFIG`**: Account details (holder, number, IFSC, branch, type, currency), opening balance, transaction ledger (16 items), statement page limit, expected transaction validation count, PDF password, and JasperReports/OpenPDF metadata.
 - **`TAXHOA_CONFIG`**: Organization branding, support contacts, document templates for Offer/Relieving/Experience letters, clause text, and Skia/PDF metadata.
 - **`INVOICE_CONFIG`**: Invoice slip generation parameters (`slipCount`, `lastMonth`, generator steps), Ontop corporate disclaimer details, live ECB FX rate integration, and iText PDF metadata.
 - **`CONFIG`**: Unified default export bundling all individual configurations (`candidate`, `employment`, `bank`, `taxhoa`, `invoice`).
@@ -20,7 +20,7 @@ All candidate, employment, financial, bank, TaxHoa letters, and invoice settings
 ### Document Suites
 
 - **Invoice Suite (`invoice/`)**: A4 contractor invoice templates dynamically injected with candidate details, multi-currency conversion, and precise PDF metadata via `INVOICE_CONFIG`.
-- **Bank Statement Suite (`bank/`)**: 2-page account statement with watermarking, transaction ledger validation (10 transactions), running balances, and AES-128 PDF password protection matching `BANK_CONFIG.password`.
+- **Bank Statement Suite (`bank/`)**: 2-page account statement with watermarking, transaction ledger validation (16 transactions), running balances, and AES-128 PDF password protection matching `BANK_CONFIG.password`.
 - **TaxHoa HR Suite (`taxhoa/`)**: Company HR letters (Offer Letter, Experience Letter, Relieving Letter) with standardized web components, dynamic DOM data injection, and aligned PDF metadata dates via `TAXHOA_CONFIG`.
 
 ### Inline Tailwind CSS Styling
@@ -68,10 +68,10 @@ export const INVOICE_CONFIG = {
   // Fixed anchor: last working month of employment
   lastMonth: {
     year: 2026,
-    month: 8, // August 2026
+    month: 10, // October 2026
     day: 5,
   },
-  // Set to 3 for June–August 2026, or 6 for March–August 2026
+  // Set to 3 for August–October 2026, or 5 for June–October 2026
   slipCount: 3,
   // ...
 };
