@@ -6,7 +6,7 @@
 
 export const PROVISIONAL_CERTIFICATE_CONFIG = {
   university: {
-    nameLine1: "UNIVERSITY OF LUCKNOW",
+    nameLine1: "University of Lucknow",
     nameLine2: "",
     logoPath: "logo.png",
     logoAlt: "University of Lucknow Logo",
