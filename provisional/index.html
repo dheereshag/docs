@@ -73,13 +73,27 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 8px 0 10px 0;
+        margin: 2px 0 8px 0;
       }
 
       .university-logo {
-        width: 102px;
-        height: 102px;
+        width: 160px;
+        height: 160px;
         object-fit: contain;
+      }
+
+      /* Watermark */
+      .watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 280px;
+        height: 280px;
+        object-fit: contain;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 0;
       }
 
       /* Certificate Title */
@@ -288,6 +302,15 @@
   </head>
   <body>
     <main class="certificate-container" id="certificate-page">
+      <!-- Watermark Logo -->
+      <img
+        src="logo.png"
+        alt=""
+        class="watermark"
+        id="univ-watermark"
+        aria-hidden="true"
+      />
+
       <!-- University Header -->
       <header class="header-section">
         <h1 class="university-name-line1" id="univ-name-line1">UNIVERSITY OF LUCKNOW</h1>
@@ -313,11 +336,11 @@
       <div class="meta-row">
         <div class="meta-issue-block">
           <span class="meta-label">DATE OF ISSUE:</span>
-          <span class="meta-val" id="meta-issue-date">23/09/2020</span>
+          <span class="meta-val" id="meta-issue-date">09/10/2026</span>
         </div>
         <div class="meta-sr-block">
           <span class="meta-label">SR. NO.:</span>
-          <span class="meta-val" id="meta-sr-no">DOC000000166906</span>
+          <span class="meta-val" id="meta-sr-no">DOC000000187912</span>
         </div>
       </div>
 
@@ -325,19 +348,19 @@
       <div class="fields-table">
         <div class="field-label">NAME</div>
         <div class="field-colon">:</div>
-        <div class="field-value" id="val-name">SAMAR JEET GUPTA</div>
+        <div class="field-value" id="val-name">KAUSHLENDRA PRATAP SINGH</div>
 
-        <div class="field-label">FATHER’S NAME</div>
+        <div class="field-label">FATHER'S NAME</div>
         <div class="field-colon">:</div>
-        <div class="field-value" id="val-father-name">INDRAJEET GUPTA</div>
+        <div class="field-value" id="val-father-name">SUBHASH CHANDRA SINGH</div>
 
         <div class="field-label">ROLL NO.</div>
         <div class="field-colon">:</div>
-        <div class="field-value" id="val-roll-no">1605410122</div>
+        <div class="field-value" id="val-roll-no">2110013125054</div>
 
         <div class="field-label">ENROLLMENT NO.</div>
         <div class="field-colon">:</div>
-        <div class="field-value" id="val-enrollment-no">160541012187</div>
+        <div class="field-value" id="val-enrollment-no">21801526</div>
 
         <div class="field-label">COURSE</div>
         <div class="field-colon">:</div>
@@ -345,7 +368,7 @@
 
         <div class="field-label">BRANCH</div>
         <div class="field-colon">:</div>
-        <div class="field-value" id="val-branch">Computer Science and Engineering</div>
+        <div class="field-value" id="val-branch">Electronics and Communication Engineering</div>
 
         <div class="field-label">INSTITUTE NAME</div>
         <div class="field-colon">:</div>
@@ -353,7 +376,7 @@
 
         <div class="field-label gap-before-passing">YEAR OF PASSING</div>
         <div class="field-colon gap-before-passing">:</div>
-        <div class="field-value gap-before-passing" id="val-year-of-passing">2019-20</div>
+        <div class="field-value gap-before-passing" id="val-year-of-passing">2025-26</div>
 
         <div class="field-label">RESULT</div>
         <div class="field-colon">:</div>
@@ -379,7 +402,7 @@
           />
           <h4 class="controller-title" id="sign-controller-title">Controller Of Examination</h4>
           <p class="controller-univ-line1" id="sign-controller-univ1">UNIVERSITY OF LUCKNOW</p>
-          <p class="controller-univ-line2" id="sign-controller-univ2" style="display: none"></p>
+          <p class="controller-univ-line2" id="sign-controller-univ2" style="display:none"></p>
         </div>
       </section>
 
