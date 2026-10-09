@@ -22,6 +22,7 @@ All candidate, employment, financial, bank, TaxHoa letters, and invoice settings
 - **Invoice Suite (`invoice/`)**: A4 contractor invoice templates dynamically injected with candidate details, multi-currency conversion, and precise PDF metadata via `INVOICE_CONFIG`.
 - **Bank Statement Suite (`bank/`)**: 2-page account statement with watermarking, transaction ledger validation (16 transactions), running balances, and AES-128 PDF password protection matching `BANK_CONFIG.password`.
 - **TaxHoa HR Suite (`taxhoa/`)**: Company HR letters (Offer Letter, Experience Letter, Relieving Letter) with standardized web components, dynamic DOM data injection, and aligned PDF metadata dates via `TAXHOA_CONFIG`.
+- **Provisional Degree Certificate Suite (`provisional/`)**: Pixel-accurate A4 provisional degree certificate for Dr. A.P.J. Abdul Kalam Technical University (AKTU Lucknow), configurable via `provisional/config.js` and printable directly to PDF.
 
 ### Inline Tailwind CSS Styling
 
@@ -57,6 +58,9 @@ pnpm run build:bank
 
 # Generate TaxHoa HR documents (Offer, Experience, Relieving letters)
 pnpm run build:taxhoa
+
+# Generate Provisional Degree Certificate PDF
+pnpm run build:provisional
 ```
 
 ## Configuring 3 vs 6 Months of Salary Slips
