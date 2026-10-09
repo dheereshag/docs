@@ -36,8 +36,8 @@ export const PROVISIONAL_CERTIFICATE_CONFIG = {
     instituteDirectorLabel: "(Signature Of Institute Director)",
     controllerOfExamination: {
       signaturePath: "sign.png",
-      signatureAlt: "Controller Of Examination Signature",
-      title: "Controller Of Examination",
+      signatureAlt: "Registrar Signature",
+      title: "Registrar",
       line1: "UNIVERSITY OF LUCKNOW",
       line2: "",
     },
