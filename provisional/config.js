@@ -27,7 +27,7 @@ export const PROVISIONAL_CERTIFICATE_CONFIG = {
     course: "B.Tech",
     branch: "Electronics and Communication Engineering",
     instituteName: "UNIVERSITY OF LUCKNOW",
-    yearOfPassing: "2025-26",
+    yearOfPassing: "2024-25",
     result: "Pass",
     division: "I-DIV",
   },
@@ -49,7 +49,7 @@ export const PROVISIONAL_CERTIFICATE_CONFIG = {
   ],
 
   pdfMetadata: {
-    title: "Provisional Degree Certificate - SAMAR JEET GUPTA",
+    title: "Provisional Degree Certificate - KAUSHLENDRA PRATAP SINGH",
     author: "University of Lucknow",
     creator: "University of Lucknow Examination Division",
     producer: "Skia/PDF m151",

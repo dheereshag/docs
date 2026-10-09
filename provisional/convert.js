@@ -22,6 +22,13 @@ async function generateProvisionalCertificatePdf() {
   await page.goto(filePath, { waitUntil: "networkidle0" });
   await page.evaluateHandle("document.fonts.ready");
 
+  // Explicitly bind PROVISIONAL_CERTIFICATE_CONFIG to guarantee SSOT in DOM
+  await page.evaluate((cfg) => {
+    if (typeof window.applyConfig === "function") {
+      window.applyConfig(cfg);
+    }
+  }, PROVISIONAL_CERTIFICATE_CONFIG);
+
   const outputFileName = `Provisional_Degree_Certificate_${PROVISIONAL_CERTIFICATE_CONFIG.student.name.replace(/\s+/g, "_")}.pdf`;
   const outputPath = path.join(__dirname, outputFileName);
 
