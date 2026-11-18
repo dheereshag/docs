@@ -4,7 +4,7 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { PDFDocument } from "pdf-lib";
 import { execFileSync } from "child_process";
-import { BANK_CONFIG } from "../data/config.js";
+import { BANK_CONFIG } from "../../data/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
