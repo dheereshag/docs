@@ -62,7 +62,7 @@ export const BANK_CONFIG = {
     ifsc: "IDIB000I522",
     currency: "INR",
   },
-  openingBalance: 15450.5,
+  openingBalance: 144111.5,
   page1ItemCount: 5,
   expectedTxnCount: 16,
   password: "KAUSHLENDRA85492004",
@@ -72,67 +72,30 @@ export const BANK_CONFIG = {
     encryptionAlgorithm: "AES-128",
   },
   transactions: [
-    // 1. Before 5 June (small debit)
+    // 1. August opening small debit
     {
-      date: "02 Jun 2026",
+      date: "02 Aug 2026",
       details:
-        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/656745098074/Paid\nvia SuperMoney",
-      debit: 56.0,
+        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/657610294812/Paid\nvia SuperMoney",
+      debit: 45.0,
       credit: 0,
     },
-    // 2. June Ontop Salary Credit
-    {
-      date: "05 Jun 2026",
-      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
-      debit: 0,
-      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
-    },
-    // 3. June large debit
-    {
-      date: "14 Jun 2026",
-      details:
-        "ICIC0DC0099/Ttonnik\n/XXXXX43449/getepay.mba\nndhan111649@icici\n/UPI/656858377035/Paid\nvia SuperMoney",
-      debit: 25000.0,
-      credit: 0,
-    },
-    // 4. June small debit
-    {
-      date: "26 Jun 2026",
-      details:
-        "PYTM0123456/SWIGGY\n/XXXXX89123/swiggy@icici\n/UPI/657129038172/Paid\nvia SuperMoney",
-      debit: 245.0,
-      credit: 0,
-    },
-    // 5. July Ontop Salary Credit
-    {
-      date: "05 Jul 2026",
-      details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
-      debit: 0,
-      credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
-    },
-    // 6. July large debit
-    {
-      date: "15 Jul 2026",
-      details:
-        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/656848927697/Paid\nvia SuperMoney",
-      debit: 30000.0,
-      credit: 0,
-    },
-    // 7. July small debit
-    {
-      date: "22 Jul 2026",
-      details: "YESB0YBLUPI/SK NAZIR\nHOSSAIN/XXXXX",
-      debit: 38.0,
-      credit: 0,
-    },
-    // 8. August Ontop Salary Credit
+    // 2. August Ontop Salary Credit
     {
       date: "05 Aug 2026",
       details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
       debit: 0,
       credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
     },
-    // 9. August large debit
+    // 3. August rent / large debit
+    {
+      date: "12 Aug 2026",
+      details:
+        "ICIC0DC0099/Ttonnik\n/XXXXX43449/getepay.mba\nndhan111649@icici\n/UPI/657748920153/Paid\nvia SuperMoney",
+      debit: 25000.0,
+      credit: 0,
+    },
+    // 4. August personal transfer
     {
       date: "18 Aug 2026",
       details:
@@ -140,7 +103,7 @@ export const BANK_CONFIG = {
       debit: 15000.0,
       credit: 0,
     },
-    // 10. August small debit
+    // 5. August Swiggy debit
     {
       date: "27 Aug 2026",
       details:
@@ -148,49 +111,88 @@ export const BANK_CONFIG = {
       debit: 320.0,
       credit: 0,
     },
-    // 11. September Ontop Salary Credit
+    // 6. September Zepto grocery
+    {
+      date: "02 Sep 2026",
+      details: "PYTM0123456/ZEPTO\n/XXXXX31920/zepto@icici\n/UPI/657890123841/Paid\nvia SuperMoney",
+      debit: 120.0,
+      credit: 0,
+    },
+    // 7. September Ontop Salary Credit
     {
       date: "05 Sep 2026",
       details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
       debit: 0,
       credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
     },
-    // 12. September large debit
+    // 8. September large transfer
     {
-      date: "16 Sep 2026",
+      date: "14 Sep 2026",
       details:
         "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/657892019482/Paid\nvia SuperMoney",
       debit: 25000.0,
       credit: 0,
     },
-    // 13. September small debit
+    // 9. September Airtel broadband/mobile utility
+    {
+      date: "21 Sep 2026",
+      details:
+        "AIRTEL001/AIRTEL BILL\n/XXXXX51139/airtelpayment\n@icici/UPI/657899201482\n/Paid via SuperMoney",
+      debit: 499.0,
+      credit: 0,
+    },
+    // 10. September Zepto grocery
     {
       date: "24 Sep 2026",
       details: "PYTM0123456/ZEPTO\n/XXXXX31920/zepto@icici\n/UPI/657901847192/Paid\nvia SuperMoney",
       debit: 185.0,
       credit: 0,
     },
-    // 14. September small debit
+    // 11. September small self UPI
     {
       date: "30 Sep 2026",
       details:
-        "SBIN0017586/KAUSHLEND\nRA PRATAPSINGH\n/XXXXX51139/7389451139\n@ptsbi\n/UPI/657904389623/Paid\nvia SuperMoney",
+        "SBIN0017586/KAUSHLEND\nRA PRATAPSINGH\n/XXXXX51139/7389451139\n@ptsbi/UPI/657904389623\n/Paid via SuperMoney",
       debit: 50.0,
       credit: 0,
     },
-    // 15. October Ontop Salary Credit
+    // 12. October Swiggy debit
+    {
+      date: "02 Oct 2026",
+      details:
+        "PYTM0123456/SWIGGY\n/XXXXX89123/swiggy@icici\n/UPI/658001928412/Paid\nvia SuperMoney",
+      debit: 240.0,
+      credit: 0,
+    },
+    // 13. October Ontop Salary Credit
     {
       date: "05 Oct 2026",
       details: "INWREMIT-G0822330980154-\nONTOP HOLDINGS INC-\nTRANGLO",
       debit: 0,
       credit: EMPLOYMENT_CONFIG.monthlySalaryInr,
     },
-    // 16. October large debit
+    // 14. October rent / debit
     {
       date: "06 Oct 2026",
       details:
         "ICIC0DC0099/Ttonnik\n/XXXXX43449/getepay.mba\nndhan111649@icici\n/UPI/658019385012/Paid\nvia SuperMoney",
       debit: 20000.0,
+      credit: 0,
+    },
+    // 15. October personal transfer
+    {
+      date: "15 Oct 2026",
+      details:
+        "YESB0YBLUPI/Mr\nSANTOSHSAH /XXXXX\n/q607334392@ybl\n/UPI/658049102834/Paid\nvia SuperMoney",
+      debit: 25000.0,
+      credit: 0,
+    },
+    // 16. October Zomato dining
+    {
+      date: "28 Oct 2026",
+      details:
+        "PYTM0123456/ZOMATO\n/XXXXX92817/zomato@icici\n/UPI/658102938471/Paid\nvia SuperMoney",
+      debit: 350.0,
       credit: 0,
     },
   ],
@@ -416,7 +418,7 @@ export const INVOICE_CONFIG = {
     month: 10,
     day: 5,
   },
-  slipCount: 3,
+  slipCount: 6,
 
   getActiveInvoicesSync(count = INVOICE_CONFIG.slipCount) {
     return generateInvoiceSlips({

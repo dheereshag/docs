@@ -13,7 +13,7 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "build:invoice": "node invoice/convert.js",
-    "build:bank": "node bank/convert.js",
+    "build:bank": "node bank/idbi/convert.js",
     "build:taxhoa": "node taxhoa/convert.js",
     "build:provisional": "node provisional/convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
